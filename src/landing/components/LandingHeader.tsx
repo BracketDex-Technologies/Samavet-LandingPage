@@ -1,48 +1,44 @@
-import { ChevronDown, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Fragment, useState } from 'react';
 
 import type { LandingLanguage } from '../content';
+import samavetLogo from '../assets/samavet-logo.svg';
 
 interface LandingHeaderProps {
   language: LandingLanguage;
+  languagePulseKey: number;
   onLanguageChange: (language: LandingLanguage) => void;
-  portalUrl: string;
   portalLabel: string;
+  portalUrl: string;
 }
 
 const navItems = {
-  en: [['#about', 'What is Samavet'], ['#organizations', 'For organizations'], ['#epawati', 'ePawati'], ['#features', 'Features'], ['#how-it-works', 'How it works'], ['#contact', 'Contact']],
-  mr: [['#about', 'समवेत म्हणजे काय?'], ['#organizations', 'संस्थांसाठी'], ['#epawati', 'ई-पावती'], ['#features', 'वैशिष्ट्ये'], ['#how-it-works', 'कसे काम करते'], ['#contact', 'संपर्क']],
+  en: [['#epawati', 'ePawati'], ['#intelligence', 'Event intelligence'], ['#services', 'Services'], ['#organizations', 'For communities'], ['#contact', 'Contact']],
+  mr: [['#epawati', 'ई-पावती'], ['#intelligence', 'इव्हेंट इंटेलिजन्स'], ['#services', 'सेवा'], ['#organizations', 'समुदायांसाठी'], ['#contact', 'संपर्क']],
 } as const;
 
-export function LandingHeader({ language, onLanguageChange, portalLabel, portalUrl }: LandingHeaderProps) {
+export function LandingHeader({ language, languagePulseKey, onLanguageChange, portalLabel, portalUrl }: LandingHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const brandName = language === 'mr' ? 'समवेत' : 'SAMAVET';
 
   return (
     <header className="landing-header">
-      <a className="landing-wordmark" href="#top" aria-label="Samavet home">
-        <span lang="mr">समवेत</span><i>/</i><strong>SAMAVET</strong>
+      <a className="landing-brand" href="#top" onClick={() => setMenuOpen(false)}>
+        <img alt="Samavet tree of community logo" src={samavetLogo} />
+        <span className={`landing-brand-name ${language === 'mr' ? 'is-marathi' : ''}`} lang={language === 'mr' ? 'mr' : undefined}>{brandName}</span>
       </a>
-      <nav className={menuOpen ? 'landing-nav is-open' : 'landing-nav'} aria-label="Primary navigation">
-        {navItems[language].map(([href, label], index) => (
-          <a key={href} href={href} onClick={() => setMenuOpen(false)}>
-            {label}{index === 1 ? <ChevronDown size={13} strokeWidth={1.8} /> : null}
-          </a>
-        ))}
-        <div className="mobile-language-switch" aria-label="Language selection">
-          <button className={language === 'en' ? 'active' : ''} onClick={() => onLanguageChange('en')} type="button">EN</button>
-          <span>/</span>
-          <button aria-label="मराठी" className={language === 'mr' ? 'active' : ''} onClick={() => onLanguageChange('mr')} type="button" lang="mr">मराठी</button>
-        </div>
+      <nav aria-label="Primary navigation" className={menuOpen ? 'landing-nav is-open' : 'landing-nav'}>
+        {navItems[language].map(([href, label], index) => <Fragment key={href}>{index > 0 ? <span aria-hidden="true" className="nav-separator">/</span> : null}<a href={href} onClick={() => setMenuOpen(false)}>{label}</a></Fragment>)}
+        <a className="mobile-portal-link" href={portalUrl}>{portalLabel}</a>
       </nav>
       <div className="header-actions">
-        <div className="language-switch" aria-label="Language selection" role="group">
+        <div className={`language-switch ${languagePulseKey ? 'is-pulsing' : ''}`} key={languagePulseKey || 'rest'} role="group" aria-label="Language selection">
           <button className={language === 'en' ? 'active' : ''} onClick={() => onLanguageChange('en')} type="button">EN</button>
           <span>/</span>
-          <button className={language === 'mr' ? 'active' : ''} onClick={() => onLanguageChange('mr')} type="button" lang="mr">मराठी</button>
+          <button className={language === 'mr' ? 'active' : ''} lang="mr" onClick={() => onLanguageChange('mr')} type="button">मराठी</button>
         </div>
         <a className="portal-link" href={portalUrl}>{portalLabel}</a>
-        <button className="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>
+        <button aria-expanded={menuOpen} aria-label="Toggle navigation" className="menu-toggle" onClick={() => setMenuOpen((open) => !open)} type="button">
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>

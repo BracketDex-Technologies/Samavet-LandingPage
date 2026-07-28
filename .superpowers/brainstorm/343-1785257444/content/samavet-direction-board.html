@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Samavet - Design Directions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&family=Space+Mono:wght@400;700&family=Yatra+One&display=swap" rel="stylesheet" />
+  <style>
+    :root { color-scheme: light; --ink: #221711; --cream: #fbf3e7; --terracotta: #b74f2f; --green: #254b36; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #eee6db; color: var(--ink); font-family: Manrope, sans-serif; }
+    .page { max-width: 1540px; margin: 0 auto; padding: 48px 30px 70px; }
+    .intro { display: grid; gap: 10px; max-width: 840px; margin-bottom: 34px; }
+    .eyebrow { color: #9b3e26; font: 700 11px/1 Space Mono, monospace; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { margin: 0; font: 500 clamp(36px, 4.5vw, 70px)/.96 "DM Serif Display", serif; letter-spacing: -.045em; }
+    .intro p { margin: 0; color: #67594e; font-size: 14px; line-height: 1.65; }
+    .directions { display: grid; gap: 22px; grid-template-columns: repeat(5, minmax(235px, 1fr)); }
+    .direction { cursor: pointer; overflow: hidden; background: white; border: 1px solid rgba(58, 39, 26, .14); box-shadow: 0 12px 26px rgba(66, 43, 28, .10); transition: transform .22s ease, box-shadow .22s ease; }
+    .direction:hover, .direction.selected { transform: translateY(-7px); box-shadow: 0 22px 36px rgba(66, 43, 28, .18); }
+    .direction.selected { outline: 3px solid #b84f30; outline-offset: 3px; }
+    .card-top { min-height: 385px; position: relative; overflow: hidden; }
+    .card-copy { padding: 19px 19px 22px; border-top: 1px solid rgba(58,39,26,.1); }
+    .card-copy h2 { margin: 0; font: 600 17px/1.15 Manrope, sans-serif; letter-spacing: -.04em; }
+    .card-copy p { margin: 8px 0 0; color: #695b51; font-size: 12px; line-height: 1.55; }
+    .choice { color: #a34027; display: block; font: 700 10px/1 Space Mono, monospace; letter-spacing: .12em; margin-bottom: 7px; }
+    .mini-nav { align-items: center; display: flex; font-size: 8px; justify-content: space-between; position: relative; z-index: 2; }
+    .tiny-button { border-radius: 99px; color: white; display: inline-flex; font: 700 7px/1 Manrope, sans-serif; padding: 8px 10px; }
+    .d1 { background: #f8eddb; color: #332117; padding: 17px; }
+    .d1 .mini-nav b { color: #a4492d; font-size: 11px; letter-spacing: -.06em; }
+    .d1 .hero { position: relative; z-index: 1; padding-top: 58px; }
+    .d1 h3 { font: 500 44px/.85 "DM Serif Display", serif; letter-spacing: -.065em; margin: 0; }
+    .d1 h3 i { color: #b4492f; font-style: italic; }
+    .d1 .hero p { color: #68564b; font-size: 10px; line-height: 1.5; margin: 15px 0; width: 76%; }
+    .d1 .tiny-button { background: #234a36; }
+    .d1 .tree { border: 1px solid #d2aa7f; border-radius: 50%; bottom: -32px; height: 210px; position: absolute; right: -60px; width: 210px; }
+    .d1 .tree:before, .d1 .tree:after { border: 1px solid #bd7c4c; border-radius: 50%; content: ""; inset: 25px; position: absolute; }
+    .d1 .tree:after { background: repeating-radial-gradient(circle at center, transparent 0 15px, rgba(187,124,76,.18) 16px 17px); inset: 52px; }
+    .d1 .leaf { background: #476b3e; border-radius: 100% 0 100% 0; height: 22px; position: absolute; right: 85px; top: 215px; transform: rotate(-25deg); width: 22px; }
+    .d2 { background: #1f3029; color: #fff5e5; padding: 17px; }
+    .d2 .mini-nav b { color: #edb363; font: 400 18px/1 Yatra One, serif; }
+    .d2 .nav-dot { border: 1px solid #c36a43; border-radius: 50%; height: 13px; width: 13px; }
+    .d2 .hero { padding-top: 48px; position: relative; z-index: 2; }
+    .d2 h3 { font: 500 36px/.92 Playfair Display, serif; letter-spacing: -.04em; margin: 0; }
+    .d2 .hero p { color: #c5c6aa; font-size: 10px; line-height: 1.55; margin: 15px 0; width: 75%; }
+    .d2 .tiny-button { background: #c25332; }
+    .d2 .data { background: #f4e2bd; border-radius: 3px; bottom: 20px; color: #2b332c; left: 17px; padding: 12px; position: absolute; right: 17px; }
+    .d2 .data-top { display: flex; font: 700 7px/1 Space Mono, monospace; justify-content: space-between; }
+    .d2 .bars { align-items: flex-end; display: flex; gap: 6px; height: 72px; margin-top: 10px; }
+    .d2 .bars span { background: #b84f30; display: block; flex: 1; }
+    .d2 .bars span:nth-child(1) { height: 30%; } .d2 .bars span:nth-child(2) { height: 68%; } .d2 .bars span:nth-child(3) { height: 48%; } .d2 .bars span:nth-child(4) { height: 94%; } .d2 .bars span:nth-child(5) { height: 74%; }
+    .d3 { background: #e9c5a4; color: #351e16; padding: 17px; }
+    .d3:before { background: #ad402a; clip-path: polygon(0 0, 100% 12%, 86% 80%, 16% 100%); content: ""; inset: -52px -42px auto auto; height: 274px; position: absolute; transform: rotate(9deg); width: 238px; }
+    .d3 .mini-nav b { font: 800 11px/1 Manrope, sans-serif; letter-spacing: -.08em; }
+    .d3 .hero { padding-top: 65px; position: relative; z-index: 2; }
+    .d3 h3 { font: 800 39px/.84 Manrope, sans-serif; letter-spacing: -.095em; margin: 0; max-width: 180px; }
+    .d3 h3 span { color: #fff8ea; }
+    .d3 .hero p { color: #4f2d23; font-size: 10px; line-height: 1.5; margin: 17px 0; width: 75%; }
+    .d3 .tiny-button { background: #273f2f; }
+    .d3 .receipt { background: #fff9eb; bottom: -12px; box-shadow: 7px 7px 0 #244231; left: 41px; padding: 14px; position: absolute; transform: rotate(-5deg); width: 175px; }
+    .d3 .receipt strong { display: block; font-size: 11px; }.d3 .receipt small { color: #a0432a; font: 700 7px/1.5 Space Mono, monospace; }.d3 .receipt hr { border: 0; border-top: 1px dashed #c9a986; margin: 8px 0; }.d3 .receipt em { font: 700 22px/1 "DM Serif Display", serif; font-style: normal; }
+    .d4 { background: #f3efdf; color: #1e2b25; padding: 17px; }
+    .d4 .mini-nav b { font: 700 12px/1 Space Mono, monospace; letter-spacing: -.11em; }
+    .d4 .hero { padding-top: 38px; position: relative; z-index: 2; }
+    .d4 h3 { font: 500 38px/.91 "DM Serif Display", serif; letter-spacing: -.06em; margin: 0; }
+    .d4 h3 b { color: #d55a34; font-weight: 500; }
+    .d4 .hero p { color: #596058; font-size: 10px; line-height: 1.5; margin: 15px 0; width: 80%; }.d4 .tiny-button { background: #213f31; }
+    .d4 .map { border: 1px solid #9ab09d; bottom: 16px; height: 140px; left: 17px; overflow: hidden; position: absolute; right: 17px; }.d4 .map:before { background: repeating-linear-gradient(35deg, transparent 0 21px, rgba(38,75,54,.32) 22px 24px); content: ""; inset: 0; position: absolute; }.d4 .route { border: 2px dashed #d05d39; border-radius: 45% 60% 40% 50%; height: 86px; left: 54px; position: absolute; top: 23px; transform: rotate(-20deg); width: 130px; }.d4 .pin { background: #233f30; border-radius: 50% 50% 50% 0; height: 17px; position: absolute; right: 46px; top: 48px; transform: rotate(-45deg); width: 17px; }.d4 .pin:after { background: #f3efdf; border-radius: 50%; content: ""; height: 6px; left: 5px; position: absolute; top: 5px; width: 6px; }
+    .d5 { background: #ddc2d3; color: #1d1c22; padding: 17px; }.d5 .mini-nav b { font-size: 12px; letter-spacing: -.09em; }.d5 .hero { padding-top: 54px; position: relative; z-index: 2; }.d5 h3 { font: 500 42px/.86 Playfair Display, serif; letter-spacing: -.075em; margin: 0; }.d5 h3 i { color: #955036; font-style: italic; }.d5 .hero p { color: #514852; font-size: 10px; line-height: 1.5; margin: 15px 0; width: 75%; }.d5 .tiny-button { background: #1f2e28; }.d5 .arch { border: 2px solid #a95a42; border-bottom: 0; border-radius: 150px 150px 0 0; bottom: -35px; height: 205px; left: 58px; position: absolute; width: 150px; }.d5 .arch:before { border: 1px solid rgba(169,90,66,.8); border-bottom: 0; border-radius: 120px 120px 0 0; content: ""; inset: 17px; position: absolute; }.d5 .sun { background: #f2b558; border-radius: 50%; bottom: 72px; height: 45px; left: 110px; position: absolute; width: 45px; }
+    @media (max-width: 1200px) { .directions { grid-template-columns: repeat(3, minmax(240px, 1fr)); } }
+    @media (max-width: 760px) { .page { padding: 30px 18px 50px; }.directions { grid-template-columns: 1fr; }.card-top { min-height: 340px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="intro">
+      <span class="eyebrow">Samavet / Design direction boards</span>
+      <h1>Choose the atmosphere before we build the experience.</h1>
+      <p>Every direction keeps English-first / Marathi-toggle behavior, ePawati as the lead product, event intelligence as the second pillar, WhatsApp plus demo form conversion, and the oversized final logo inspired by your footer reference. Click a board to make it the working direction.</p>
+    </div>
+    <section class="directions" aria-label="Samavet design directions">
+      <article class="direction" data-choice="d1-living-ledger" onclick="toggleSelect(this)">
+        <div class="card-top d1"><div class="mini-nav"><b>समवेत / SAMAVET</b><span>PORTAL &rarr;</span></div><div class="hero"><h3>Every offering,<br><i>held together.</i></h3><p>Warm community ritual translated into a considered digital system.</p><span class="tiny-button">START A CONVERSATION</span></div><i class="tree"></i><i class="leaf"></i></div>
+        <div class="card-copy"><span class="choice">01 / LIVING LEDGER</span><h2>Heritage editorial</h2><p>Ivory, copper, and forest green. A quiet premium ritual with botanical linework and generous whitespace.</p></div>
+      </article>
+      <article class="direction" data-choice="d2-festival-command" onclick="toggleSelect(this)">
+        <div class="card-top d2"><div class="mini-nav"><b>समवेत</b><i class="nav-dot"></i></div><div class="hero"><h3>The festival<br>has a pulse.</h3><p>A platform direction with real-time visual rhythm, but cultural grounding.</p><span class="tiny-button">BOOK A DEMO</span></div><div class="data"><div class="data-top"><span>LIVE EVENT INTELLIGENCE</span><span>NOW</span></div><div class="bars"><span></span><span></span><span></span><span></span><span></span></div></div></div>
+        <div class="card-copy"><span class="choice">02 / FESTIVAL COMMAND</span><h2>Warm operations system</h2><p>Deep green field, live data cards, and an intelligent event-control aesthetic without generic SaaS polish.</p></div>
+      </article>
+      <article class="direction" data-choice="d3-receipt-studio" onclick="toggleSelect(this)">
+        <div class="card-top d3"><div class="mini-nav"><b>SAMAVET</b><span>MARATHI</span></div><div class="hero"><h3>Make every<br><span>offering</span> matter.</h3><p>ePawati appears like an object made with care, not a generic product mockup.</p><span class="tiny-button">REQUEST A DEMO</span></div><div class="receipt"><small>EPĀWATI / RECEIPT</small><hr><strong>Community offering</strong><em>₹ 1,251</em></div></div>
+        <div class="card-copy"><span class="choice">03 / RECEIPT STUDIO</span><h2>Bold print-meets-product</h2><p>High contrast, expressive typography, and receipt ephemera make the donation workflow immediately tangible.</p></div>
+      </article>
+      <article class="direction" data-choice="d4-community-atlas" onclick="toggleSelect(this)">
+        <div class="card-top d4"><div class="mini-nav"><b>समवेत</b><span>01 / 04</span></div><div class="hero"><h3>Communities<br><b>in motion.</b></h3><p>Spatial storytelling puts attendance, coordination, and collective movement at the centre.</p><span class="tiny-button">EXPLORE EPĀWATI</span></div><div class="map"><i class="route"></i><i class="pin"></i></div></div>
+        <div class="card-copy"><span class="choice">04 / COMMUNITY ATLAS</span><h2>Mapping the gathering</h2><p>Topographic lines, routes, and useful signals make event intelligence the hero while retaining human warmth.</p></div>
+      </article>
+      <article class="direction" data-choice="d5-public-square" onclick="toggleSelect(this)">
+        <div class="card-top d5"><div class="mini-nav"><b>समवेत / samavet</b><span>EN &middot; मराठी</span></div><div class="hero"><h3>Technology<br>for the <i>together.</i></h3><p>A more civic, open, and cultural public face for every kind of community organization.</p><span class="tiny-button">TALK TO US</span></div><i class="sun"></i><i class="arch"></i></div>
+        <div class="card-copy"><span class="choice">05 / PUBLIC SQUARE</span><h2>Civic cultural modernism</h2><p>Unexpected mauve, rust, and an architectural silhouette for a confident, less festival-specific platform identity.</p></div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
