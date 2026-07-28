@@ -1,8 +1,7 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-import { buildWhatsAppLink, shouldRenderSamavetLanding } from '../src/landing/links.js';
+import { buildWhatsAppLink, PORTAL_URL, shouldRenderSamavetLanding } from '../src/landing/links.js';
 
 test('creates a prefilled WhatsApp URL for a demo request', () => {
   assert.equal(
@@ -11,21 +10,14 @@ test('creates a prefilled WhatsApp URL for a demo request', () => {
   );
 });
 
-test('mounts the public page only for the Samavet host or local preview path', () => {
+test('uses the public landing page as the entry point on every host', () => {
   assert.equal(shouldRenderSamavetLanding('samavet.in', '/'), true);
   assert.equal(shouldRenderSamavetLanding('www.samavet.in', '/'), true);
   assert.equal(shouldRenderSamavetLanding('samvet.vercel.app', '/'), true);
-  assert.equal(shouldRenderSamavetLanding('localhost', '/samavet'), true);
-  assert.equal(shouldRenderSamavetLanding('digital-vargani-landing-page.vercel.app', '/'), false);
+  assert.equal(shouldRenderSamavetLanding('localhost', '/'), true);
+  assert.equal(shouldRenderSamavetLanding('digital-vargani-portal.vercel.app', '/'), true);
 });
 
-test('wraps the protected portal app in its React Query provider', async () => {
-  const bootstrap = await readFile(new URL('../src/main.tsx', import.meta.url), 'utf8');
-
-  assert.match(bootstrap, /import\s+\{\s*QueryClientProvider\s*\}\s+from\s+['"]@tanstack\/react-query['"]/);
-  assert.match(bootstrap, /import\s+\{\s*queryClient\s*\}\s+from\s+['"]\.\/lib\/queryClient\.ts['"]/);
-  assert.match(
-    bootstrap,
-    /<QueryClientProvider client=\{queryClient\}>\s*<App\s*\/>\s*<\/QueryClientProvider>/,
-  );
+test('links Portal Login to the separately deployed portal', () => {
+  assert.equal(PORTAL_URL, 'https://digital-vargani-portal.vercel.app/');
 });

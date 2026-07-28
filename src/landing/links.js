@@ -1,4 +1,4 @@
-export const PORTAL_URL = 'https://digital-vargani-landing-page.vercel.app';
+export const PORTAL_URL = 'https://digital-vargani-portal.vercel.app/';
 export const WHATSAPP_PHONE = '9172227878';
 
 function normalizeIndianPhone(phone) {
@@ -11,7 +11,6 @@ export function buildWhatsAppLink(phone, message) {
   return `https://wa.me/${recipient}?text=${encodeURIComponent(message)}`;
 }
 
-export function shouldRenderSamavetLanding(hostname, pathname) {
-  const host = String(hostname).toLowerCase();
-  return host === 'samavet.in' || host === 'www.samavet.in' || host === 'samvet.vercel.app' || pathname === '/samavet';
+export function shouldRenderSamavetLanding() {
+  return true;
 }
