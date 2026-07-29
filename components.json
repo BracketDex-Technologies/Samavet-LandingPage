@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/landing/samavet.css",
+    "baseColor": "neutral",
+    "cssVariables": false,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "./src/landing/components",
+    "utils": "./src/landing/lib/utils",
+    "ui": "./src/landing/components/ui",
+    "lib": "./src/landing/lib",
+    "hooks": "./src/landing/hooks"
+  }
+}

@@ -23,6 +23,15 @@
 }
 
 .samavet * { box-sizing: border-box; }
+.site-loader { align-items: center; backdrop-filter: blur(24px) saturate(120%); background: rgb(248 240 228 / .76); display: flex; inset: 0; justify-content: center; position: fixed; z-index: 100; }
+.site-loader__filter { height: 0; pointer-events: none; position: absolute; width: 0; }
+.site-loader__morph { align-items: center; display: flex; height: clamp(3.5rem, 11vw, 7rem); justify-content: center; position: relative; width: min(84vw, 42rem); }
+.site-loader__word { animation: site-loader-morph 3.45s var(--word-delay) both; color: #a84d29; font: 600 clamp(2rem, 6vw, 4.5rem)/1.1 "JetBrains Mono", "IBM Plex Mono", monospace; left: 50%; letter-spacing: .09em; position: absolute; top: 50%; transform: translate(-50%, -50%); white-space: nowrap; will-change: filter, opacity, transform; }
+.site-loader__word--1, .site-loader__word--2 { font-family: "Noto Sans Devanagari", "Nirmala UI", sans-serif; letter-spacing: .03em; }
+.site-loader--reduced-motion .site-loader__morph { filter: none !important; }
+.site-loader--reduced-motion .site-loader__word { animation-name: site-loader-fade; }
+@keyframes site-loader-morph { 0% { filter: blur(20px); opacity: 0; transform: translate(-50%, -50%) scale(.8); } 14.5% { filter: blur(0); opacity: 1; transform: translate(-50%, -50%) scale(1); } 27.5% { filter: blur(0); opacity: 1; transform: translate(-50%, -50%) scale(1); } 42% { filter: blur(20px); opacity: 0; transform: translate(-50%, -50%) scale(1.2); } 100% { filter: blur(20px); opacity: 0; transform: translate(-50%, -50%) scale(1.2); } }
+@keyframes site-loader-fade { 0%, 14.5% { opacity: 0; } 15%, 27.5% { opacity: 1; } 28%, 100% { opacity: 0; } }
 .samavet a { color: inherit; text-decoration: none; }
 .samavet button, .samavet input, .samavet textarea { font: inherit; }
 .samavet h1, .samavet h2, .samavet h3, .samavet p { margin: 0; }
