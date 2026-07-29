@@ -1,4 +1,4 @@
-import { ArrowRight, BarChart3, Check, Film, Landmark, MessageCircle, Radio, Sparkles, UsersRound } from 'lucide-react';
+import { ArrowRight, BarChart3, Check, Film, Landmark, Leaf, MessageCircle, Radio, Sparkles, UsersRound } from 'lucide-react';
 
 import { DemoRequestForm } from './DemoRequestForm';
 import { EpawatiShowcase } from './EpawatiShowcase';
@@ -18,7 +18,7 @@ function Actions({ chatHref, demoHref, labels }: { chatHref: string; demoHref: s
 
 export function HeroSection({ chatHref, demoHref, language, onEnter }: SectionProps) {
   const copy = localizedCopy[language];
-  return <RevealSection className="samavet-hero section-shell" id="top" onEnter={onEnter}><div className="hero-copy"><h1 className="hero-reveal-1">{copy.heroTitle[0]}<em>{copy.heroTitle[1]}</em></h1><p className="hero-description hero-reveal-2">{copy.heroDescription}</p><Actions chatHref={chatHref} demoHref={demoHref} labels={copy} /><div className="hero-signals">{copy.heroSignals.map((signal) => <span key={signal}>{signal}</span>)}</div></div><EpawatiShowcase language={language} /></RevealSection>;
+  return <RevealSection className="samavet-hero section-shell" id="top" onEnter={onEnter}><div className="hero-copy"><h1 className="hero-reveal-1">{copy.heroTitle[0]}<em>{copy.heroTitle[1]}</em></h1><p className="hero-kicker hero-reveal-2"><Leaf size={18} />{copy.heroEyebrow}</p><p className="hero-description hero-reveal-3">{copy.heroDescription}</p><Actions chatHref={chatHref} demoHref={demoHref} labels={copy} /><div className="hero-signals">{copy.heroSignals.map((signal) => <span key={signal}>{signal}</span>)}</div></div><EpawatiShowcase language={language} /></RevealSection>;
 }
 
 export function EpawatiStory({ language, onEnter }: Pick<SectionProps, 'language' | 'onEnter'>) {

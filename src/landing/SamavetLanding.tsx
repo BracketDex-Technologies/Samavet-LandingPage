@@ -37,7 +37,7 @@ export default function SamavetLanding() {
   }
 
   return (
-    <main className="samavet">
+    <main className={`samavet samavet--${language}`}>
       <LandingHeader language={language} languagePulseKey={languagePulseKey} onLanguageChange={setLanguage} portalLabel={copy.portal} portalUrl={PORTAL_URL} />
       <HeroSection chatHref={chatHref} demoHref={demoHref} language={language} onEnter={recordSectionEntry} />
       <EpawatiStory language={language} onEnter={recordSectionEntry} />

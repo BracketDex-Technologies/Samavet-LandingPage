@@ -20,7 +20,7 @@ export function LandingFooter({ chatHref, language, portalLabel, portalUrl }: La
       </div>
       <div aria-hidden="true" className="footer-tree-mark"><img alt="" src={samavetLogo} /></div>
       <div className="footer-wordmark" aria-label="Samavet"><strong>SAMAVET</strong></div>
-      <div className="footer-bottom"><span>© {new Date().getFullYear()} Samavet.</span><span>{isMarathi ? 'समुदायांसोबत घडवलेले.' : 'Built with communities in mind.'}</span><span>by BracketDex Technologies · <a href="https://bracketdex.com" rel="noreferrer" target="_blank">bracketdex.com</a></span></div>
+      <div className="footer-bottom"><div className="footer-bottom-left"><span>© {new Date().getFullYear()} Samavet.</span><span>by BracketDex Technologies</span></div><span>{isMarathi ? 'समुदायांसोबत घडवलेले.' : 'Built with communities in mind.'}</span><a className="footer-bracketdex-link" href="https://bracketdex.com" rel="noreferrer" target="_blank">bracketdex.com</a></div>
     </footer>
   );
 }
