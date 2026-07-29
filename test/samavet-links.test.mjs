@@ -19,8 +19,8 @@ test('uses the public landing page as the entry point on every host', () => {
   assert.equal(shouldRenderSamavetLanding('digital-vargani-portal.vercel.app', '/'), true);
 });
 
-test('links Portal Login to the separately deployed portal', () => {
-  assert.equal(PORTAL_URL, 'https://digital-vargani-portal.vercel.app/');
+test('links Portal Login to the ePawati portal', () => {
+  assert.equal(PORTAL_URL, 'https://epawati.samavet.in/');
 });
 
 test('rejects incomplete demo requests before opening an email draft', () => {
