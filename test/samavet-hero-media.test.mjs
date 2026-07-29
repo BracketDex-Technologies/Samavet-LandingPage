@@ -6,18 +6,25 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const componentPath = path.join(root, 'src', 'landing', 'components', 'EpawatiShowcase.tsx');
-const assetDirectory = path.join(root, 'src', 'landing', 'assets');
+const heroBackgroundPath = path.join(root, 'src', 'landing', 'assets', 'samavet-ganesh-hero.webp');
 
-test('hero receipt showcase uses the approved printed and mobile mockups', async () => {
-  await Promise.all([
-    access(path.join(assetDirectory, 'epawati-mandal-receipt-booklet.webp')),
-    access(path.join(assetDirectory, 'epawati-mobile-receipt.webp')),
-  ]);
+test('hero does not mount the ePawati showcase media', async () => {
+  const contentSections = await readFile(path.join(root, 'src', 'landing', 'components', 'ContentSections.tsx'), 'utf8');
 
-  const component = await readFile(componentPath, 'utf8');
+  assert.doesNotMatch(contentSections, /EpawatiShowcase/);
+  await assert.rejects(access(componentPath));
+});
 
-  assert.match(component, /epawati-mandal-receipt-booklet\.webp/);
-  assert.match(component, /epawati-mobile-receipt\.webp/);
-  assert.match(component, /alt=\{isMarathi \? 'गणेश मंडळ ई-पावतीचे उदाहरण' : 'Illustrative Ganesh mandal ePawati receipt'/);
-  assert.match(component, /alt=\{isMarathi \? 'मोबाइलवरील ई-पावतीचे उदाहरण' : 'Illustrative mobile ePawati receipt'/);
+test('hero does not render the right-side background line object', async () => {
+  const styles = await readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8');
+
+  assert.doesNotMatch(styles, /\.samavet-hero::before/);
+});
+
+test('hero uses the Ganesh procession image as its CSS background', async () => {
+  const styles = await readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8');
+
+  await access(heroBackgroundPath);
+  assert.match(styles, /samavet-ganesh-hero\.webp/);
+  assert.match(styles, /\.samavet-hero[\s\S]*background-image/);
 });

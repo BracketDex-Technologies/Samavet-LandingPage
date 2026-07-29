@@ -1,7 +1,9 @@
 import { Menu, X } from 'lucide-react';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import type { LandingLanguage } from '../content';
+import { isLandingHeaderCondensed } from '../headerState.js';
+import { landingNavItems } from '../navItems.js';
 import samavetLogo from '../assets/samavet-logo.svg';
 
 interface LandingHeaderProps {
@@ -12,23 +14,29 @@ interface LandingHeaderProps {
   portalUrl: string;
 }
 
-const navItems = {
-  en: [['#epawati', 'ePawati'], ['#intelligence', 'Event intelligence'], ['#services', 'Services'], ['#organizations', 'For communities'], ['#contact', 'Contact']],
-  mr: [['#epawati', 'ई-पावती'], ['#intelligence', 'इव्हेंट इंटेलिजन्स'], ['#services', 'सेवा'], ['#organizations', 'समुदायांसाठी'], ['#contact', 'संपर्क']],
-} as const;
-
 export function LandingHeader({ language, languagePulseKey, onLanguageChange, portalLabel, portalUrl }: LandingHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isCondensed, setIsCondensed] = useState(false);
   const brandName = language === 'mr' ? 'समवेत' : 'SAMAVET';
 
+  useEffect(() => {
+    function updateHeaderState() {
+      setIsCondensed(isLandingHeaderCondensed(window.scrollY));
+    }
+
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+    return () => window.removeEventListener('scroll', updateHeaderState);
+  }, []);
+
   return (
-    <header className="landing-header">
+    <header className={isCondensed ? 'landing-header is-condensed' : 'landing-header'}>
       <a className="landing-brand" href="#top" onClick={() => setMenuOpen(false)}>
         <img alt="Samavet tree of community logo" src={samavetLogo} />
         <span className={`landing-brand-name ${language === 'mr' ? 'is-marathi' : ''}`} lang={language === 'mr' ? 'mr' : undefined}>{brandName}</span>
       </a>
       <nav aria-label="Primary navigation" className={menuOpen ? 'landing-nav is-open' : 'landing-nav'}>
-        {navItems[language].map(([href, label], index) => <Fragment key={href}>{index > 0 ? <span aria-hidden="true" className="nav-separator">/</span> : null}<a href={href} onClick={() => setMenuOpen(false)}>{label}</a></Fragment>)}
+        {landingNavItems[language].map(([href, label], index) => <Fragment key={href}>{index > 0 ? <span aria-hidden="true" className="nav-separator">/</span> : null}<a href={href} onClick={() => setMenuOpen(false)}>{label}</a></Fragment>)}
         <a className="mobile-portal-link" href={portalUrl}>{portalLabel}</a>
       </nav>
       <div className="header-actions">
