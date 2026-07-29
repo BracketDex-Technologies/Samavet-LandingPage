@@ -28,3 +28,15 @@ test('hero uses the Ganesh procession image as its CSS background', async () => 
   assert.match(styles, /samavet-ganesh-hero\.webp/);
   assert.match(styles, /\.samavet-hero[\s\S]*background-image/);
 });
+
+test('hero copy follows the reference hierarchy and WhatsApp action labels', async () => {
+  const content = await readFile(path.join(root, 'src', 'landing', 'content.ts'), 'utf8');
+  const sections = await readFile(path.join(root, 'src', 'landing', 'components', 'ContentSections.tsx'), 'utf8');
+
+  assert.match(content, /heroTitle: \['Together in Tradition\.', 'Stronger in Purpose\.'\]/);
+  assert.match(content, /heroEyebrow: 'Digital by Choice\. Community by Heart\.'/);
+  assert.match(content, /demo: 'Book Demo on WhatsApp'/);
+  assert.match(content, /chat: 'Chat on WhatsApp'/);
+  assert.match(content, /heroSignals: \['Trusted by communities across India'\]/);
+  assert.match(sections, /hero-description-strong/);
+});

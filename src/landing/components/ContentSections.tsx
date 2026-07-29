@@ -1,4 +1,4 @@
-import { ArrowRight, BarChart3, Check, Film, Landmark, Leaf, MessageCircle, Radio, Sparkles, UsersRound } from 'lucide-react';
+import { ArrowRight, BarChart3, Check, Film, Landmark, Leaf, MessageCircle, Radio, ShieldCheck, Sparkles, UsersRound } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 
 import { TextEffect } from '../../../components/motion-primitives/text-effect';
@@ -14,7 +14,7 @@ interface SectionProps {
 }
 
 function Actions({ chatHref, demoHref, labels }: { chatHref: string; demoHref: string; labels: { chat: string; demo: string } }) {
-  return <div className="whatsapp-actions"><a className="button button-primary" href={demoHref} rel="noreferrer" target="_blank"><MessageCircle size={17} />{labels.demo}</a><a className="button button-secondary" href={chatHref} rel="noreferrer" target="_blank">{labels.chat}<ArrowRight size={16} /></a></div>;
+  return <div className="whatsapp-actions"><a className="button button-primary" href={demoHref} rel="noreferrer" target="_blank"><MessageCircle size={32} />{labels.demo}</a><a className="button button-secondary" href={chatHref} rel="noreferrer" target="_blank"><MessageCircle size={32} />{labels.chat}</a></div>;
 }
 
 function MarketingText({ children }: { children: string }) {
@@ -28,7 +28,7 @@ export function HeroSection({ chatHref, demoHref, language, onEnter }: SectionPr
   const reduceMotion = useReducedMotion();
   const item = reduceMotion ? undefined : { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
   const transition = reduceMotion ? { duration: 0 } : { duration: 0.62, ease: [0.2, 0.75, 0.28, 1] as const };
-  return <RevealSection className="samavet-hero section-shell" id="top" onEnter={onEnter}><motion.div animate="show" className="hero-copy" initial={reduceMotion ? false : 'hidden'} transition={{ staggerChildren: 0.12 }} variants={reduceMotion ? undefined : { hidden: {}, show: {} }}><motion.h1 transition={transition} variants={item}><MarketingText>{copy.heroTitle[0]}</MarketingText><em><MarketingText>{copy.heroTitle[1]}</MarketingText></em></motion.h1><motion.p className="hero-kicker" transition={transition} variants={item}><Leaf size={18} /><MarketingText>{copy.heroEyebrow}</MarketingText></motion.p><motion.p className="hero-description" transition={transition} variants={item}><MarketingText>{copy.heroDescription}</MarketingText></motion.p><motion.div transition={transition} variants={item}><Actions chatHref={chatHref} demoHref={demoHref} labels={copy} /></motion.div><motion.div className="hero-signals" transition={transition} variants={item}>{copy.heroSignals.map((signal) => <span key={signal}><MarketingText>{signal}</MarketingText></span>)}</motion.div></motion.div></RevealSection>;
+  return <RevealSection className="samavet-hero section-shell" id="top" onEnter={onEnter}><motion.div animate="show" className="hero-copy" initial={reduceMotion ? false : 'hidden'} transition={{ staggerChildren: 0.12 }} variants={reduceMotion ? undefined : { hidden: {}, show: {} }}><motion.h1 transition={transition} variants={item}><MarketingText>{copy.heroTitle[0]}</MarketingText><em><MarketingText>{copy.heroTitle[1]}</MarketingText></em></motion.h1><motion.p className="hero-kicker" transition={transition} variants={item}><Leaf size={24} /><MarketingText>{copy.heroEyebrow}</MarketingText><span aria-hidden="true" className="hero-kicker-rule" /></motion.p><motion.p className="hero-description" transition={transition} variants={item}>{language === 'en' ? <>Samavet helps community organizations manage <strong className="hero-description-strong">digital donation receipts</strong> and day-to-day <strong className="hero-description-strong">festival operations</strong> — simply and transparently.</> : <MarketingText>{copy.heroDescription}</MarketingText>}</motion.p><motion.div transition={transition} variants={item}><Actions chatHref={chatHref} demoHref={demoHref} labels={copy} /></motion.div><motion.div className="hero-signals" transition={transition} variants={item}>{copy.heroSignals.map((signal) => <span key={signal}><ShieldCheck size={28} />{signal}</span>)}</motion.div></motion.div></RevealSection>;
 }
 
 export function EpawatiStory({ language, onEnter }: Pick<SectionProps, 'language' | 'onEnter'>) {
