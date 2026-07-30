@@ -1,4 +1,4 @@
-import { ArrowRight, BarChart3, Check, Film, Landmark, Leaf, MessageCircle, Radio, ShieldCheck, Sparkles, UsersRound } from 'lucide-react';
+import { ArrowRight, BarChart3, Check, IndianRupee, Landmark, Leaf, MessageCircle, Mic2, Radio, ShieldCheck, Sparkles, TrendingUp, UsersRound } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 
 import { TextEffect } from '../../../components/motion-primitives/text-effect';
@@ -14,7 +14,7 @@ interface SectionProps {
 }
 
 function Actions({ chatHref, demoHref, labels }: { chatHref: string; demoHref: string; labels: { chat: string; demo: string } }) {
-  return <div className="whatsapp-actions"><a className="button button-primary" href={demoHref} rel="noreferrer" target="_blank"><MessageCircle size={32} />{labels.demo}</a><a className="button button-secondary" href={chatHref} rel="noreferrer" target="_blank"><MessageCircle size={32} />{labels.chat}</a></div>;
+  return <div className="whatsapp-actions"><a className="button button-primary" href={demoHref} rel="noreferrer" target="_blank"><MessageCircle size={18} />{labels.demo}</a><a className="button button-secondary" href={chatHref} rel="noreferrer" target="_blank"><MessageCircle size={18} />{labels.chat}</a></div>;
 }
 
 function MarketingText({ children }: { children: string }) {
@@ -28,12 +28,12 @@ export function HeroSection({ chatHref, demoHref, language, onEnter }: SectionPr
   const reduceMotion = useReducedMotion();
   const item = reduceMotion ? undefined : { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
   const transition = reduceMotion ? { duration: 0 } : { duration: 0.62, ease: [0.2, 0.75, 0.28, 1] as const };
-  return <RevealSection className="samavet-hero section-shell" id="top" onEnter={onEnter}><motion.div animate="show" className="hero-copy" initial={reduceMotion ? false : 'hidden'} transition={{ staggerChildren: 0.12 }} variants={reduceMotion ? undefined : { hidden: {}, show: {} }}><motion.h1 transition={transition} variants={item}><MarketingText>{copy.heroTitle[0]}</MarketingText><em><MarketingText>{copy.heroTitle[1]}</MarketingText></em></motion.h1><motion.p className="hero-kicker" transition={transition} variants={item}><Leaf size={24} /><MarketingText>{copy.heroEyebrow}</MarketingText><span aria-hidden="true" className="hero-kicker-rule" /></motion.p><motion.p className="hero-description" transition={transition} variants={item}>{language === 'en' ? <>Samavet helps community organizations manage <strong className="hero-description-strong">digital donation receipts</strong> and day-to-day <strong className="hero-description-strong">festival operations</strong> — simply and transparently.</> : <MarketingText>{copy.heroDescription}</MarketingText>}</motion.p><motion.div transition={transition} variants={item}><Actions chatHref={chatHref} demoHref={demoHref} labels={copy} /></motion.div><motion.div className="hero-signals" transition={transition} variants={item}>{copy.heroSignals.map((signal) => <span key={signal}><ShieldCheck size={28} />{signal}</span>)}</motion.div></motion.div></RevealSection>;
+  return <RevealSection className="samavet-hero section-shell" id="top" onEnter={onEnter}><motion.div animate="show" className="hero-copy" initial={reduceMotion ? false : 'hidden'} transition={{ staggerChildren: 0.12 }} variants={reduceMotion ? undefined : { hidden: {}, show: {} }}><motion.h1 transition={transition} variants={item}><MarketingText>{copy.heroTitle[0]}</MarketingText><em><MarketingText>{copy.heroTitle[1]}</MarketingText></em></motion.h1><motion.p className="hero-kicker" transition={transition} variants={item}><Leaf size={24} /><MarketingText>{copy.heroEyebrow}</MarketingText></motion.p><motion.p className="hero-description" transition={transition} variants={item}>{language === 'en' ? <>Samavet helps community organizations manage <strong className="hero-description-strong">digital donation receipts</strong> and day-to-day <strong className="hero-description-strong">festival operations</strong> — simply and transparently.</> : <MarketingText>{copy.heroDescription}</MarketingText>}</motion.p><motion.div transition={transition} variants={item}><Actions chatHref={chatHref} demoHref={demoHref} labels={copy} /></motion.div><motion.div className="hero-signals" transition={transition} variants={item}>{copy.heroSignals.map((signal) => <span key={signal}><ShieldCheck size={28} />{signal}</span>)}</motion.div></motion.div></RevealSection>;
 }
 
 export function EpawatiStory({ language, onEnter }: Pick<SectionProps, 'language' | 'onEnter'>) {
   const copy = localizedCopy[language];
-  return <RevealSection className="epawati-story section-shell" id="epawati" onEnter={onEnter}><div className="story-rule"><span>01</span><i /></div><div className="section-heading"><p className="section-kicker"><MarketingText>{copy.receiptKicker}</MarketingText></p><h2><MarketingText>{copy.receiptTitle}</MarketingText></h2><p><MarketingText>{copy.receiptDescription}</MarketingText></p></div><div className="receipt-benefits">{copy.receiptBenefits.map((benefit) => <div key={benefit}><span><Check size={15} /></span><p><MarketingText>{benefit}</MarketingText></p></div>)}</div></RevealSection>;
+  return <RevealSection className="epawati-story section-shell" id="epawati" onEnter={onEnter}><div className="epawati-story-copy section-heading"><p className="section-kicker">{copy.receiptKicker}</p><h2>{copy.receiptTitle}</h2><p>{copy.receiptDescription}</p></div><div className="receipt-benefit-list">{copy.receiptBenefits.map((benefit) => <article className="receipt-benefit-item" key={benefit}><span><Check size={16} /></span><p>{benefit}</p></article>)}</div></RevealSection>;
 }
 
 export function IntelligenceSection({ language, onEnter }: Pick<SectionProps, 'language' | 'onEnter'>) {
@@ -43,8 +43,8 @@ export function IntelligenceSection({ language, onEnter }: Pick<SectionProps, 'l
 
 export function ServicesSection({ language, onEnter }: Pick<SectionProps, 'language' | 'onEnter'>) {
   const copy = localizedCopy[language];
-  const icons = [Radio, Film];
-  return <RevealSection className="services-section section-shell" id="services" onEnter={onEnter}><div className="section-heading centered"><p className="section-kicker"><MarketingText>{copy.servicesKicker}</MarketingText></p><h2><MarketingText>{copy.servicesTitle}</MarketingText></h2></div><div className="services-grid">{supportingServices[language].map(([title, description], index) => { const Icon = icons[index]; return <article key={title}><span><Icon size={24} /></span><h3><MarketingText>{title}</MarketingText></h3><p><MarketingText>{description}</MarketingText></p><i><ArrowRight size={17} /></i></article>; })}</div></RevealSection>;
+  const icons = [IndianRupee, TrendingUp, Radio, Mic2];
+  return <RevealSection className="services-section section-shell" id="services" onEnter={onEnter}><div className="section-heading centered"><p className="section-kicker"><MarketingText>{copy.servicesKicker}</MarketingText></p><h2><MarketingText>{copy.servicesTitle}</MarketingText></h2></div><div className="services-bento">{supportingServices[language].map(([eyebrow, title, description], index) => { const Icon = icons[index]; return <article className={`service-bento-card service-bento-card--${index + 1}`} key={title}><div className="service-bento-card__meta"><span>{`0${index + 1}`}</span><i><Icon size={22} strokeWidth={1.8} /></i></div><div><p>{eyebrow}</p><h3>{title}</h3><small>{description}</small></div></article>; })}</div></RevealSection>;
 }
 
 export function AudienceSection({ language, onEnter }: Pick<SectionProps, 'language' | 'onEnter'>) {

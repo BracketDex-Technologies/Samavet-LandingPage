@@ -82,12 +82,16 @@ export const audienceGroups = {
 
 export const supportingServices = {
   en: [
-    ['Live streaming', 'Bring important moments closer to the people who cannot be there.'],
-    ['Podcast & media', 'Shape stories, highlights, and community conversations with care.'],
+    ['ePawati', 'Digital Vargani Slips', 'Create your familiar Vargani slip digitally and send the same branded receipt to every donor on WhatsApp.'],
+    ['Live analytics', 'Event Intelligence', 'See registrations, attendance, donations and reach through one clear real-time view.'],
+    ['Facebook & YouTube', '24×7 Live Streaming', 'Bring every aarti, utsav and community moment to devotees wherever they are.'],
+    ['Production studio', 'Podcast & Media', 'Turn stories, teachings and community voices into thoughtful, broadcast-ready media.'],
   ],
   mr: [
-    ['लाइव्ह स्ट्रीमिंग', 'उपस्थित राहू न शकणाऱ्या लोकांपर्यंत महत्त्वाचे क्षण पोहोचवा.'],
-    ['पॉडकास्ट आणि मीडिया', 'कथा, ठळक क्षण आणि समुदाय संवाद जपून घडवा.'],
+    ['ई-पावती', 'डिजिटल वर्गणी पावत्या', 'परिचित वर्गणी पावती डिजिटल करा आणि प्रत्येक देणगीदाराला व्हॉट्सअॅपवर त्याच ब्रँडची पावती पाठवा.'],
+    ['लाइव्ह अॅनालिटिक्स', 'इव्हेंट इंटेलिजन्स', 'नोंदणी, उपस्थिती, देणग्या आणि पोहोच एका स्पष्ट रिअल-टाइम दृश्यात पहा.'],
+    ['फेसबुक आणि यूट्यूब', '२४×७ लाईव्ह स्ट्रीमिंग', 'प्रत्येक आरती, उत्सव आणि समुदायाचा क्षण भक्तांपर्यंत ते जिथे असतील तिथे पोहोचवा.'],
+    ['प्रॉडक्शन स्टुडिओ', 'पॉडकास्ट आणि मीडिया', 'कथा, शिकवण आणि समुदायाचे आवाज विचारपूर्वक, प्रसारणासाठी तयार माध्यमात रूपांतरित करा.'],
   ],
 } as const;
 

@@ -40,3 +40,59 @@ test('hero copy follows the reference hierarchy and WhatsApp action labels', asy
   assert.match(content, /heroSignals: \['Trusted by communities across India'\]/);
   assert.match(sections, /hero-description-strong/);
 });
+
+test('hero copy uses a standard landing-page scale', async () => {
+  const styles = await readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8');
+  const sections = await readFile(path.join(root, 'src', 'landing', 'components', 'ContentSections.tsx'), 'utf8');
+
+  assert.doesNotMatch(styles, /\.samavet-hero h1 \{ font-size: 92px/);
+  assert.doesNotMatch(styles, /\.hero-kicker \{ font-size: 28px/);
+  assert.doesNotMatch(styles, /\.hero-description \{ font-size: 22px/);
+  assert.doesNotMatch(styles, /\.samavet-hero \.button[\s\S]*min-height: 84px/);
+  assert.doesNotMatch(sections, /hero-kicker-rule/);
+  assert.match(styles, /\.hero-kicker \{[^}]*margin-top: 21px;[^}]*margin-bottom: 2px;/);
+  assert.match(styles, /\.hero-description \{[^}]*margin-top: 22px;/);
+  assert.match(styles, /\.samavet \.hero-kicker \{ margin-top: 21px; margin-bottom: 2px; \}/);
+  assert.match(styles, /\.samavet \.hero-description \{ margin-top: 22px; \}/);
+});
+
+test('hero WhatsApp actions use compact simple buttons', async () => {
+  const styles = await readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8');
+  const sections = await readFile(path.join(root, 'src', 'landing', 'components', 'ContentSections.tsx'), 'utf8');
+
+  assert.match(sections, /MessageCircle size=\{18\}/);
+  assert.match(styles, /\.samavet-hero \.button \{[^}]*border-radius: 999px;[^}]*font-size: 14px;[^}]*min-height: 44px;[^}]*min-width: 0;/);
+  assert.doesNotMatch(styles, /\.samavet-hero \.button[\s\S]*min-height: 60px/);
+  assert.doesNotMatch(styles, /\.samavet-hero \.button[\s\S]*min-width: 290px/);
+});
+
+test('ePawati story is rebuilt as a simple two-column section', async () => {
+  const styles = await readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8');
+  const sections = await readFile(path.join(root, 'src', 'landing', 'components', 'ContentSections.tsx'), 'utf8');
+
+  assert.match(sections, /epawati-story-copy/);
+  assert.match(sections, /receipt-benefit-list/);
+  assert.match(sections, /receipt-benefit-item/);
+  assert.doesNotMatch(sections, /className="story-rule"/);
+  assert.doesNotMatch(sections, /receipt-benefit-item[^;]*MarketingText/);
+  assert.match(styles, /\.epawati-story \{[^}]*grid-template-columns: minmax\(0, \.82fr\) minmax\(320px, \.78fr\);/);
+  assert.match(styles, /\.receipt-benefit-list \{/);
+  assert.match(styles, /\.receipt-benefit-item \{/);
+});
+
+test('footer wordmark is reduced by four pixels from the previous desktop scale', async () => {
+  const styles = await readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8');
+
+  assert.match(styles, /\.footer-wordmark strong \{[^}]*font-size: clamp\(68px, calc\(17\.5vw - 4px\), 261px\);/);
+  assert.doesNotMatch(styles, /\.footer-wordmark strong \{[^}]*font-size: clamp\(72px, 17\.5vw, 265px\);/);
+});
+
+test('English landing typography uses PT Serif and Quicksand instead of Cormorant', async () => {
+  const styles = await readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8');
+
+  assert.match(styles, /@import url\('https:\/\/fonts\.googleapis\.com\/css2\?family=PT\+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Quicksand:wght@300\.\.700&display=swap'\);/);
+  assert.match(styles, /\.samavet:not\(\.samavet--mr\) \{ font-family: 'Quicksand', sans-serif; \}/);
+  assert.match(styles, /\.samavet:not\(\.samavet--mr\) h1, \.samavet:not\(\.samavet--mr\) h2 \{ font-family: 'PT Serif', serif;/);
+  assert.match(styles, /\.samavet:not\(\.samavet--mr\) \.landing-brand-name, \.samavet:not\(\.samavet--mr\) \.hero-kicker \{ font-family: 'PT Serif', serif;/);
+  assert.doesNotMatch(styles, /Cormorant Garamond/);
+});

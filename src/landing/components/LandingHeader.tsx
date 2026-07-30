@@ -36,7 +36,7 @@ export function LandingHeader({ language, languagePulseKey, onLanguageChange, po
         <span className={`landing-brand-name ${language === 'mr' ? 'is-marathi' : ''}`} lang={language === 'mr' ? 'mr' : undefined}>{brandName}</span>
       </a>
       <nav aria-label="Primary navigation" className={menuOpen ? 'landing-nav is-open' : 'landing-nav'}>
-        {landingNavItems[language].map(([href, label], index) => <Fragment key={href}>{index > 0 ? <span aria-hidden="true" className="nav-separator">/</span> : null}<a href={href} onClick={() => setMenuOpen(false)}>{label}</a></Fragment>)}
+        {landingNavItems[language].map(([href, label], index) => <Fragment key={href}>{index > 0 ? <span aria-hidden="true" className="nav-separator">|</span> : null}<a href={href} onClick={() => setMenuOpen(false)}>{label}</a></Fragment>)}
         <a className="mobile-portal-link" href={portalUrl}>{portalLabel}</a>
       </nav>
       <div className="header-actions">
