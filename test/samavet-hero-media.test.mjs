@@ -87,12 +87,27 @@ test('footer wordmark is reduced by four pixels from the previous desktop scale'
   assert.doesNotMatch(styles, /\.footer-wordmark strong \{[^}]*font-size: clamp\(72px, 17\.5vw, 265px\);/);
 });
 
-test('English landing typography uses PT Serif and Quicksand instead of Cormorant', async () => {
+test('footer credits BracketDex on the right without showing the raw domain label', async () => {
+  const footer = await readFile(path.join(root, 'src', 'landing', 'components', 'LandingFooter.tsx'), 'utf8');
+  const leftColumn = footer.slice(footer.indexOf('footer-bottom-left'), footer.indexOf('footer-credit-link'));
+
+  assert.doesNotMatch(leftColumn, /by BracketDex Technologies/);
+  assert.match(footer, /className="footer-credit-link"/);
+  assert.match(footer, /href="https:\/\/bracketdex\.com"/);
+  assert.match(footer, /by <span>BracketDex<\/span> Technologies/);
+  assert.doesNotMatch(footer, />bracketdex\.com<\/a>/);
+});
+
+test('English landing typography uses Outfit and PT Sans while preserving Marathi font overrides', async () => {
   const styles = await readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8');
 
-  assert.match(styles, /@import url\('https:\/\/fonts\.googleapis\.com\/css2\?family=PT\+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Quicksand:wght@300\.\.700&display=swap'\);/);
-  assert.match(styles, /\.samavet:not\(\.samavet--mr\) \{ font-family: 'Quicksand', sans-serif; \}/);
-  assert.match(styles, /\.samavet:not\(\.samavet--mr\) h1, \.samavet:not\(\.samavet--mr\) h2 \{ font-family: 'PT Serif', serif;/);
-  assert.match(styles, /\.samavet:not\(\.samavet--mr\) \.landing-brand-name, \.samavet:not\(\.samavet--mr\) \.hero-kicker \{ font-family: 'PT Serif', serif;/);
-  assert.doesNotMatch(styles, /Cormorant Garamond/);
+  assert.match(styles, /@import url\('https:\/\/fonts\.googleapis\.com\/css2\?family=Outfit:wght@400;700&family=PT\+Sans:wght@400;700&display=swap'\);/);
+  assert.match(styles, /:root \{[\s\S]*--heading-font: 'Outfit', sans-serif;[\s\S]*--body-font: 'PT Sans', sans-serif;[\s\S]*\}/);
+  assert.match(styles, /--heading-font: 'Outfit', sans-serif;/);
+  assert.match(styles, /--body-font: 'PT Sans', sans-serif;/);
+  assert.match(styles, /\.samavet:not\(\.samavet--mr\) \{ font-family: var\(--body-font\); \}/);
+  assert.match(styles, /\.samavet:not\(\.samavet--mr\) h1, \.samavet:not\(\.samavet--mr\) h2 \{ font-family: var\(--heading-font\); font-weight: 700; \}/);
+  assert.match(styles, /\.samavet:not\(\.samavet--mr\) \.landing-brand-name, \.samavet:not\(\.samavet--mr\) \.hero-kicker \{ font-family: var\(--heading-font\); font-weight: 700; \}/);
+  assert.match(styles, /\.samavet--mr, \.samavet--mr h1, \.samavet--mr h2, \.samavet--mr h3 \{ font-family: 'Noto Sans Devanagari', sans-serif; \}/);
+  assert.doesNotMatch(styles, /Melodrama|Bonny|PT Serif|Quicksand|Cormorant Garamond|Moonscape Serif|DM Serif Display|IBM Plex Mono/);
 });

@@ -21,3 +21,16 @@ test('presents the four Samavet services in a bento grid', async () => {
   assert.match(styles, /\.services-bento/);
   assert.match(styles, /grid-template-columns: repeat\(12, minmax\(0, 1fr\)\)/);
 });
+
+test('keeps service bento cards free of numbering and decorative rupee artwork', async () => {
+  const [section, styles] = await Promise.all([
+    readFile(path.join(root, 'src', 'landing', 'components', 'ContentSections.tsx'), 'utf8'),
+    readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8'),
+  ]);
+  const servicesSection = section.slice(section.indexOf('export function ServicesSection'), section.indexOf('export function AudienceSection'));
+
+  assert.doesNotMatch(servicesSection, /\{`0\$\{index \+ 1\}`\}/);
+  assert.doesNotMatch(servicesSection, /service-bento-card__meta/);
+  assert.doesNotMatch(styles, /\.service-bento-card--1::before/);
+  assert.doesNotMatch(styles, /\.service-bento-card--1::after/);
+});

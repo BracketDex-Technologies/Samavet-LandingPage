@@ -1,5 +1,8 @@
-import { ArrowRight, BarChart3, Check, IndianRupee, Landmark, Leaf, MessageCircle, Mic2, Radio, ShieldCheck, Sparkles, TrendingUp, UsersRound } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { ArrowRight, BarChart3, Check, Landmark, Leaf, MessageCircle, ShieldCheck, Sparkles, UsersRound } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { TextEffect } from '../../../components/motion-primitives/text-effect';
 import { DemoRequestForm } from './DemoRequestForm';
@@ -38,13 +41,34 @@ export function EpawatiStory({ language, onEnter }: Pick<SectionProps, 'language
 
 export function IntelligenceSection({ language, onEnter }: Pick<SectionProps, 'language' | 'onEnter'>) {
   const copy = localizedCopy[language];
-  return <RevealSection className="intelligence-section section-shell" id="intelligence" onEnter={onEnter}><div className="intelligence-copy"><p className="section-kicker"><MarketingText>{copy.eventKicker}</MarketingText></p><h2><MarketingText>{copy.eventTitle}</MarketingText></h2><p><MarketingText>{copy.eventDescription}</MarketingText></p><div className="intelligence-tags"><span><UsersRound size={15} /><MarketingText>{language === 'mr' ? 'लाइव्ह हेडकाउंट' : 'Live headcount'}</MarketingText></span><span><BarChart3 size={15} /><MarketingText>{language === 'mr' ? 'स्पष्ट इनसाइट्स' : 'Clear insights'}</MarketingText></span></div></div><div className="intelligence-panel" aria-label={language === 'mr' ? 'इव्हेंट इंटेलिजन्सचे उदाहरण' : 'Illustrative event intelligence dashboard'} role="img"><div className="panel-top"><span><MarketingText>LIVE EVENT INTELLIGENCE</MarketingText></span><i><MarketingText>NOW</MarketingText></i></div><div className="panel-metrics"><div><b><MarketingText>1,284</MarketingText></b><small><MarketingText>{language === 'mr' ? 'हेडकाउंट' : 'HEADCOUNT'}</MarketingText></small></div><div><b><MarketingText>74%</MarketingText></b><small><MarketingText>{language === 'mr' ? 'सक्रिय क्षेत्रे' : 'ACTIVE ZONES'}</MarketingText></small></div></div><div className="panel-chart" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div><p><MarketingText>{language === 'mr' ? 'उदाहरणासाठी दाखवलेले आकडे' : 'Illustrative activity signals'}</MarketingText></p></div></RevealSection>;
+  const reduceMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const metrics = language === 'mr'
+    ? [['1,284', 'नोंदणी'], ['86%', 'चेक-इन'], ['24x7', 'प्रसारण']]
+    : [['1,284', 'Registrations'], ['86%', 'Checked in'], ['24x7', 'Streaming']];
+  const timeline = language === 'mr'
+    ? ['पहिली आरती', 'संध्याकाळची गर्दी', 'लाईव्ह दान']
+    : ['Morning aarti', 'Evening crowd', 'Live donations'];
+  const zones = language === 'mr'
+    ? [['प्रवेशद्वार', '92%'], ['मुख्य मंडप', '74%'], ['प्रसाद', '58%']]
+    : [['Entry gate', '92%'], ['Main mandap', '74%'], ['Prasad desk', '58%']];
+
+  useEffect(() => {
+    if (reduceMotion || !sectionRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const context = gsap.context(() => {
+      gsap.fromTo('.insight-card', { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power3.out', stagger: 0.08, scrollTrigger: { trigger: sectionRef.current, start: 'top 72%', once: true } });
+      gsap.fromTo('.insight-bar span', { scaleX: 0 }, { scaleX: 1, duration: 0.86, ease: 'power3.out', stagger: 0.06, transformOrigin: 'left center', scrollTrigger: { trigger: sectionRef.current, start: 'top 68%', once: true } });
+    }, sectionRef);
+    return () => context.revert();
+  }, [reduceMotion]);
+
+  return <RevealSection className="intelligence-section section-shell" id="intelligence" onEnter={onEnter}><div className="intelligence-copy"><p className="section-kicker"><MarketingText>{copy.eventKicker}</MarketingText></p><h2><MarketingText>{copy.eventTitle}</MarketingText></h2><p><MarketingText>{copy.eventDescription}</MarketingText></p><div className="intelligence-tags"><span><UsersRound size={15} />{language === 'mr' ? 'लाइव्ह हेडकाउंट' : 'Live headcount'}</span><span><BarChart3 size={15} />{language === 'mr' ? 'स्पष्ट इनसाइट्स' : 'Clear insights'}</span></div></div><div className="intelligence-dashboard" ref={sectionRef} aria-label={language === 'mr' ? 'इव्हेंट इंटेलिजन्सचे उदाहरण' : 'Illustrative event intelligence dashboard'}><div className="insight-header insight-card"><div><span>{language === 'mr' ? 'लाइव्ह नियंत्रण' : 'Live command view'}</span><strong>{language === 'mr' ? 'आजचा उत्सव' : 'Today festival'}</strong></div><i>LIVE</i></div><div className="insight-metrics">{metrics.map(([value, label]) => <div className="insight-card" key={label}><b>{value}</b><small>{label}</small></div>)}</div><div className="insight-timeline insight-card"><div><span>{language === 'mr' ? 'वेळेनुसार हालचाल' : 'Activity by moment'}</span><small>{language === 'mr' ? 'उदाहरणात्मक डेटा' : 'Illustrative data'}</small></div>{timeline.map((label, index) => <div className="insight-row" key={label}><p>{label}</p><div className="insight-bar"><span style={{ width: `${[48, 78, 64][index]}%` }} /></div></div>)}</div><div className="insight-zone-grid">{zones.map(([label, value]) => <div className="insight-card" key={label}><span>{label}</span><b>{value}</b></div>)}</div></div></RevealSection>;
 }
 
 export function ServicesSection({ language, onEnter }: Pick<SectionProps, 'language' | 'onEnter'>) {
   const copy = localizedCopy[language];
-  const icons = [IndianRupee, TrendingUp, Radio, Mic2];
-  return <RevealSection className="services-section section-shell" id="services" onEnter={onEnter}><div className="section-heading centered"><p className="section-kicker"><MarketingText>{copy.servicesKicker}</MarketingText></p><h2><MarketingText>{copy.servicesTitle}</MarketingText></h2></div><div className="services-bento">{supportingServices[language].map(([eyebrow, title, description], index) => { const Icon = icons[index]; return <article className={`service-bento-card service-bento-card--${index + 1}`} key={title}><div className="service-bento-card__meta"><span>{`0${index + 1}`}</span><i><Icon size={22} strokeWidth={1.8} /></i></div><div><p>{eyebrow}</p><h3>{title}</h3><small>{description}</small></div></article>; })}</div></RevealSection>;
+  return <RevealSection className="services-section section-shell" id="services" onEnter={onEnter}><div className="section-heading centered"><p className="section-kicker"><MarketingText>{copy.servicesKicker}</MarketingText></p><h2><MarketingText>{copy.servicesTitle}</MarketingText></h2></div><div className="services-bento">{supportingServices[language].map(([eyebrow, title, description], index) => <article className={`service-bento-card service-bento-card--${index + 1}`} key={title}><div className="service-bento-card__content"><p>{eyebrow}</p><h3>{title}</h3><small>{description}</small></div></article>)}</div></RevealSection>;
 }
 
 export function AudienceSection({ language, onEnter }: Pick<SectionProps, 'language' | 'onEnter'>) {
