@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from 'react';
 import type { LandingLanguage } from '../content';
 import { isLandingHeaderCondensed } from '../headerState.js';
 import { landingNavItems } from '../navItems.js';
-import samavetLogo from '../assets/samavet-logo.svg';
+import samavetLogo from '../assets/samavet-logo-transparent.png';
 
 interface LandingHeaderProps {
   language: LandingLanguage;

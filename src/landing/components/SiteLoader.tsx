@@ -1,9 +1,10 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+
+import samavetVideo from '../assets/samavet.mp4';
 
 const LOADER_KEY = 'samavet:landing-loader-complete';
-const WORDS = ['SAMAVET', 'समवेत', 'नमस्ते'] as const;
-const LOADER_DURATION_MS = 3450;
+const LOGO_HOLD_MS = 900;
 
 function hasCompletedLoader() {
   try {
@@ -24,8 +25,7 @@ function markLoaderComplete() {
 export function SiteLoader() {
   const reduceMotion = useReducedMotion() === true;
   const started = useRef(false);
-  const rawId = useId();
-  const filterId = `site-loader-goo-${rawId.replaceAll(':', '')}`;
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [visible, setVisible] = useState(true);
 
   useLayoutEffect(() => {
@@ -38,8 +38,6 @@ export function SiteLoader() {
     }
 
     markLoaderComplete();
-    const revealTimer = window.setTimeout(() => setVisible(false), LOADER_DURATION_MS);
-    return () => window.clearTimeout(revealTimer);
   }, []);
 
   useEffect(() => {
@@ -52,46 +50,51 @@ export function SiteLoader() {
     };
   }, [visible]);
 
+  useEffect(() => {
+    if (!visible || reduceMotion) return;
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.playbackRate = 2;
+    video.play().catch(() => {});
+  }, [visible, reduceMotion]);
+
+  useEffect(() => {
+    if (!reduceMotion || !visible) return;
+    const timer = window.setTimeout(() => setVisible(false), 500);
+    return () => window.clearTimeout(timer);
+  }, [reduceMotion, visible]);
+
+  function handleVideoEnded() {
+    const video = videoRef.current;
+    if (video) {
+      video.pause();
+    }
+    setTimeout(() => setVisible(false), LOGO_HOLD_MS);
+  }
+
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
           animate={{ opacity: 1 }}
           aria-label="Loading Samavet"
-          className={`site-loader${reduceMotion ? ' site-loader--reduced-motion' : ''}`}
+          className="site-loader"
           exit={{ opacity: 0 }}
           initial={{ opacity: 0 }}
           role="status"
-          transition={{ duration: reduceMotion ? 0.16 : 0.28, ease: 'easeOut' }}
+          transition={{ duration: reduceMotion ? 0.16 : 0.45, ease: 'easeOut' }}
         >
-          <svg aria-hidden="true" className="site-loader__filter" focusable="false">
-            <defs>
-              <filter id={filterId}>
-                <feColorMatrix
-                  in="SourceGraphic"
-                  result="goo"
-                  type="matrix"
-                  values="1 0 0 0 0
-                          0 1 0 0 0
-                          0 0 1 0 0
-                          0 0 0 25 -9"
-                />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-              </filter>
-            </defs>
-          </svg>
-
-          <span aria-live="polite" className="site-loader__morph" style={{ filter: `url(#${filterId})` }}>
-            {WORDS.map((word, index) => (
-              <span
-                className={`site-loader__word site-loader__word--${index}`}
-                key={word}
-                style={{ '--word-delay': `${(index * 0.95).toFixed(2)}s` } as CSSProperties}
-              >
-                {word}
-              </span>
-            ))}
-          </span>
+          <video
+            ref={videoRef}
+            className="site-loader__video"
+            muted
+            playsInline
+            preload="auto"
+            onEnded={handleVideoEnded}
+            src={samavetVideo}
+          />
         </motion.div>
       )}
     </AnimatePresence>

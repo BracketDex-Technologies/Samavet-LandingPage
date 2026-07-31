@@ -4,7 +4,6 @@ import { MotionConfig } from 'framer-motion';
 import { AudienceSection, ConversionSection, EpawatiStory, HeroSection, IntelligenceSection, ServicesSection, WorkflowSection } from './components/ContentSections';
 import { LandingFooter } from './components/LandingFooter';
 import { LandingHeader } from './components/LandingHeader';
-import { SiteLoader } from './components/SiteLoader';
 import { localizedCopy, type LandingLanguage } from './content';
 import { buildWhatsAppLink, PORTAL_URL, WHATSAPP_PHONE } from './links.js';
 import './samavet.css';
@@ -40,7 +39,6 @@ export default function SamavetLanding() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <SiteLoader />
       <main className={`samavet samavet--${language}`}>
       <LandingHeader language={language} languagePulseKey={languagePulseKey} onLanguageChange={setLanguage} portalLabel={copy.portal} portalUrl={PORTAL_URL} />
       <HeroSection chatHref={chatHref} demoHref={demoHref} language={language} onEnter={recordSectionEntry} />
