@@ -41,9 +41,10 @@ export function LandingHeader({ language, languagePulseKey, onLanguageChange, po
       </nav>
       <div className="header-actions">
         <div className={`language-switch ${languagePulseKey ? 'is-pulsing' : ''}`} key={languagePulseKey || 'rest'} role="group" aria-label="Language selection">
-          <button className={language === 'en' ? 'active' : ''} onClick={() => onLanguageChange('en')} type="button">EN</button>
-          <span>/</span>
-          <button className={language === 'mr' ? 'active' : ''} lang="mr" onClick={() => onLanguageChange('mr')} type="button">मराठी</button>
+          <input checked={language === 'en'} id="lang-en" name="lang" onChange={() => onLanguageChange('en')} type="radio" />
+          <label className="language-tab" htmlFor="lang-en">Eng</label>
+          <input checked={language === 'mr'} id="lang-mr" name="lang" onChange={() => onLanguageChange('mr')} type="radio" />
+          <label className="language-tab" htmlFor="lang-mr">मराठी</label>
         </div>
         <a className="portal-link" href={portalUrl}>{portalLabel}</a>
         <button aria-expanded={menuOpen} aria-label="Toggle navigation" className="menu-toggle" onClick={() => setMenuOpen((open) => !open)} type="button">
