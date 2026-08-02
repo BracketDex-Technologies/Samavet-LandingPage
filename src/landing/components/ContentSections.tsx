@@ -171,9 +171,6 @@ export function IntelligenceSection({ language, onEnter }: Pick<SectionProps, 'l
   const metrics = language === 'mr'
     ? [['1,284', 'नोंदणी'], ['86%', 'चेक-इन'], ['24x7', 'प्रसारण']]
     : [['1,284', 'Registrations'], ['86%', 'Checked in'], ['24x7', 'Streaming']];
-  const timeline = language === 'mr'
-    ? ['पहिली आरती', 'संध्याकाळची गर्दी', 'लाईव्ह दान']
-    : ['Morning aarti', 'Evening crowd', 'Live donations'];
   const zones = language === 'mr'
     ? [['प्रवेशद्वार', '92%'], ['मुख्य मंडप', '74%'], ['प्रसाद', '58%']]
     : [['Entry gate', '92%'], ['Main mandap', '74%'], ['Prasad desk', '58%']];
@@ -183,12 +180,11 @@ export function IntelligenceSection({ language, onEnter }: Pick<SectionProps, 'l
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
       gsap.fromTo('.insight-card', { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power3.out', stagger: 0.08, scrollTrigger: { trigger: sectionRef.current, start: 'top 72%', once: true } });
-      gsap.fromTo('.insight-bar span', { scaleX: 0 }, { scaleX: 1, duration: 0.86, ease: 'power3.out', stagger: 0.06, transformOrigin: 'left center', scrollTrigger: { trigger: sectionRef.current, start: 'top 68%', once: true } });
     }, sectionRef);
     return () => context.revert();
   }, [reduceMotion]);
 
-  return <RevealSection className="intelligence-section section-shell" id="intelligence" onEnter={onEnter}><div className="intelligence-copy"><p className="section-kicker"><MarketingText>{copy.eventKicker}</MarketingText></p><h2><MarketingText>{copy.eventTitle}</MarketingText></h2><p><MarketingText>{copy.eventDescription}</MarketingText></p><div className="intelligence-tags"><span><UsersRound size={15} />{language === 'mr' ? 'लाइव्ह हेडकाउंट' : 'Live headcount'}</span><span><BarChart3 size={15} />{language === 'mr' ? 'स्पष्ट इनसाइट्स' : 'Clear insights'}</span></div></div><div className="intelligence-dashboard" ref={sectionRef} aria-label={language === 'mr' ? 'इव्हेंट इंटेलिजन्सचे उदाहरण' : 'Illustrative event intelligence dashboard'}><div className="insight-header insight-card"><div><span>{language === 'mr' ? 'लाइव्ह नियंत्रण' : 'Live command view'}</span><strong>{language === 'mr' ? 'आजचा उत्सव' : 'Today festival'}</strong></div><i>LIVE</i></div><div className="insight-metrics">{metrics.map(([value, label]) => <div className="insight-card" key={label}><b>{value}</b><small>{label}</small></div>)}</div><div className="insight-timeline insight-card"><div><span>{language === 'mr' ? 'वेळेनुसार हालचाल' : 'Activity by moment'}</span><small>{language === 'mr' ? 'उदाहरणात्मक डेटा' : 'Illustrative data'}</small></div>{timeline.map((label, index) => <div className="insight-row" key={label}><p>{label}</p><div className="insight-bar"><span style={{ width: `${[48, 78, 64][index]}%` }} /></div></div>)}</div><div className="insight-zone-grid">{zones.map(([label, value]) => <div className="insight-card" key={label}><span>{label}</span><b>{value}</b></div>)}</div></div></RevealSection>;
+  return <RevealSection className="intelligence-section section-shell" id="intelligence" onEnter={onEnter}><div className="intelligence-copy"><p className="section-kicker"><MarketingText>{copy.eventKicker}</MarketingText></p><h2><MarketingText>{copy.eventTitle}</MarketingText></h2><p><MarketingText>{copy.eventDescription}</MarketingText></p><div className="intelligence-tags"><span><UsersRound size={15} />{language === 'mr' ? 'लाइव्ह हेडकाउंट' : 'Live headcount'}</span><span><BarChart3 size={15} />{language === 'mr' ? 'स्पष्ट इनसाइट्स' : 'Clear insights'}</span></div></div><div className="intelligence-dashboard" ref={sectionRef} aria-label={language === 'mr' ? 'इव्हेंट इंटेलिजन्सचे उदाहरण' : 'Illustrative event intelligence dashboard'}><div className="insight-header insight-card"><div><span>{language === 'mr' ? 'लाइव्ह नियंत्रण' : 'Live command view'}</span><strong>{language === 'mr' ? 'आजचा उत्सव' : 'Today festival'}</strong></div><i>LIVE</i></div><div className="insight-metrics">{metrics.map(([value, label]) => <div className="insight-card" key={label}><b>{value}</b><small>{label}</small></div>)}</div><div className="insight-zone-grid">{zones.map(([label, value]) => <div className="insight-card" key={label}><span>{label}</span><b>{value}</b></div>)}</div></div></RevealSection>;
 }
 
 export function ServicesSection({ language, onEnter }: Pick<SectionProps, 'language' | 'onEnter'>) {
