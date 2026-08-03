@@ -48,7 +48,7 @@ export default function SamavetLanding() {
       <AudienceSection language={language} onEnter={recordSectionEntry} />
       <WorkflowSection language={language} onEnter={recordSectionEntry} />
       <ConversionSection chatHref={chatHref} language={language} onEnter={recordSectionEntry} />
-        <LandingFooter chatHref={chatHref} />
+        <LandingFooter chatHref={chatHref} language={language} portalLabel={copy.portal} portalUrl={PORTAL_URL} />
       </main>
     </MotionConfig>
   );

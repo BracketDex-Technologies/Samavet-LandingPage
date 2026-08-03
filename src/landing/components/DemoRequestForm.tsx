@@ -46,6 +46,10 @@ export function DemoRequestForm({ language }: { language: LandingLanguage }) {
 
   return (
     <form className="demo-request-form" noValidate onSubmit={submit}>
+      <div className="demo-request-heading">
+        <span>{isMarathi ? 'डेमो विनंती' : 'Demo request'}</span>
+        <h3>{isMarathi ? 'तुमच्या संस्थेबद्दल आम्हाला सांगा' : 'Tell us about your organization'}</h3>
+      </div>
       <div className="demo-request-grid">
         <label>{labels.name}<input aria-describedby={errors.name ? 'name-error' : undefined} aria-invalid={Boolean(errors.name)} autoComplete="name" name="name" onChange={updateValue} required value={values.name} />{fieldError('name')}</label>
         <label>{labels.organization}<input aria-describedby={errors.organization ? 'organization-error' : undefined} aria-invalid={Boolean(errors.organization)} autoComplete="organization" name="organization" onChange={updateValue} required value={values.organization} />{fieldError('organization')}</label>
