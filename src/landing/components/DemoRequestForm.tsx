@@ -57,7 +57,7 @@ export function DemoRequestForm({ language }: { language: LandingLanguage }) {
       <label>{labels.email}<input aria-describedby={errors.email ? 'email-error' : undefined} aria-invalid={Boolean(errors.email)} autoComplete="email" name="email" onChange={updateValue} required type="email" value={values.email} />{fieldError('email')}</label>
       <label>{labels.request}<textarea aria-describedby={errors.request ? 'request-error' : undefined} aria-invalid={Boolean(errors.request)} name="request" onChange={updateValue} required rows={4} value={values.request} />{fieldError('request')}</label>
       <button className="button button-primary" type="submit">{labels.submit}</button>
-      <p aria-live="polite" className="demo-request-note">{submitted ? <>{isMarathi ? 'तुमच्या ईमेल अॅपमध्ये विनंती उघडली नाही?' : 'Did your email app not open?'} <a href={`mailto:${DEMO_REQUEST_EMAIL}`}>{DEMO_REQUEST_EMAIL}</a></> : isMarathi ? 'सबमिट केल्यानंतर तुमचे ईमेल अॅप उघडेल.' : 'Submitting opens a prepared request in your email app.'}</p>
+      <p aria-live="polite" className="demo-request-note">{submitted ? <>{isMarathi ? 'तुमच्या ईमेल अ‍ॅपमध्ये विनंती उघडली नाही?' : 'Did your email app not open?'} <a href={`mailto:${DEMO_REQUEST_EMAIL}`}>{DEMO_REQUEST_EMAIL}</a></> : isMarathi ? 'सबमिट केल्यानंतर तुमचे ईमेल अ‍ॅप उघडेल.' : 'Submitting opens a prepared request in your email app.'}</p>
     </form>
   );
 }
