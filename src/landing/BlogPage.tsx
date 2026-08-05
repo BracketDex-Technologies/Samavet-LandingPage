@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 import blogImage from './assets/samavet-ganesh-procession.webp';
 import samavetLogo from './assets/samavet-logo-transparent.png';
+import { applyPageSeo } from './seo';
 import './blog.css';
 
 const ARTICLE_URL = 'https://mahaenews.com/2026/07/29/samavets-digital-e-receipt-concept-for-ganesha-mandals-trusts-and-temples/';
@@ -10,12 +11,13 @@ const CHANNEL_URL = 'https://whatsapp.com/channel/0029Va5jlQT0AgWBH38B5t26';
 
 export default function BlogPage() {
   useEffect(() => {
-    document.documentElement.lang = 'mr';
-    document.title = 'समवेत ब्लॉग | बातम्या आणि समुदाय तंत्रज्ञान';
-    document.querySelector('meta[name="description"]')?.setAttribute(
-      'content',
-      'समवेतच्या डिजिटल ई-पावती, देणगी व्यवस्थापन आणि समुदाय तंत्रज्ञानाविषयीच्या बातम्या आणि लेख.',
-    );
+    applyPageSeo({
+      title: 'समवेत ब्लॉग | ई-पावती, डिजिटल वर्गणी आणि समुदाय तंत्रज्ञान',
+      description: 'गणेश मंडळे, मंदिरे आणि ट्रस्टसाठी डिजिटल ई-पावती, वर्गणी व्यवस्थापन आणि समुदाय तंत्रज्ञानाविषयी समवेतच्या बातम्या आणि लेख.',
+      path: '/blog',
+      lang: 'mr',
+      type: 'article',
+    });
   }, []);
 
   return (

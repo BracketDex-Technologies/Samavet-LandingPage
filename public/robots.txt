@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.samavet.in/sitemap.xml
+Host: www.samavet.in

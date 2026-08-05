@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from 'react';
+import { useEffect, useId, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent, type PointerEvent } from 'react';
 import { ArrowRight, BarChart3, Check, ChevronDown, CircleCheck, FileSpreadsheet, IndianRupee, QrCode, Receipt, ShieldCheck, Smartphone, UsersRound } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -347,6 +347,108 @@ export function FAQSection({ copy }: CopyProps) {
             );
           })}
         </div>
+      </div>
+    </RevealSection>
+  );
+}
+
+type ContactField = 'organization' | 'email' | 'address' | 'phone' | 'message';
+type ContactValues = Record<ContactField, string>;
+
+const emptyContactValues: ContactValues = {
+  organization: '',
+  email: '',
+  address: '',
+  phone: '',
+  message: '',
+};
+
+export function ContactSection({ copy }: CopyProps) {
+  const [values, setValues] = useState<ContactValues>(emptyContactValues);
+  const [errors, setErrors] = useState<Partial<Record<ContactField, string>>>({});
+  const [submitted, setSubmitted] = useState(false);
+  const formId = useId();
+
+  function updateField(field: ContactField, value: string) {
+    setValues((current) => ({ ...current, [field]: value }));
+    setErrors((current) => ({ ...current, [field]: undefined }));
+    setSubmitted(false);
+  }
+
+  function submitContact(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const nextErrors: Partial<Record<ContactField, string>> = {};
+    const phoneDigits = values.phone.replace(/\D/g, '');
+
+    if (!values.organization.trim()) nextErrors.organization = copy.contactErrors.organization;
+    if (!/^\S+@\S+\.\S+$/.test(values.email.trim())) nextErrors.email = copy.contactErrors.email;
+    if (!values.address.trim()) nextErrors.address = copy.contactErrors.address;
+    if (values.phone.trim() && (phoneDigits.length < 10 || phoneDigits.length > 15)) nextErrors.phone = copy.contactErrors.phone;
+    if (!values.message.trim()) nextErrors.message = copy.contactErrors.message;
+
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
+
+    const subject = `Samavet enquiry from ${values.organization.trim()}`;
+    const body = [
+      `Organisation: ${values.organization.trim()}`,
+      `Email: ${values.email.trim()}`,
+      `Address: ${values.address.trim()}`,
+      `Phone: ${values.phone.trim() || 'Not provided'}`,
+      '',
+      'Message:',
+      values.message.trim(),
+    ].join('\n');
+    setSubmitted(true);
+    window.location.href = `mailto:hello@samavet.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  function fieldError(field: ContactField) {
+    return errors[field] ? `${formId}-${field}-error` : undefined;
+  }
+
+  return (
+    <RevealSection className="contact-section" id="contact" revealSelector=".contact-reveal">
+      <div className="landing-container contact-layout">
+        <div className="section-heading contact-reveal">
+          <p className="section-eyebrow">{copy.contactEyebrow}</p>
+          <h2>{copy.contactTitle}</h2>
+          <p>{copy.contactDescription}</p>
+        </div>
+
+        <form className="contact-form contact-reveal" noValidate onSubmit={submitContact}>
+          <div className="contact-form__grid">
+            <label>
+              <span>{copy.contactFields.organization}</span>
+              <input aria-describedby={fieldError('organization')} aria-invalid={Boolean(errors.organization)} autoComplete="organization" name="organization" onChange={(event) => updateField('organization', event.target.value)} placeholder={copy.contactPlaceholders.organization} value={values.organization} />
+              {errors.organization ? <small className="contact-error" id={`${formId}-organization-error`}>{errors.organization}</small> : null}
+            </label>
+            <label>
+              <span>{copy.contactFields.email}</span>
+              <input aria-describedby={fieldError('email')} aria-invalid={Boolean(errors.email)} autoComplete="email" name="email" onChange={(event) => updateField('email', event.target.value)} placeholder={copy.contactPlaceholders.email} type="email" value={values.email} />
+              {errors.email ? <small className="contact-error" id={`${formId}-email-error`}>{errors.email}</small> : null}
+            </label>
+            <label>
+              <span>{copy.contactFields.address}</span>
+              <input aria-describedby={fieldError('address')} aria-invalid={Boolean(errors.address)} autoComplete="street-address" name="address" onChange={(event) => updateField('address', event.target.value)} placeholder={copy.contactPlaceholders.address} value={values.address} />
+              {errors.address ? <small className="contact-error" id={`${formId}-address-error`}>{errors.address}</small> : null}
+            </label>
+            <label>
+              <span>{copy.contactFields.phone}</span>
+              <input aria-describedby={fieldError('phone')} aria-invalid={Boolean(errors.phone)} autoComplete="tel" inputMode="tel" name="phone" onChange={(event) => updateField('phone', event.target.value)} placeholder={copy.contactPlaceholders.phone} type="tel" value={values.phone} />
+              {errors.phone ? <small className="contact-error" id={`${formId}-phone-error`}>{errors.phone}</small> : null}
+            </label>
+          </div>
+          <label className="contact-form__message">
+            <span>{copy.contactFields.message}</span>
+            <textarea aria-describedby={fieldError('message')} aria-invalid={Boolean(errors.message)} name="message" onChange={(event) => updateField('message', event.target.value)} placeholder={copy.contactPlaceholders.message} rows={5} value={values.message} />
+            {errors.message ? <small className="contact-error" id={`${formId}-message-error`}>{errors.message}</small> : null}
+          </label>
+          <div className="contact-form__actions">
+            <button className="contact-submit" type="submit">{copy.contactSubmit}<ArrowRight size={17} /></button>
+            <p aria-live="polite">{submitted ? copy.contactStatus : ''}</p>
+          </div>
+        </form>
       </div>
     </RevealSection>
   );
