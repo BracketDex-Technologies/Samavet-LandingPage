@@ -1,6 +1,7 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 
 import type { LandingCopy, LandingLanguage } from '../content';
+import { buildWhatsAppLink, WHATSAPP_PHONE } from '../links.js';
 import { landingNavItems } from '../navItems.js';
 
 interface LandingFooterProps {
@@ -10,6 +11,11 @@ interface LandingFooterProps {
 }
 
 export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps) {
+  const whatsappUrl = buildWhatsAppLink(
+    WHATSAPP_PHONE,
+    language === 'mr' ? 'नमस्कार समवेत, मला ई-पावतीबद्दल अधिक माहिती हवी आहे.' : 'Hello Samavet, I would like to know more about ePawati.',
+  );
+
   return (
     <footer className="landing-footer" id="contact">
       <div className="landing-container">
@@ -42,6 +48,10 @@ export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps)
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} {copy.copyright}</span>
           <span>Powered by <a href="https://bracketdex.com" rel="noreferrer" target="_blank">BracketDex Technologies</a></span>
+          <div className="footer-social" aria-label={language === 'mr' ? 'सोशल मीडिया' : 'Social media'}>
+            <a aria-label="Instagram" href="https://www.instagram.com/samavet.in/" rel="noreferrer" target="_blank"><svg aria-hidden="true" fill="none" height="17" viewBox="0 0 24 24" width="17"><rect height="18" rx="5" stroke="currentColor" strokeWidth="2" width="18" x="3" y="3" /><circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" /><circle cx="17.5" cy="6.5" fill="currentColor" r="1" /></svg></a>
+            <a aria-label="WhatsApp" href={whatsappUrl} rel="noreferrer" target="_blank"><MessageCircle size={17} /></a>
+          </div>
         </div>
       </div>
     </footer>

@@ -8,6 +8,8 @@ test('renders the ePawati hero as layered HTML and inline ceremonial SVG', async
   assert.match(source, /className="motif-flame"/);
   assert.match(source, /className="floating-card receipt-card"/);
   assert.match(source, /className="floating-card qr-card"/);
+  assert.doesNotMatch(source, /<circle/);
+  assert.doesNotMatch(source, /eyebrow-pill/);
   assert.doesNotMatch(source, /samavet-ganesh-hero/);
 });
 

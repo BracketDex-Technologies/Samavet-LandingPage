@@ -83,7 +83,6 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
       <div className="hero-glow hero-glow--forest" aria-hidden="true" />
       <div className="landing-container hero-layout">
         <div className="hero-copy">
-          <p className="eyebrow-pill hero-reveal"><CircleCheck size={14} />{copy.heroEyebrow}</p>
           <h1 className="hero-reveal">{copy.heroTitle[0]}<span>{copy.heroTitle[1]}</span></h1>
           <p className="hero-description hero-reveal">{copy.heroDescription}</p>
           <div className="hero-actions hero-reveal">
@@ -96,18 +95,11 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
           <div className="hero-orbit" data-depth="0.16" />
           <svg className="hero-motif" data-depth="0.32" viewBox="0 0 200 200" fill="none">
             <defs>
-              <radialGradient id="motifGlow" cx="0" cy="0" r="1" gradientTransform="translate(100 104) rotate(90) scale(77)">
-                <stop stopColor="var(--ep-brand)" stopOpacity=".32" />
-                <stop offset="1" stopColor="var(--ep-brand)" stopOpacity="0" />
-              </radialGradient>
               <linearGradient id="flameFill" x1="100" y1="55" x2="100" y2="101" gradientUnits="userSpaceOnUse">
                 <stop stopColor="var(--ep-gold)" />
                 <stop offset="1" stopColor="var(--ep-brand)" />
               </linearGradient>
-              <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="8" /></filter>
             </defs>
-            <circle cx="100" cy="100" r="78" fill="url(#motifGlow)" />
-            <circle className="motif-glow" cx="100" cy="87" r="29" fill="var(--ep-brand)" opacity=".18" filter="url(#softGlow)" />
             <g className="motif-rays" stroke="var(--ep-brand)" strokeLinecap="round">
               <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M100 19V34" />
               <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M66 29L74 42" />

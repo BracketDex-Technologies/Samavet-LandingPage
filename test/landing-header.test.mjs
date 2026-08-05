@@ -17,3 +17,11 @@ test('keeps theme, language, mobile menu, and Blog controls in the header', asyn
   assert.match(source, /aria-expanded/);
   assert.match(source, /href="\/blog"/);
 });
+
+test('keeps only Instagram and WhatsApp social actions in the footer', async () => {
+  const source = await readFile(new URL('../src/landing/components/LandingFooter.tsx', import.meta.url), 'utf8');
+  assert.match(source, /Instagram/);
+  assert.match(source, /MessageCircle/);
+  assert.doesNotMatch(source, /Facebook/);
+  assert.doesNotMatch(source, /Linkedin|LinkedIn/);
+});

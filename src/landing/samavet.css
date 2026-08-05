@@ -111,9 +111,7 @@
 .hero-glow--forest { background: color-mix(in oklab, var(--ep-forest) 20%, transparent); height: 30rem; right: -10rem; top: 6rem; width: 30rem; }
 .hero-layout { align-items: center; display: grid; gap: 56px; grid-template-columns: minmax(0, 1fr); padding-bottom: 96px; padding-top: 80px; position: relative; z-index: 1; }
 .hero-copy { max-width: 640px; min-width: 0; position: relative; z-index: 2; }
-.eyebrow-pill { align-items: center; background: var(--ep-surface-raised); border: 1px solid var(--ep-border); border-radius: 999px; color: var(--ep-forest); display: inline-flex; font-size: 12px; font-weight: 700; gap: 7px; padding: 7px 14px; }
-.epawati-page--mr .eyebrow-pill { line-height: 1.35; }
-.hero-copy h1 { font-size: clamp(48px, 7vw, 72px); font-weight: 600; line-height: 1.02; margin-top: 24px; max-width: 720px; }
+.hero-copy h1 { font-size: clamp(48px, 7vw, 72px); font-weight: 600; line-height: 1.02; max-width: 720px; }
 .hero-copy h1 span { color: var(--ep-brand); display: block; font-style: italic; }
 .epawati-page--mr .hero-copy h1 { font-size: clamp(40px, 6.2vw, 66px); font-style: normal; line-height: 1.14; }
 .epawati-page--mr .hero-copy h1 span { font-style: normal; }
@@ -239,8 +237,9 @@
 .footer-cta h2 { font-size: clamp(36px, 5vw, 48px); font-weight: 600; line-height: 1.08; }
 .footer-cta p { color: color-mix(in oklab, var(--ep-forest-foreground) 75%, transparent); font-size: 15px; line-height: 1.7; margin-top: 16px; max-width: 600px; }
 .epawati-page .footer-cta .button { margin-top: 28px; }
-.epawati-page .button--light { background: var(--ep-brand-foreground); color: var(--ep-forest-foreground); }
-.dark .epawati-page .button--light { color: var(--ep-forest-foreground); }
+.epawati-page .button--light { background: #fffaf0; color: #233d2e; }
+.dark .epawati-page .button--light { background: #f7f0e2; color: #183024; }
+.epawati-page .button--light:hover { background: #fff; color: #12251a; }
 .footer-main { border-top: 1px solid var(--ep-border); display: grid; gap: 36px; margin-top: 56px; padding-top: 42px; }
 .landing-brand--footer { width: fit-content; }
 .footer-about > p { color: var(--ep-muted); font-size: 13px; line-height: 1.65; margin-top: 18px; max-width: 320px; }
@@ -248,8 +247,11 @@
 .footer-nav a { color: var(--ep-muted); font-size: 12px; font-weight: 600; transition: color .15s ease; }.footer-nav a:hover { color: var(--ep-foreground); }
 .footer-contact { align-content: start; display: grid; gap: 8px; }
 .footer-contact a { font-size: 13px; font-weight: 700; }.footer-contact span { color: var(--ep-muted); font-size: 12px; }
-.footer-bottom { border-top: 1px solid var(--ep-border); color: var(--ep-muted); display: flex; flex-direction: column; font-size: 10px; gap: 10px; justify-content: space-between; margin-top: 38px; padding-top: 24px; }
+.footer-bottom { align-items: center; border-top: 1px solid var(--ep-border); color: var(--ep-muted); display: flex; flex-direction: column; font-size: 10px; gap: 14px; justify-content: space-between; margin-top: 38px; padding-top: 24px; }
 .footer-bottom a { color: var(--ep-foreground); font-weight: 600; }
+.footer-social { align-items: center; display: flex; gap: 8px; }
+.epawati-page .footer-social a { align-items: center; border: 1px solid var(--ep-border); border-radius: 50%; color: var(--ep-muted); display: inline-flex; height: 34px; justify-content: center; transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease; width: 34px; }
+.epawati-page .footer-social a:hover { background: var(--ep-brand); border-color: var(--ep-brand); color: var(--ep-brand-foreground); transform: translateY(-2px); }
 
 @keyframes live-pulse { 50% { opacity: .4; transform: scale(.75); } }
 
