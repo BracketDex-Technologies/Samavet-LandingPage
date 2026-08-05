@@ -1,15 +1,34 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='12' fill='%23f97316'/><path d='M12 12H28V14H17V18H25V22H17V26H28V28H12V12Z' fill='white'/></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Samavet | Digital receipts for every community offering</title>
-    <meta name="description" content="Samavet helps community organizations issue digital donation receipts and understand event activity." />
-    <meta name="theme-color" content="#23472b" />
+    <title>ePawati | Paperless donation collection for mandals &amp; trusts</title>
+    <meta name="author" content="Samavet" />
+    <meta name="description" content="ePawati by Samavet provides instant receipts, UPI collection, live dashboards and audit-ready reports for temples, trusts and Ganapati mandals." />
+    <meta name="theme-color" content="#f8f4e8" />
+    <link rel="canonical" href="https://samavet.in/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ePawati | Paperless donation collection for mandals &amp; trusts" />
+    <meta property="og:description" content="ePawati by Samavet provides instant receipts, UPI collection, live dashboards and audit-ready reports for temples, trusts and Ganapati mandals." />
+    <meta property="og:url" content="https://samavet.in/" />
+    <meta property="og:image" content="https://samavet.in/ganpati_mandal_hero.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ePawati | Paperless donation collection for mandals &amp; trusts" />
+    <meta name="twitter:description" content="Paperless donation collection for temples, trusts and Ganapati mandals." />
+    <meta name="twitter:image" content="https://samavet.in/ganpati_mandal_hero.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=IBM+Plex+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('epawati-theme');
+        const dark = savedTheme === 'dark' || (!savedTheme && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#17251e' : '#f8f4e8';
+      } catch {}
+    </script>
   </head>
   <body class="bg-[#FFFFFF] text-slate-900 antialiased selection:bg-[#f97316] selection:text-white">
     <div id="root"></div>

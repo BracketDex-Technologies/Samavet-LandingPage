@@ -1,23 +1,19 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-import { isLandingHeaderCondensed } from '../src/landing/headerState.js';
 import { landingNavItems } from '../src/landing/navItems.js';
 
-test('condenses the landing header only after the visitor scrolls past the navbar threshold', () => {
-  assert.equal(isLandingHeaderCondensed(0), false);
-  assert.equal(isLandingHeaderCondensed(23), false);
-  assert.equal(isLandingHeaderCondensed(24), true);
+test('uses the approved bilingual landing navigation', () => {
+  assert.deepEqual(landingNavItems.en, [['#features', 'Features'], ['#portal', 'Portal'], ['#how', 'How it works'], ['#faq', 'FAQ']]);
+  assert.deepEqual(landingNavItems.mr, [['#features', 'वैशिष्ट्ये'], ['#portal', 'पोर्टल'], ['#how', 'कसे चालते'], ['#faq', 'प्रश्नोत्तरे']]);
 });
 
-test('keeps the landing navbar focused to three primary section links', () => {
-  assert.deepEqual(landingNavItems.en, [['#epawati', 'ePawati'], ['#services', 'Services'], ['#contact', 'Contact']]);
-  assert.deepEqual(landingNavItems.mr, [['#epawati', 'ई-पावती'], ['#services', 'सेवा'], ['#contact', 'संपर्क']]);
-});
-
-test('uses straight navbar separators between primary links', async () => {
-  const source = await import('node:fs/promises').then(({ readFile }) => readFile(new URL('../src/landing/components/LandingHeader.tsx', import.meta.url), 'utf8'));
-
-  assert.match(source, /className="nav-separator">\|<\/span>/);
-  assert.doesNotMatch(source, /className="nav-separator">\/<\/span>/);
+test('keeps theme, language, mobile menu, and Blog controls in the header', async () => {
+  const source = await readFile(new URL('../src/landing/components/LandingHeader.tsx', import.meta.url), 'utf8');
+  assert.match(source, /epawati-theme/);
+  assert.match(source, /prefers-color-scheme: dark/);
+  assert.match(source, /aria-pressed/);
+  assert.match(source, /aria-expanded/);
+  assert.match(source, /href="\/blog"/);
 });

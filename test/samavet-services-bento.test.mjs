@@ -1,36 +1,22 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import path from 'node:path';
 import test from 'node:test';
-import { fileURLToPath } from 'node:url';
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-
-test('presents the four Samavet services in a bento grid', async () => {
-  const [content, section, styles] = await Promise.all([
-    readFile(path.join(root, 'src', 'landing', 'content.ts'), 'utf8'),
-    readFile(path.join(root, 'src', 'landing', 'components', 'ContentSections.tsx'), 'utf8'),
-    readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8'),
-  ]);
-
-  assert.match(content, /Digital Vargani Slips/);
-  assert.match(content, /Event Intelligence/);
-  assert.match(content, /24×7 Live Streaming/);
-  assert.match(content, /Podcast & Media/);
-  assert.match(section, /services-bento/);
-  assert.match(styles, /\.services-bento/);
-  assert.match(styles, /grid-template-columns: repeat\(12, minmax\(0, 1fr\)\)/);
+test('presents all six approved ePawati features', async () => {
+  const content = await readFile(new URL('../src/landing/content.ts', import.meta.url), 'utf8');
+  for (const title of ['Instant digital receipts', 'UPI & online collection', 'Donor records that last', 'Roles for every volunteer', 'Live collection dashboard', 'Audit-ready exports']) {
+    assert.match(content, new RegExp(title.replace(/[&]/g, '\\&')));
+  }
 });
 
-test('keeps service bento cards free of numbering and decorative rupee artwork', async () => {
-  const [section, styles] = await Promise.all([
-    readFile(path.join(root, 'src', 'landing', 'components', 'ContentSections.tsx'), 'utf8'),
-    readFile(path.join(root, 'src', 'landing', 'samavet.css'), 'utf8'),
+test('uses a responsive six-card grid with pointer spotlight styling', async () => {
+  const [source, styles] = await Promise.all([
+    readFile(new URL('../src/landing/components/ContentSections.tsx', import.meta.url), 'utf8'),
+    readFile(new URL('../src/landing/samavet.css', import.meta.url), 'utf8'),
   ]);
-  const servicesSection = section.slice(section.indexOf('export function ServicesSection'), section.indexOf('export function AudienceSection'));
-
-  assert.doesNotMatch(servicesSection, /\{`0\$\{index \+ 1\}`\}/);
-  assert.doesNotMatch(servicesSection, /service-bento-card__meta/);
-  assert.doesNotMatch(styles, /\.service-bento-card--1::before/);
-  assert.doesNotMatch(styles, /\.service-bento-card--1::after/);
+  assert.match(source, /feature-card__glow/);
+  assert.match(source, /--mx/);
+  assert.match(styles, /\.features-grid/);
+  assert.match(styles, /radial-gradient\(320px circle/);
+  assert.match(styles, /grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
 });

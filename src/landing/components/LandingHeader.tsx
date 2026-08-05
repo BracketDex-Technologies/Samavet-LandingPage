@@ -1,77 +1,79 @@
-import { Menu, X } from 'lucide-react';
-import { Fragment, useEffect, useState } from 'react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 import type { LandingLanguage } from '../content';
-import { isLandingHeaderCondensed } from '../headerState.js';
 import { landingNavItems } from '../navItems.js';
-import samavetLogo from '../assets/samavet-logo-transparent.png';
 
 interface LandingHeaderProps {
   language: LandingLanguage;
-  languagePulseKey: number;
   onLanguageChange: (language: LandingLanguage) => void;
-  portalLabel: string;
   portalUrl: string;
 }
 
-export function LandingHeader({ language, languagePulseKey, onLanguageChange, portalLabel, portalUrl }: LandingHeaderProps) {
+function getInitialTheme() {
+  if (typeof window === 'undefined') return 'light';
+  const stored = window.localStorage.getItem('epawati-theme');
+  if (stored === 'dark' || stored === 'light') return stored;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+export function LandingHeader({ language, onLanguageChange, portalUrl }: LandingHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isCondensed, setIsCondensed] = useState(false);
-  const brandName = language === 'mr' ? 'समवेत' : 'SAMAVET';
-  const blogLabel = language === 'mr' ? 'ब्लॉग' : 'Blog';
+  const [theme, setTheme] = useState(getInitialTheme);
+  const isMarathi = language === 'mr';
+  const menuLabel = isMarathi ? 'मेनू उघडा किंवा बंद करा' : 'Toggle menu';
+  const themeLabel = isMarathi ? 'रंगसंगती बदला' : 'Toggle color theme';
+  const portalLabel = isMarathi ? 'संकलन सुरू करा' : 'Start collecting';
 
   useEffect(() => {
-    function updateHeaderState() {
-      setIsCondensed(isLandingHeaderCondensed(window.scrollY));
-    }
-
-    updateHeaderState();
-    window.addEventListener('scroll', updateHeaderState, { passive: true });
-    return () => window.removeEventListener('scroll', updateHeaderState);
-  }, []);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    window.localStorage.setItem('epawati-theme', theme);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#17251e' : '#f8f4e8');
+  }, [theme]);
 
   useEffect(() => {
     if (!menuOpen) return;
-
-    function closeMenu(event: KeyboardEvent) {
+    const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setMenuOpen(false);
-    }
-
-    function closeMenuOnDesktop() {
-      if (window.innerWidth > 940) setMenuOpen(false);
-    }
-
-    window.addEventListener('keydown', closeMenu);
-    window.addEventListener('resize', closeMenuOnDesktop);
+    };
+    const closeOnDesktop = () => {
+      if (window.innerWidth >= 768) setMenuOpen(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    window.addEventListener('resize', closeOnDesktop);
     return () => {
-      window.removeEventListener('keydown', closeMenu);
-      window.removeEventListener('resize', closeMenuOnDesktop);
+      window.removeEventListener('keydown', closeOnEscape);
+      window.removeEventListener('resize', closeOnDesktop);
     };
   }, [menuOpen]);
 
   return (
-    <header className={isCondensed ? 'landing-header is-condensed' : 'landing-header'}>
-      <a className="landing-brand" href="#top" onClick={() => setMenuOpen(false)}>
-        <img alt="Samavet tree of community logo" src={samavetLogo} />
-        <span className={`landing-brand-name ${language === 'mr' ? 'is-marathi' : ''}`} lang={language === 'mr' ? 'mr' : undefined}>{brandName}</span>
-      </a>
-      <nav aria-label="Primary navigation" className={menuOpen ? 'landing-nav is-open' : 'landing-nav'} id="landing-navigation">
-        {landingNavItems[language].map(([href, label], index) => <Fragment key={href}>{index > 0 ? <span aria-hidden="true" className="nav-separator">|</span> : null}<a href={href} onClick={() => setMenuOpen(false)}>{label}</a></Fragment>)}
-        <span aria-hidden="true" className="nav-separator">|</span>
-        <a href="/blog" onClick={() => setMenuOpen(false)}>{blogLabel}</a>
-        <a className="mobile-portal-link" href={portalUrl} onClick={() => setMenuOpen(false)}>{portalLabel}</a>
-      </nav>
-      <div className="header-actions">
-        <div className={`language-switch ${languagePulseKey ? 'is-pulsing' : ''}`} key={languagePulseKey || 'rest'} role="group" aria-label="Language selection">
-          <input checked={language === 'en'} id="lang-en" name="lang" onChange={() => { onLanguageChange('en'); setMenuOpen(false); }} type="radio" />
-          <label className="language-tab" htmlFor="lang-en">Eng</label>
-          <input checked={language === 'mr'} id="lang-mr" name="lang" onChange={() => { onLanguageChange('mr'); setMenuOpen(false); }} type="radio" />
-          <label className="language-tab" htmlFor="lang-mr">मराठी</label>
+    <header className="landing-header">
+      <div className="landing-header__inner">
+        <a className="landing-brand" href="#top" onClick={() => setMenuOpen(false)} aria-label="ePawati home">
+          <span className="landing-brand__mark" aria-hidden="true"><i /><i /><i /></span>
+          <span className="landing-brand__copy"><strong>ePawati</strong><small>{isMarathi ? 'समवेतचे उत्पादन' : 'by Samavet'}</small></span>
+        </a>
+
+        <nav aria-label={isMarathi ? 'मुख्य नेव्हिगेशन' : 'Primary navigation'} className={`landing-nav${menuOpen ? ' is-open' : ''}`} id="landing-navigation">
+          {landingNavItems[language].map(([href, label]) => <a href={href} key={href} onClick={() => setMenuOpen(false)}>{label}</a>)}
+          <a href="/blog" onClick={() => setMenuOpen(false)}>{isMarathi ? 'ब्लॉग' : 'Blog'}</a>
+          <a className="landing-nav__mobile-cta" href={portalUrl}>{portalLabel}</a>
+        </nav>
+
+        <div className="landing-header__actions">
+          <div className="language-switch" role="group" aria-label={isMarathi ? 'भाषा निवड' : 'Language selection'}>
+            <button aria-pressed={language === 'en'} className={language === 'en' ? 'is-active' : ''} onClick={() => onLanguageChange('en')} type="button">EN</button>
+            <button aria-pressed={language === 'mr'} className={language === 'mr' ? 'is-active' : ''} onClick={() => onLanguageChange('mr')} type="button">मराठी</button>
+          </div>
+          <button aria-label={themeLabel} className="theme-toggle" onClick={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')} type="button">
+            {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+          </button>
+          <a className="landing-header__cta" href={portalUrl}>{portalLabel}</a>
+          <button aria-controls="landing-navigation" aria-expanded={menuOpen} aria-label={menuLabel} className="menu-toggle" onClick={() => setMenuOpen((open) => !open)} type="button">
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-        <a className="portal-link" href={portalUrl}><span>{portalLabel}</span></a>
-        <button aria-controls="landing-navigation" aria-expanded={menuOpen} aria-label="Toggle navigation" className="menu-toggle" onClick={() => setMenuOpen((open) => !open)} type="button">
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
       </div>
     </header>
   );

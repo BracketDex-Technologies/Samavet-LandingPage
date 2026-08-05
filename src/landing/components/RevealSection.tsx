@@ -1,44 +1,39 @@
-import { motion, useReducedMotion } from 'framer-motion';
-import { useEffect, useEffectEvent, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface RevealSectionProps {
   children: ReactNode;
   className?: string;
   id?: string;
-  onEnter?: () => void;
+  revealSelector?: string;
 }
 
-export function RevealSection({ children, className = '', id, onEnter }: RevealSectionProps) {
-  const [visible, setVisible] = useState(false);
-  const reduceMotion = useReducedMotion();
+export function RevealSection({ children, className = '', id, revealSelector = '.reveal-item' }: RevealSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const reportEnter = useEffectEvent(() => onEnter?.());
 
   useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return;
+    const section = sectionRef.current;
+    if (!section) return;
+    const items = section.querySelectorAll(revealSelector);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(items, { clearProps: 'all' });
+      return;
+    }
+    const context = gsap.context(() => {
+      gsap.fromTo(items, { autoAlpha: 0, y: 28 }, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.09,
+        scrollTrigger: { trigger: section, start: 'top 82%', once: true },
+      });
+    }, section);
+    return () => context.revert();
+  }, [revealSelector]);
 
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      setVisible(true);
-      reportEnter();
-      observer.disconnect();
-    }, { threshold: 0.16 });
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <motion.section
-      animate={reduceMotion || visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 26 }}
-      className={`reveal-section ${visible ? 'is-visible' : ''} ${className}`}
-      id={id}
-      initial={reduceMotion ? false : { opacity: 0, y: 26 }}
-      ref={sectionRef}
-      transition={reduceMotion ? { duration: 0 } : { duration: 0.72, ease: [0.2, 0.75, 0.28, 1] }}
-    >
-      {children}
-    </motion.section>
-  );
+  return <section className={className} id={id} ref={sectionRef}>{children}</section>;
 }
