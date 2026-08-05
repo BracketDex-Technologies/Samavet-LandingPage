@@ -2,13 +2,13 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-test('renders the ePawati hero as layered HTML and inline ceremonial SVG', async () => {
+test('renders the ePawati hero as layered HTML without background SVG artwork', async () => {
   const source = await readFile(new URL('../src/landing/components/ContentSections.tsx', import.meta.url), 'utf8');
-  assert.match(source, /viewBox="0 0 200 200"/);
-  assert.match(source, /className="motif-flame"/);
   assert.match(source, /className="floating-card receipt-card"/);
   assert.match(source, /className="floating-card qr-card"/);
-  assert.doesNotMatch(source, /<circle/);
+  assert.doesNotMatch(source, /mobile_vargani_app_ui/);
+  assert.doesNotMatch(source, /<svg className="hero-motif"/);
+  assert.doesNotMatch(source, /hero-orbit/);
   assert.doesNotMatch(source, /eyebrow-pill/);
   assert.doesNotMatch(source, /samavet-ganesh-hero/);
 });
@@ -30,4 +30,5 @@ test('uses the reference display and body typography with Marathi overrides', as
   assert.match(styles, /--ep-font-display: 'Fraunces'/);
   assert.match(styles, /--ep-font-sans: 'Plus Jakarta Sans'/);
   assert.match(styles, /Noto Sans Devanagari/);
+  assert.match(styles, /\.button--secondary[^}]*background: transparent[^}]*text-decoration: underline/);
 });

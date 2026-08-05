@@ -8,7 +8,6 @@ test('implements the reference GSAP pointer and scroll interactions', async () =
   assert.match(source, /ScrollTrigger/);
   assert.match(source, /scrub: 0\.6/);
   assert.match(source, /rotateX: 14/);
-  assert.match(source, /strokeDashoffset/);
   assert.match(source, /transformPerspective: 900/);
 });
 

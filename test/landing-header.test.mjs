@@ -5,23 +5,34 @@ import test from 'node:test';
 import { landingNavItems } from '../src/landing/navItems.js';
 
 test('uses the approved bilingual landing navigation', () => {
-  assert.deepEqual(landingNavItems.en, [['#features', 'Features'], ['#portal', 'Portal'], ['#how', 'How it works'], ['#faq', 'FAQ']]);
-  assert.deepEqual(landingNavItems.mr, [['#features', 'वैशिष्ट्ये'], ['#portal', 'पोर्टल'], ['#how', 'कसे चालते'], ['#faq', 'प्रश्नोत्तरे']]);
+  assert.deepEqual(landingNavItems.en, [['#features', 'Platform'], ['#portal', 'ePawati'], ['#how', 'Services'], ['#contact', 'Contact']]);
+  assert.deepEqual(landingNavItems.mr, [['#features', 'व्यासपीठ'], ['#portal', 'ई-पावती'], ['#how', 'सेवा'], ['#contact', 'संपर्क']]);
 });
 
-test('keeps theme, language, mobile menu, and Blog controls in the header', async () => {
+test('keeps language, responsive menu, and portal controls in the header', async () => {
   const source = await readFile(new URL('../src/landing/components/LandingHeader.tsx', import.meta.url), 'utf8');
   assert.match(source, /epawati-theme/);
   assert.match(source, /prefers-color-scheme: dark/);
   assert.match(source, /aria-pressed/);
   assert.match(source, /aria-expanded/);
-  assert.match(source, /href="\/blog"/);
+  assert.match(source, /samavet-logo-transparent\.png/);
+  assert.match(source, /isMarathi \? 'समवेत' : 'SAMAVET'/);
+  assert.match(source, /Portal login/);
+  assert.match(source, /landing-nav__item/);
+  assert.match(source, /aria-hidden="true">\|<\/i>/);
+  assert.doesNotMatch(source, /aria-hidden="true">\/<\/i>/);
+  assert.match(source, /floating-theme-toggle/);
+  assert.match(source, /window\.scrollY > 20/);
+  assert.match(source, /is-scrolled/);
+  assert.doesNotMatch(source, /<strong>ePawati<\/strong><small>/);
 });
 
 test('keeps only Instagram and WhatsApp social actions in the footer', async () => {
   const source = await readFile(new URL('../src/landing/components/LandingFooter.tsx', import.meta.url), 'utf8');
   assert.match(source, /Instagram/);
   assert.match(source, /MessageCircle/);
+  assert.match(source, /samavet-logo-transparent\.png/);
+  assert.doesNotMatch(source, /<strong>\{isMarathi \? 'समवेत' : 'SAMAVET'\}<\/strong>/);
   assert.doesNotMatch(source, /Facebook/);
   assert.doesNotMatch(source, /Linkedin|LinkedIn/);
 });

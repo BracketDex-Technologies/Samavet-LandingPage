@@ -72,38 +72,57 @@
 }
 
 .landing-header {
-  backdrop-filter: blur(24px);
-  background: color-mix(in oklab, var(--ep-background) 82%, transparent);
-  border-bottom: 1px solid color-mix(in oklab, var(--ep-border) 65%, transparent);
-  position: sticky;
+  backdrop-filter: none;
+  background: transparent;
+  border: 0;
+  left: 0;
+  padding: 5px clamp(12px, 1.7vw, 24px) 0;
+  position: fixed;
+  right: 0;
   top: 0;
   z-index: 50;
 }
-.landing-header__inner { align-items: center; display: flex; height: 64px; margin-inline: auto; max-width: 1152px; padding-inline: 20px; position: relative; }
-.epawati-page .landing-brand { align-items: center; display: inline-flex; flex: 0 0 auto; gap: 10px; }
+.landing-header__inner { align-items: center; backdrop-filter: none; background: transparent; border: 1px solid transparent; border-radius: 999px; box-shadow: none; display: flex; height: 64px; margin-inline: auto; max-width: 1824px; padding: 6px 14px 6px 22px; position: relative; transition: backdrop-filter .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.landing-header.is-scrolled .landing-header__inner { backdrop-filter: blur(22px) saturate(130%); background: rgb(255 250 241 / .9); border-color: #ead7c4; box-shadow: 0 12px 30px rgb(91 52 30 / .12); }
+.dark .landing-header.is-scrolled .landing-header__inner { background: rgb(16 34 25 / .88); border-color: #385141; box-shadow: 0 12px 30px #0005; }
+.epawati-page .landing-brand { align-items: center; color: #8f432b; display: inline-flex; flex: 0 0 auto; gap: 13px; }
+.landing-brand__logo { display: block; height: 44px; object-fit: contain; width: 44px; }
 .landing-brand__mark { display: block; height: 35px; position: relative; width: 35px; }
 .landing-brand__mark::before { background: var(--ep-brand); border-radius: 12px 12px 12px 4px; content: ''; inset: 4px; position: absolute; transform: rotate(-8deg); }
 .landing-brand__mark i { background: var(--ep-brand-foreground); border-radius: 50%; height: 4px; left: 15px; position: absolute; top: 11px; width: 4px; z-index: 1; }
 .landing-brand__mark i:nth-child(2) { left: 11px; top: 17px; }
 .landing-brand__mark i:nth-child(3) { left: 18px; top: 19px; }
-.landing-brand__copy { display: grid; gap: 2px; }
-.landing-brand__copy strong { font: 650 20px/1 var(--ep-font-display); letter-spacing: -.04em; }
+.landing-brand__copy { align-items: center; align-self: stretch; display: flex; }
+.landing-brand__copy strong { align-items: center; display: flex; font: 650 20px/1 var(--ep-font-display); letter-spacing: -.04em; }
 .landing-brand__copy strong::first-letter { color: var(--ep-brand); }
+.landing-header .landing-brand__copy strong { color: #8f432b; font-size: 18px; letter-spacing: .12em; }
+.epawati-page--mr .landing-header .landing-brand__copy strong { font-size: 20px; letter-spacing: 0; line-height: 1.4; }
+.landing-header .landing-brand__copy strong::first-letter { color: #8f432b; }
 .landing-brand__copy small { color: var(--ep-muted); font-size: 8px; font-weight: 600; letter-spacing: .08em; line-height: 1; text-transform: uppercase; }
-.landing-nav { align-items: center; display: none; gap: 28px; margin-left: auto; }
-.landing-nav > a { color: var(--ep-muted); font-size: 13px; font-weight: 600; position: relative; transition: color .15s ease; white-space: nowrap; }
-.landing-nav > a::after { background: var(--ep-brand); bottom: -8px; content: ''; height: 2px; left: 0; position: absolute; transform: scaleX(0); transform-origin: right; transition: transform .2s ease; width: 100%; }
-.landing-nav > a:hover, .landing-nav > a:focus-visible { color: var(--ep-foreground); }
-.landing-nav > a:hover::after, .landing-nav > a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+.landing-nav { align-items: center; display: none; gap: clamp(14px, 1.6vw, 26px); }
+.landing-nav__item { align-items: center; display: inline-flex; gap: clamp(14px, 1.6vw, 26px); }
+.landing-nav__item i { color: #dfc8b6; font: 500 13px/1 var(--ep-font-sans); }
+.landing-nav__item a { color: #695c55; font-size: 13px; font-weight: 650; position: relative; transition: color .15s ease; white-space: nowrap; }
+.landing-nav__item a::after { background: #98482e; bottom: -8px; content: ''; height: 2px; left: 0; position: absolute; transform: scaleX(0); transform-origin: right; transition: transform .2s ease; width: 100%; }
+.landing-nav__item a:hover, .landing-nav__item a:focus-visible { color: #98482e; }
+.landing-nav__item a:hover::after, .landing-nav__item a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+.dark .landing-nav__item a { color: #eee3d8; text-shadow: 0 1px 8px #0008; }
+.dark .landing-nav__item a:hover, .dark .landing-nav__item a:focus-visible { color: #e88a62; }
+.dark .landing-nav__item i { color: #806e62; }
 .landing-nav .landing-nav__mobile-cta { display: none; }
-.landing-header__actions { align-items: center; display: flex; gap: 8px; margin-left: auto; }
-.language-switch { background: var(--ep-muted-surface); border: 1px solid var(--ep-border); border-radius: 12px; display: flex; padding: 3px; }
-.epawati-page .language-switch button { background: transparent; border: 0; border-radius: 8px; color: var(--ep-muted); cursor: pointer; font-size: 9px; font-weight: 700; min-height: 27px; padding-inline: 8px; transition: background .15s ease, color .15s ease, box-shadow .15s ease; }
-.epawati-page .language-switch button.is-active { background: var(--ep-card); box-shadow: 0 1px 2px #0000000d; color: var(--ep-foreground); }
-.epawati-page .theme-toggle, .epawati-page .menu-toggle { align-items: center; background: transparent; border: 1px solid var(--ep-border); border-radius: 12px; cursor: pointer; display: inline-flex; height: 36px; justify-content: center; width: 36px; }
-.theme-toggle:hover, .menu-toggle:hover { background: var(--ep-muted-surface); }
-.epawati-page .landing-header__cta { background: var(--ep-brand); border: 1px solid var(--ep-brand); border-radius: 12px; color: var(--ep-brand-foreground); display: none; font-size: 12px; font-weight: 700; min-height: 38px; padding-inline: 15px; transition: transform .15s ease, box-shadow .15s ease; }
-.landing-header__cta:hover { box-shadow: 0 8px 20px color-mix(in oklab, var(--ep-brand) 22%, transparent); transform: translateY(-1px); }
+.landing-header__actions { align-items: center; display: flex; gap: 11px; margin-left: auto; }
+.language-switch { align-items: center; background: #fffaf3; border: 1px solid #ead9ca; border-radius: 999px; color: #cdb8a7; display: flex; min-height: 38px; padding: 2px 8px; }
+.epawati-page .language-switch button { background: transparent; border: 0; border-radius: 0; color: #9b918b; cursor: pointer; font-size: 11px; font-weight: 600; min-height: 30px; padding-inline: 4px; transition: color .15s ease; }
+.epawati-page .language-switch button.is-active { background: transparent; box-shadow: none; color: #95462c; font-weight: 800; }
+.language-switch > span { font-size: 12px; }
+.epawati-page .menu-toggle { align-items: center; background: transparent; border: 1px solid #ead9ca; border-radius: 50%; color: #8f432b; cursor: pointer; display: inline-flex; height: 38px; justify-content: center; width: 38px; }
+.menu-toggle:hover { background: #f8eadb; }
+.epawati-page .floating-theme-toggle { align-items: center; background: #fffaf1; border: 1px solid #dec6b2; border-radius: 50%; bottom: 22px; box-shadow: 0 12px 30px rgb(55 32 20 / .24); color: #8f432b; cursor: pointer; display: inline-flex; height: 52px; justify-content: center; position: fixed; right: 22px; transition: background .2s ease, color .2s ease, transform .2s ease; width: 52px; z-index: 80; }
+.epawati-page .floating-theme-toggle:hover { background: #95462c; color: #fffaf1; transform: translateY(-3px); }
+.dark .epawati-page .floating-theme-toggle { background: #21382b; border-color: #496653; color: #f8e9ce; }
+.dark .epawati-page .floating-theme-toggle:hover { background: #f8e9ce; color: #21382b; }
+.epawati-page .landing-header__cta { background: #95462c; border: 1px solid #95462c; border-radius: 999px; color: #fffaf1; display: none; font-size: 14px; font-weight: 750; min-height: 44px; padding-inline: 18px; transition: transform .15s ease, box-shadow .15s ease; }
+.landing-header__cta:hover { box-shadow: 0 10px 24px rgb(149 70 44 / .24); transform: translateY(-1px); }
 
 .hero-section { background: var(--ep-background); overflow: hidden; position: relative; }
 .hero-glow { border-radius: 50%; filter: blur(64px); pointer-events: none; position: absolute; }
@@ -117,19 +136,15 @@
 .epawati-page--mr .hero-copy h1 span { font-style: normal; }
 .hero-description { color: var(--ep-muted); font-size: 17px; line-height: 1.7; margin-top: 24px; max-width: 550px; }
 .epawati-page .hero-actions { align-self: auto; display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-start; margin-top: 32px; }
-.epawati-page .button { align-items: center; border: 1px solid transparent; border-radius: 12px; display: inline-flex; font-size: 14px; font-weight: 700; gap: 9px; justify-content: center; min-height: 48px; padding-inline: 24px; transition: background .15s ease, box-shadow .15s ease, color .15s ease, transform .15s ease; }
+.epawati-page .button { align-items: center; border: 1px solid transparent; border-radius: 12px; display: inline-flex; font-size: 14px; font-weight: 700; gap: 9px; justify-content: center; min-height: 48px; padding-inline: 18px; transition: background .15s ease, box-shadow .15s ease, color .15s ease, transform .15s ease; }
 .epawati-page .button:hover { transform: translateY(-2px); }
 .epawati-page .button--primary { background: var(--ep-brand); border-color: var(--ep-brand); box-shadow: 0 8px 20px color-mix(in oklab, var(--ep-brand) 18%, transparent); color: var(--ep-brand-foreground); }
-.epawati-page .button--secondary { background: var(--ep-card); border-color: var(--ep-border); color: var(--ep-foreground); }
+.epawati-page .button--secondary { background: transparent; border-color: transparent; color: var(--ep-foreground); padding-inline: 4px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.epawati-page .button--secondary:hover { background: transparent; color: var(--ep-brand); }
 .button svg { transition: transform .15s ease; }
 .button:hover svg { transform: translateX(4px); }
 
 .hero-artwork { height: 416px; margin-inline: auto; max-width: 448px; perspective: 1200px; position: relative; transform-style: preserve-3d; width: 100%; }
-.hero-orbit { border: 1px dashed color-mix(in oklab, var(--ep-brand) 28%, transparent); border-radius: 50%; height: 330px; left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); width: 330px; }
-.hero-orbit::before, .hero-orbit::after { background: var(--ep-brand); border: 5px solid var(--ep-background); border-radius: 50%; content: ''; height: 16px; position: absolute; width: 16px; }
-.hero-orbit::before { left: 24px; top: 66px; }.hero-orbit::after { bottom: 42px; right: 40px; }
-.hero-motif { height: min(92vw, 416px); left: 50%; overflow: visible; position: absolute; top: 50%; transform: translate(-50%, -50%); transform-style: preserve-3d; width: min(92vw, 416px); }
-.motif-line { stroke-linecap: round; stroke-linejoin: round; }
 .floating-card { align-items: center; backdrop-filter: blur(14px); background: color-mix(in oklab, var(--ep-card) 92%, transparent); border: 1px solid var(--ep-border); border-radius: 22px; box-shadow: 0 20px 25px -5px color-mix(in oklab, var(--ep-forest) 12%, transparent), 0 8px 10px -6px #0000001a; display: flex; position: absolute; transform-style: preserve-3d; }
 .receipt-card { gap: 12px; left: 0; padding: 15px; top: 24px; width: 252px; }
 .floating-card__icon { align-items: center; background: var(--ep-brand-soft); border-radius: 13px; color: var(--ep-brand); display: flex; flex: 0 0 auto; height: 38px; justify-content: center; width: 38px; }
@@ -188,7 +203,7 @@
 .chart-bars i { background: linear-gradient(to top, var(--ep-forest), color-mix(in oklab, var(--ep-forest) 42%, var(--ep-brand-soft))); border-radius: 6px 6px 0 0; height: var(--bar-height); min-height: 10px; }
 .chart-days { color: var(--ep-muted); display: grid; font-size: 8px; grid-template-columns: repeat(7, 1fr); margin-top: 7px; text-align: center; }
 .portal-tabs { background: var(--ep-muted-surface); border-radius: 11px; display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px; }
-.epawati-page .portal-tabs button { background: transparent; border: 0; border-radius: 8px; color: var(--ep-muted); cursor: pointer; font-size: 10px; font-weight: 700; min-height: 33px; padding-inline: 6px; }
+.epawati-page .portal-tabs button { background: transparent; border: 0; border-radius: 8px; color: var(--ep-muted); cursor: pointer; font-size: 10px; font-weight: 700; min-height: 33px; padding-inline: 4px; }
 .epawati-page .portal-tabs button.is-active { background: var(--ep-card); box-shadow: 0 1px 3px #0000001a; color: var(--ep-foreground); }
 .portal-rows { margin-top: 12px; min-height: 265px; }
 .portal-row { align-items: center; border-bottom: 1px solid var(--ep-border); display: flex; gap: 10px; min-height: 53px; padding-block: 8px; }
@@ -230,38 +245,32 @@
 .faq-answer p { color: var(--ep-muted); font-size: 14px; line-height: 1.7; max-width: 650px; padding: 0 42px 20px 0; }
 .faq-item.is-open .faq-answer { grid-template-rows: 1fr; }
 
-.landing-footer { background: var(--ep-surface); padding: 96px 0 56px; }
-.footer-cta { background: var(--ep-forest); border-radius: 26px; color: var(--ep-forest-foreground); overflow: hidden; padding: 56px 28px; }
-.footer-cta__glow { background: color-mix(in oklab, var(--ep-brand) 30%, transparent); border-radius: 50%; filter: blur(64px); height: 256px; position: absolute; right: -64px; top: -64px; width: 256px; }
-.footer-cta__content { max-width: 650px; position: relative; z-index: 1; }
-.footer-cta h2 { font-size: clamp(36px, 5vw, 48px); font-weight: 600; line-height: 1.08; }
-.footer-cta p { color: color-mix(in oklab, var(--ep-forest-foreground) 75%, transparent); font-size: 15px; line-height: 1.7; margin-top: 16px; max-width: 600px; }
-.epawati-page .footer-cta .button { margin-top: 28px; }
-.epawati-page .button--light { background: #fffaf0; color: #233d2e; }
-.dark .epawati-page .button--light { background: #f7f0e2; color: #183024; }
-.epawati-page .button--light:hover { background: #fff; color: #12251a; }
-.footer-main { border-top: 1px solid var(--ep-border); display: grid; gap: 36px; margin-top: 56px; padding-top: 42px; }
-.landing-brand--footer { width: fit-content; }
-.footer-about > p { color: var(--ep-muted); font-size: 13px; line-height: 1.65; margin-top: 18px; max-width: 320px; }
-.footer-nav { align-content: start; display: flex; flex-wrap: wrap; gap: 12px 26px; }
-.footer-nav a { color: var(--ep-muted); font-size: 12px; font-weight: 600; transition: color .15s ease; }.footer-nav a:hover { color: var(--ep-foreground); }
-.footer-contact { align-content: start; display: grid; gap: 8px; }
-.footer-contact a { font-size: 13px; font-weight: 700; }.footer-contact span { color: var(--ep-muted); font-size: 12px; }
-.footer-bottom { align-items: center; border-top: 1px solid var(--ep-border); color: var(--ep-muted); display: flex; flex-direction: column; font-size: 10px; gap: 14px; justify-content: space-between; margin-top: 38px; padding-top: 24px; }
-.footer-bottom a { color: var(--ep-foreground); font-weight: 600; }
-.footer-social { align-items: center; display: flex; gap: 8px; }
-.epawati-page .footer-social a { align-items: center; border: 1px solid var(--ep-border); border-radius: 50%; color: var(--ep-muted); display: inline-flex; height: 34px; justify-content: center; transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease; width: 34px; }
-.epawati-page .footer-social a:hover { background: var(--ep-brand); border-color: var(--ep-brand); color: var(--ep-brand-foreground); transform: translateY(-2px); }
+.landing-footer { background: #20382b; border-top: 1px solid #45614f; color: #f7f1e8; padding: 82px 0 62px; }
+.dark .landing-footer { background: #102219; border-top-color: #2b4435; }
+.footer-container { max-width: 1240px; }
+.epawati-page .footer-brand-lockup { align-items: center; display: flex; justify-content: center; margin-inline: auto; width: fit-content; }
+.footer-brand-lockup img { height: 125px; object-fit: contain; width: 125px; }
+.footer-nav { align-items: center; display: flex; flex-wrap: wrap; gap: 14px 28px; justify-content: center; margin-top: 30px; }
+.footer-nav a { color: #f3ece3; font-size: 14px; font-weight: 500; transition: color .15s ease; }
+.footer-nav a:hover { color: #e88a62; }
+.footer-divider { border-top: 1px dashed rgb(247 241 232 / .2); margin-top: 38px; }
+.footer-bottom { align-items: center; color: rgb(247 241 232 / .68); display: flex; flex-direction: column; font-size: 12px; gap: 24px; justify-content: space-between; padding-top: 36px; }
+.footer-legal { align-items: center; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; text-align: center; }
+.footer-legal span + span::before { color: rgb(247 241 232 / .35); content: '•'; margin-right: 8px; }
+.footer-legal a { color: #f3ece3; font-weight: 600; }
+.footer-social { align-items: center; display: flex; gap: 18px; }
+.epawati-page .footer-social a { align-items: center; color: rgb(247 241 232 / .72); display: inline-flex; justify-content: center; transition: color .15s ease, transform .15s ease; }
+.epawati-page .footer-social a:hover { color: #fff; transform: translateY(-2px); }
 
 @keyframes live-pulse { 50% { opacity: .4; transform: scale(.75); } }
 
 @media (min-width: 640px) {
-  .epawati-page .landing-header__cta { display: inline-flex; }
   .hero-artwork { height: 480px; }
   .features-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .portal-dashboard { padding: 28px; }
-  .footer-cta { padding-inline: 56px; }
-  .footer-bottom { flex-direction: row; }
+  .footer-bottom { display: grid; grid-template-columns: 1fr auto 1fr; }
+  .footer-legal { grid-column: 2; }
+  .footer-social { grid-column: 3; justify-self: end; }
 }
 
 @media (min-width: 768px) {
@@ -270,12 +279,12 @@
   .epawati-page .stats-grid .stat:not(:first-child) { border-left: 1px solid var(--ep-border); padding-left: clamp(18px, 3vw, 38px); }
   .how-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .comparison-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .footer-main { grid-template-columns: 1.25fr 1fr auto; }
 }
 
-@media (min-width: 960px) {
-  .landing-nav { display: flex; }
-  .landing-header__actions { margin-left: 26px; }
+@media (min-width: 1080px) {
+  .landing-nav { display: flex; left: 50%; position: absolute; transform: translateX(-50%); }
+  .landing-header__actions { margin-left: auto; }
+  .epawati-page .landing-header__cta { display: inline-flex; }
   .menu-toggle { display: none !important; }
 }
 
@@ -286,19 +295,29 @@
   .faq-layout { grid-template-columns: .8fr 1.2fr; }
 }
 
-@media (max-width: 959px) {
+@media (max-width: 1079px) {
   .landing-brand__copy small { display: none; }
-  .landing-nav { background: var(--ep-background); border-bottom: 1px solid var(--ep-border); box-shadow: 0 16px 25px #00000012; display: none; gap: 0; left: 0; padding: 12px 20px 20px; position: absolute; top: 64px; width: 100%; }
+  .landing-nav { background: rgb(255 250 241 / .98); border: 1px solid #ead7c4; border-radius: 24px; box-shadow: 0 16px 25px #00000012; display: none; gap: 0; left: 0; padding: 12px 20px 20px; position: absolute; top: calc(100% + 8px); width: 100%; }
   .landing-nav.is-open { display: grid; }
-  .landing-nav > a { align-items: center; border-bottom: 1px solid var(--ep-border); display: flex; font-size: 14px; min-height: 46px; }
-  .landing-nav > a::after { display: none; }
-  .landing-nav .landing-nav__mobile-cta { background: var(--ep-brand); border: 0; border-radius: 12px; color: var(--ep-brand-foreground); display: flex; justify-content: center; margin-top: 14px; }
+  .landing-nav__item { display: block; }
+  .landing-nav__item i { display: none; }
+  .landing-nav__item a { align-items: center; border-bottom: 1px solid #ead7c4; color: #695c55; display: flex; font-size: 14px; min-height: 46px; }
+  .landing-nav__item a::after { display: none; }
+  .landing-nav .landing-nav__mobile-cta { background: #95462c; border: 0; border-radius: 999px; color: #fffaf1; display: flex; font-weight: 750; justify-content: center; margin-top: 14px; min-height: 48px; }
 }
 
 @media (max-width: 520px) {
-  .landing-header__inner { padding-inline: 12px; }
+  .landing-header { padding-inline: 8px; }
+  .landing-header__inner { height: 56px; padding: 5px 8px 5px 12px; }
+  .landing-brand__logo { height: 36px; width: 36px; }
   .landing-brand__mark { height: 32px; width: 32px; }
-  .landing-brand__copy strong { font-size: 17px; }
+  .landing-header .landing-brand__copy strong { font-size: 14px; letter-spacing: .08em; }
+  .epawati-page--mr .landing-header .landing-brand__copy strong { font-size: 17px; }
+  .landing-header__actions { gap: 7px; }
+  .language-switch { min-height: 34px; padding-inline: 5px; }
+  .epawati-page .language-switch button { font-size: 9px; min-height: 26px; padding-inline: 3px; }
+  .epawati-page .menu-toggle { height: 34px; width: 34px; }
+  .epawati-page .floating-theme-toggle { bottom: 14px; height: 46px; right: 14px; width: 46px; }
   .language-switch button { padding-inline: 6px !important; }
   .hero-layout { padding-top: 60px; }
   .hero-copy h1 { font-size: 43px; }
@@ -307,7 +326,6 @@
   .hero-actions { align-items: stretch; flex-direction: column; }
   .hero-actions .button { width: 100%; }
   .hero-artwork { height: 390px; margin-top: 8px; }
-  .hero-orbit { height: 280px; width: 280px; }
   .receipt-card { left: -3px; top: 18px; transform: scale(.86); transform-origin: left top; }
   .qr-card { bottom: 28px; right: -4px; transform: scale(.85); transform-origin: right bottom; }
   .hero-coin--one { right: 20px; top: 70px; }.hero-coin--two { bottom: 77px; left: 30px; }
@@ -315,6 +333,9 @@
   .portal-dashboard { gap: 38px; }
   .browser-address { max-width: 210px; }
   .portal-tabs button { font-size: 9px !important; }
+  .landing-footer { padding: 66px 0 44px; }
+  .footer-nav { gap: 12px 20px; margin-top: 26px; }
+  .footer-bottom { align-items: flex-start; }
 }
 
 @media (hover: none) {
@@ -324,5 +345,4 @@
 @media (prefers-reduced-motion: reduce) {
   .epawati-page *, .epawati-page *::before, .epawati-page *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
   .feature-card:hover, .epawati-page .button:hover { transform: none !important; }
-  .motif-line { stroke-dashoffset: 0; }
 }

@@ -30,13 +30,10 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
     const context = gsap.context(() => {
       if (reducedMotion) {
         gsap.set('.hero-reveal, .hero-artwork', { clearProps: 'all' });
-        gsap.set('.motif-line', { strokeDashoffset: 0 });
         return;
       }
       gsap.fromTo('.hero-reveal', { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.09 });
       gsap.fromTo('.hero-artwork', { autoAlpha: 0, scale: 0.94, y: 30 }, { autoAlpha: 1, scale: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 });
-      gsap.to('.motif-line', { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut', stagger: 0.12, delay: 0.25 });
-      gsap.to('.motif-flame', { scaleX: 0.94, scaleY: 1.14, transformOrigin: '50% 85%', duration: 1.1, ease: 'sine.inOut', repeat: -1, yoyo: true });
     }, hero);
 
     if (reducedMotion || !window.matchMedia('(pointer: fine)').matches) return () => context.revert();
@@ -92,32 +89,6 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
         </div>
 
         <div className="hero-artwork" aria-hidden="true">
-          <div className="hero-orbit" data-depth="0.16" />
-          <svg className="hero-motif" data-depth="0.32" viewBox="0 0 200 200" fill="none">
-            <defs>
-              <linearGradient id="flameFill" x1="100" y1="55" x2="100" y2="101" gradientUnits="userSpaceOnUse">
-                <stop stopColor="var(--ep-gold)" />
-                <stop offset="1" stopColor="var(--ep-brand)" />
-              </linearGradient>
-            </defs>
-            <g className="motif-rays" stroke="var(--ep-brand)" strokeLinecap="round">
-              <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M100 19V34" />
-              <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M66 29L74 42" />
-              <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M134 29L126 42" />
-              <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M42 55L56 63" />
-              <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M158 55L144 63" />
-              <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M29 91H46" />
-              <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M171 91H154" />
-            </g>
-            <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M61 118C69 103 81 97 100 97C119 97 131 103 139 118" stroke="var(--ep-forest)" strokeWidth="2.4" />
-            <path className="motif-flame" d="M100 98C86 87 94 73 104 57C107 73 118 83 100 98Z" fill="url(#flameFill)" />
-            <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M67 117H133L126 152C124 164 114 172 102 172H98C86 172 76 164 74 152L67 117Z" fill="var(--ep-card)" stroke="var(--ep-forest)" strokeWidth="2.5" />
-            <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M74 132C90 141 110 141 126 132" stroke="var(--ep-brand)" strokeWidth="2" />
-            <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M77 151C92 158 108 158 123 151" stroke="var(--ep-brand)" strokeWidth="2" />
-            <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M67 117C52 112 44 100 45 85C58 87 67 94 72 106" stroke="var(--ep-forest)" strokeWidth="2" />
-            <path className="motif-line" pathLength="1" strokeDasharray="1" strokeDashoffset="1" d="M133 117C148 112 156 100 155 85C142 87 133 94 128 106" stroke="var(--ep-forest)" strokeWidth="2" />
-          </svg>
-
           <div className="floating-card receipt-card" data-depth="0.72">
             <span className="floating-card__icon"><Receipt size={18} /></span>
             <div><small>{copy.receiptSent}</small><strong>₹2,100</strong><p>{copy.receiptDonor}</p></div>

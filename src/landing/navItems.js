@@ -1,4 +1,4 @@
 export const landingNavItems = {
-  en: [['#features', 'Features'], ['#portal', 'Portal'], ['#how', 'How it works'], ['#faq', 'FAQ']],
-  mr: [['#features', 'वैशिष्ट्ये'], ['#portal', 'पोर्टल'], ['#how', 'कसे चालते'], ['#faq', 'प्रश्नोत्तरे']],
+  en: [['#features', 'Platform'], ['#portal', 'ePawati'], ['#how', 'Services'], ['#contact', 'Contact']],
+  mr: [['#features', 'व्यासपीठ'], ['#portal', 'ई-पावती'], ['#how', 'सेवा'], ['#contact', 'संपर्क']],
 };
