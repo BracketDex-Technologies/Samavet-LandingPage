@@ -145,16 +145,8 @@
 .button:hover svg { transform: translateX(4px); }
 
 .hero-artwork { height: 416px; margin-inline: auto; max-width: 448px; perspective: 1200px; position: relative; transform-style: preserve-3d; width: 100%; }
-.floating-card { align-items: center; backdrop-filter: blur(16px); background: color-mix(in oklab, var(--ep-card) 98%, transparent); border: 1px solid color-mix(in oklab, var(--ep-brand) 28%, var(--ep-border)); border-radius: 18px; box-shadow: 0 20px 34px -8px color-mix(in oklab, var(--ep-forest) 24%, transparent), 0 8px 14px -7px #0000002e; display: flex; position: absolute; transform-style: preserve-3d; z-index: 2; }
-.receipt-card { gap: 10px; left: 0; padding: 12px; top: 24px; width: 220px; }
-.floating-card__icon { align-items: center; background: var(--ep-brand-soft); border-radius: 13px; color: var(--ep-brand); display: flex; flex: 0 0 auto; height: 38px; justify-content: center; width: 38px; }
-.floating-card div { display: grid; min-width: 0; }
-.floating-card small { color: color-mix(in oklab, var(--ep-foreground) 72%, var(--ep-muted)); font-size: 9px; font-weight: 700; }
-.floating-card strong { color: var(--ep-foreground); font: 600 20px/1.2 var(--ep-font-display); margin-top: 2px; }
-.floating-card p { color: color-mix(in oklab, var(--ep-foreground) 68%, var(--ep-muted)); font-size: 8px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.receipt-card__check { color: var(--ep-forest); margin-left: auto; }
-.qr-card { bottom: 35px; gap: 11px; padding: 12px; right: 0; width: 205px; }
-.qr-card__code { align-items: center; background: var(--ep-foreground); border: 5px solid var(--ep-card); border-radius: 13px; color: var(--ep-background); display: flex; height: 60px; justify-content: center; width: 60px; }
+.hero-phone-showcase { aspect-ratio: 1; clip-path: inset(0 10% 9% 0); left: 58%; pointer-events: none; position: absolute; top: 48%; transform: translate(-50%, -50%); transform-style: preserve-3d; width: clamp(480px, 42vw, 680px); z-index: 1; }
+.hero-phone-showcase__image { display: block; height: 100%; inset: 0; object-fit: contain; position: absolute; width: 100%; }
 .hero-coin { align-items: center; background: var(--ep-brand); border: 4px solid var(--ep-brand-soft); border-radius: 50%; box-shadow: 0 8px 18px color-mix(in oklab, var(--ep-brand) 24%, transparent); color: var(--ep-brand-foreground); display: flex; font: 600 17px/1 var(--ep-font-display); height: 39px; justify-content: center; position: absolute; width: 39px; z-index: 3; }
 .hero-coin--one { right: 42px; top: 56px; }.hero-coin--two { bottom: 78px; left: 48px; transform: scale(.76); }
 
@@ -369,8 +361,7 @@
   .hero-actions { align-items: stretch; flex-direction: column; }
   .hero-actions .button { width: 100%; }
   .hero-artwork { height: 390px; margin-top: 8px; }
-  .receipt-card { left: -3px; top: 18px; transform: scale(.86); transform-origin: left top; }
-  .qr-card { bottom: 28px; right: -4px; transform: scale(.85); transform-origin: right bottom; }
+  .hero-phone-showcase { left: 56%; top: 50%; width: 520px; }
   .hero-coin--one { right: 20px; top: 70px; }.hero-coin--two { bottom: 77px; left: 30px; }
   .section-heading h2 { font-size: 36px; }
   .portal-dashboard { gap: 38px; }

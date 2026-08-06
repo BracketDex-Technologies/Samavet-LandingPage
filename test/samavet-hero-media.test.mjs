@@ -4,8 +4,12 @@ import test from 'node:test';
 
 test('renders the ePawati hero as layered HTML without background SVG artwork', async () => {
   const source = await readFile(new URL('../src/landing/components/ContentSections.tsx', import.meta.url), 'utf8');
-  assert.match(source, /className="floating-card receipt-card"/);
-  assert.match(source, /className="floating-card qr-card"/);
+  assert.match(source, /mockup2\.png/);
+  assert.match(source, /hero-phone-showcase__image/);
+  assert.doesNotMatch(source, /screen\.png/);
+  assert.doesNotMatch(source, /hero-phone-showcase__screen/);
+  assert.doesNotMatch(source, /className="floating-card receipt-card"/);
+  assert.doesNotMatch(source, /className="floating-card qr-card"/);
   assert.doesNotMatch(source, /mobile_vargani_app_ui/);
   assert.doesNotMatch(source, /<svg className="hero-motif"/);
   assert.doesNotMatch(source, /hero-orbit/);

@@ -9,6 +9,7 @@ import feature3Image from '../assets/feature3.png';
 import feature4Image from '../assets/feature4..png';
 import feature5Image from '../assets/feature5.png';
 import feature6Image from '../assets/feature6.png';
+import heroMockup from '../assets/mockup2.png';
 import type { LandingCopy } from '../content';
 import { RevealSection } from './RevealSection';
 
@@ -97,14 +98,8 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
         </div>
 
         <div className="hero-artwork" aria-hidden="true">
-          <div className="floating-card receipt-card" data-depth="0.72">
-            <span className="floating-card__icon"><Receipt size={18} /></span>
-            <div><small>{copy.receiptSent}</small><strong>₹2,100</strong><p>{copy.receiptDonor}</p></div>
-            <Check className="receipt-card__check" size={16} />
-          </div>
-          <div className="floating-card qr-card" data-depth="0.9">
-            <span className="qr-card__code"><QrCode size={45} strokeWidth={1.35} /></span>
-            <div><small>{copy.collectionSource}</small><strong>₹84,600</strong><p>{copy.collectedToday}</p></div>
+          <div className="hero-phone-showcase" data-depth="0.34">
+            <img className="hero-phone-showcase__image" src={heroMockup} alt="" />
           </div>
           <span className="hero-coin hero-coin--one" data-depth="1.1">₹</span>
           <span className="hero-coin hero-coin--two" data-depth="0.82">₹</span>
