@@ -27,9 +27,13 @@ test('keeps language, responsive menu, and portal controls in the header', async
   assert.doesNotMatch(source, /<strong>ePawati<\/strong><small>/);
 });
 
-test('keeps only Instagram and WhatsApp social actions in the footer', async () => {
+test('keeps Instagram, email, and WhatsApp social actions in the footer', async () => {
   const source = await readFile(new URL('../src/landing/components/LandingFooter.tsx', import.meta.url), 'utf8');
   assert.match(source, /Instagram/);
+  assert.match(source, /https:\/\/www\.instagram\.com\/samavetofficial\//);
+  assert.match(source, /Email/);
+  assert.match(source, /mailto:Samavetofficial@gmail\.com/);
+  assert.match(source, /Mail/);
   assert.match(source, /MessageCircle/);
   assert.match(source, /samavet-logo-transparent\.png/);
   assert.doesNotMatch(source, /<strong>\{isMarathi \? 'समवेत' : 'SAMAVET'\}<\/strong>/);

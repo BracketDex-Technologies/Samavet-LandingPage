@@ -166,7 +166,7 @@
 .section-heading h2 { font-size: clamp(36px, 5vw, 48px); font-weight: 600; line-height: 1.08; }
 .section-heading > p:not(.section-eyebrow) { color: var(--ep-muted); font-size: 16px; line-height: 1.7; margin-top: 18px; max-width: 610px; }
 .features-grid { display: grid; gap: 16px; margin-top: 48px; }
-.epawati-page .feature-card { background: #fff8ee; border: 0; border-radius: 0; box-shadow: none; color: inherit; cursor: pointer; display: grid; grid-template-rows: minmax(210px, 1fr) auto; min-height: 330px; overflow: hidden; padding: 0; text-align: left; transition: transform .25s ease; width: 100%; }
+.epawati-page .feature-card { background: #fff8ee; border: 1px solid var(--ep-border); border-radius: 0; box-shadow: none; color: inherit; cursor: pointer; display: grid; grid-template-rows: minmax(210px, 1fr) auto; min-height: 330px; overflow: hidden; padding: 0; text-align: left; transition: transform .25s ease; width: 100%; }
 .feature-card:hover { transform: translateY(-4px); }
 .feature-card__media { align-items: center; background: #1c1714; display: flex; justify-content: center; min-height: 210px; overflow: hidden; }
 .feature-card__media img { display: block; height: 100%; object-fit: cover; object-position: center; transition: transform .45s ease; width: 100%; }

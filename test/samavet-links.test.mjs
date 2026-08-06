@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { buildDemoRequestMailto, validateDemoRequest } from '../src/landing/demoRequest.js';
-import { buildWhatsAppLink, PORTAL_URL, shouldRenderSamavetLanding } from '../src/landing/links.js';
+import { buildWhatsAppLink, PORTAL_URL, shouldRenderSamavetLanding, WHATSAPP_PHONE } from '../src/landing/links.js';
 
 test('creates a prefilled WhatsApp URL for a demo request', () => {
   assert.equal(
@@ -21,6 +21,10 @@ test('uses the public landing page as the entry point on every host', () => {
 
 test('links Portal Login to the ePawati portal', () => {
   assert.equal(PORTAL_URL, 'https://epawati.samavet.in/');
+});
+
+test('uses the official WhatsApp number for landing social links', () => {
+  assert.equal(WHATSAPP_PHONE, '+919172227878');
 });
 
 test('rejects incomplete demo requests before opening an email draft', () => {

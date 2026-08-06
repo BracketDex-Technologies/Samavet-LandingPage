@@ -9,6 +9,7 @@ interface AlternateLanguage {
 interface PageSeo {
   title: string;
   description: string;
+  keywords?: string;
   path: string;
   lang: 'en' | 'mr';
   image?: string;
@@ -25,13 +26,14 @@ function setLink(selector: string, href: string) {
   document.querySelector<HTMLLinkElement>(selector)?.setAttribute('href', href);
 }
 
-export function applyPageSeo({ title, description, path, lang, image = DEFAULT_SOCIAL_IMAGE, type = 'website', alternates = [], schema }: PageSeo) {
+export function applyPageSeo({ title, description, keywords, path, lang, image = DEFAULT_SOCIAL_IMAGE, type = 'website', alternates = [], schema }: PageSeo) {
   const canonicalUrl = `${SITE_ORIGIN}${path}`;
   const locale = lang === 'mr' ? 'mr_IN' : 'en_IN';
 
   document.documentElement.lang = lang;
   document.title = title;
   setMeta('meta[name="description"]', description);
+  if (keywords) setMeta('meta[name="keywords"]', keywords);
   setMeta('meta[name="robots"]', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
   setMeta('meta[property="og:title"]', title);
   setMeta('meta[property="og:description"]', description);

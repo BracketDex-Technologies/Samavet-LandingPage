@@ -1,5 +1,5 @@
 export const PORTAL_URL = 'https://epawati.samavet.in/';
-export const WHATSAPP_PHONE = '9172227878';
+export const WHATSAPP_PHONE = '+919172227878';
 
 function normalizeIndianPhone(phone) {
   const digits = String(phone).replace(/\D/g, '');

@@ -23,9 +23,9 @@ test('uses corrected ePawati branding and the approved live claims', async () =>
   const content = await readFile(new URL('../src/landing/content.ts', import.meta.url), 'utf8');
   assert.match(content, /Donation collection/);
   assert.match(content, /that feels like a celebration\./);
-  assert.match(content, /1,153\+/);
-  assert.match(content, /4\.6L\+/);
-  assert.match(content, /23h/);
+  assert.match(content, /value: '12'/);
+  assert.match(content, /value: '33'/);
+  assert.match(content, /value: '0\.5h'/);
   assert.doesNotMatch(content, /wPawati/);
 });
 

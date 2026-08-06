@@ -4,8 +4,12 @@ import test from 'node:test';
 
 test('implements the audit title, description, canonical, hreflang, and social metadata', async () => {
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
-  assert.match(html, /Samavet \| Digital Pawati &amp; Vargani Software for Mandals &amp; Trusts/);
-  assert.match(html, /Manage digital donation receipts \(ePawati\) and Vargani slips/);
+  assert.match(html, /Samavet \| Digital Vargani, ePawati &amp; Pawati Software for Mandals/);
+  assert.match(html, /Digital Vargani, ePawati and Pawati software/);
+  assert.match(html, /digital vargani/);
+  assert.match(html, /digital pawati/);
+  assert.match(html, /digital pavati/);
+  assert.match(html, /डिजिटल वर्गणी/);
   assert.match(html, /rel="canonical" href="https:\/\/www\.samavet\.in\/"/);
   assert.match(html, /hreflang="en"/);
   assert.match(html, /hreflang="mr"/);
@@ -22,6 +26,8 @@ test('embeds Organization and SoftwareApplication structured data', async () => 
   const types = schema['@graph'].map((item) => item['@type']);
   assert.deepEqual(types, ['Organization', 'SoftwareApplication', 'WebSite']);
   assert.equal(schema['@graph'][1].name, 'ePawati by Samavet');
+  assert.deepEqual(schema['@graph'][1].alternateName.slice(0, 3), ['Digital Pawati', 'Digital Pavati', 'Digital Vargani']);
+  assert.match(schema['@graph'][1].keywords, /Ganesh mandal receipt software/);
 });
 
 test('publishes robots and sitemap entries for every indexable route', async () => {

@@ -71,38 +71,12 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
 }
 
 export function StatsSection({ copy }: CopyProps) {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || prefersReducedMotion()) return;
-    const counters = Array.from(section.querySelectorAll<HTMLElement>('[data-count]'));
-    const context = gsap.context(() => {
-      counters.forEach((counter) => {
-        const target = Number(counter.dataset.count);
-        const decimals = Number(counter.dataset.decimals ?? 0);
-        const suffix = counter.dataset.suffix ?? '';
-        const finalValue = counter.textContent;
-        const state = { value: 0 };
-        gsap.to(state, {
-          value: target,
-          duration: 1.6,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: section, start: 'top 90%', once: true },
-          onUpdate: () => { counter.textContent = `${state.value.toFixed(decimals)}${suffix}`; },
-          onComplete: () => { counter.textContent = finalValue; },
-        });
-      });
-    }, section);
-    return () => context.revert();
-  }, [copy.stats]);
-
   return (
-    <section className="stats-section" aria-label="ePawati impact" ref={sectionRef}>
+    <section className="stats-section" aria-label="ePawati impact">
       <div className="landing-container stats-grid">
         {copy.stats.map((stat) => (
           <div className="stat" key={stat.label}>
-            <strong data-count={'count' in stat ? stat.count : undefined} data-decimals={'decimals' in stat ? stat.decimals : undefined} data-suffix={'suffix' in stat ? stat.suffix : undefined}>{stat.value}</strong>
+            <strong>{stat.value}</strong>
             <span>{stat.label}</span>
           </div>
         ))}
@@ -388,7 +362,7 @@ export function ContactSection({ copy }: CopyProps) {
       values.message.trim(),
     ].join('\n');
     setSubmitted(true);
-    window.location.href = `mailto:hello@samavet.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:Samavetofficial@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
   function fieldError(field: ContactField) {

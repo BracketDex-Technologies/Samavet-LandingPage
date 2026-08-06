@@ -19,14 +19,18 @@ export default function SamavetLanding() {
   useEffect(() => {
     const isMarathi = language === 'mr';
     const title = isMarathi
-      ? 'समवेत | मंडळे आणि ट्रस्टसाठी डिजिटल पावती व वर्गणी सॉफ्टवेअर'
-      : 'Samavet | Digital Pawati & Vargani Software for Mandals & Trusts';
+      ? 'समवेत | डिजिटल वर्गणी, ई-पावती आणि पावती सॉफ्टवेअर'
+      : 'Samavet | Digital Vargani, ePawati & Pawati Software for Mandals';
     const description = isMarathi
-      ? 'गणेश मंडळे, मंदिरे आणि ट्रस्टसाठी डिजिटल देणगी पावत्या, ई-पावती आणि वर्गणी स्लिप व्यवस्थापित करा. समवेतशी संपर्क साधा.'
-      : 'Manage digital donation receipts (ePawati) and Vargani slips for Ganesh Mandals, Temples & Trusts. Book a WhatsApp demo.';
+      ? 'गणेश मंडळे, मंदिरे आणि ट्रस्टसाठी डिजिटल वर्गणी, ई-पावती आणि पावती सॉफ्टवेअर. WhatsApp पावत्या, देणगीदार नोंदी आणि ऑनलाइन संकलन व्यवस्थापित करा.'
+      : 'Digital Vargani, ePawati and Pawati software for Ganesh mandals, temples and trusts. Issue WhatsApp receipts, track donors and manage collections online.';
+    const keywords = isMarathi
+      ? 'डिजिटल वर्गणी, डिजिटल पावती, ई-पावती, वर्गणी अ‍ॅप, पावती अ‍ॅप, गणेश मंडळ पावती, मंडळ वर्गणी सॉफ्टवेअर, देणगी पावती सॉफ्टवेअर, मंदिर देणगी पावती'
+      : 'digital vargani, digital pawati, digital pavati, ePawati, e Pawati, e Pavati, epawati app, pawati app, pavati app, vargani app, vargani software, digital vargani software, digital pawati software, pawati pustak, pavati pustak, digital receipt for Ganesh mandal, Ganesh mandal vargani software, Ganpati mandal donation software, mandal collection app, WhatsApp donation receipt, online donation receipt, trust donation receipt software, temple donation receipt software, NGO donation receipt software';
     applyPageSeo({
       title,
       description,
+      keywords,
       path: isMarathi ? '/mr' : '/',
       lang: isMarathi ? 'mr' : 'en',
       alternates: [

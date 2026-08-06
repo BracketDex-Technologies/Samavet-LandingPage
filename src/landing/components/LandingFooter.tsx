@@ -1,4 +1,4 @@
-import { MessageCircle } from 'lucide-react';
+import { Mail, MessageCircle } from 'lucide-react';
 
 import samavetLogo from '../assets/samavet-logo-transparent.png';
 import type { LandingCopy, LandingLanguage } from '../content';
@@ -37,7 +37,8 @@ export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps)
           <span className="footer-copyright">© {new Date().getFullYear()} {copy.copyright}</span>
           <span className="footer-credit">Powered by <a href="https://bracketdex.com" rel="noreferrer" target="_blank">BracketDex Technologies</a></span>
           <div className="footer-social" aria-label={isMarathi ? 'सोशल मीडिया' : 'Social media'}>
-            <a aria-label="Instagram" href="https://www.instagram.com/samavet.in/" rel="noreferrer" target="_blank"><svg aria-hidden="true" fill="none" height="21" viewBox="0 0 24 24" width="21"><rect height="18" rx="5" stroke="currentColor" strokeWidth="2" width="18" x="3" y="3" /><circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" /><circle cx="17.5" cy="6.5" fill="currentColor" r="1" /></svg></a>
+            <a aria-label="Instagram" href="https://www.instagram.com/samavetofficial/" rel="noreferrer" target="_blank"><svg aria-hidden="true" fill="none" height="21" viewBox="0 0 24 24" width="21"><rect height="18" rx="5" stroke="currentColor" strokeWidth="2" width="18" x="3" y="3" /><circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" /><circle cx="17.5" cy="6.5" fill="currentColor" r="1" /></svg></a>
+            <a aria-label="Email" href="mailto:Samavetofficial@gmail.com"><Mail size={21} /></a>
             <a aria-label="WhatsApp" href={whatsappUrl} rel="noreferrer" target="_blank"><MessageCircle size={21} /></a>
           </div>
         </div>
