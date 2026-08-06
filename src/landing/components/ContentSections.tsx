@@ -1,8 +1,14 @@
-import { useEffect, useId, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent, type PointerEvent } from 'react';
-import { ArrowRight, BarChart3, Check, ChevronDown, CircleCheck, FileSpreadsheet, IndianRupee, QrCode, Receipt, ShieldCheck, Smartphone, UsersRound } from 'lucide-react';
+import { useEffect, useId, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent } from 'react';
+import { ArrowRight, BarChart3, Check, ChevronDown, CircleCheck, FileSpreadsheet, QrCode, Receipt, Smartphone } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+import feature1Image from '../assets/feature1.png';
+import feature2Image from '../assets/feature2.png';
+import feature3Image from '../assets/feature3.png';
+import feature4Image from '../assets/feature4..png';
+import feature5Image from '../assets/feature5.png';
+import feature6Image from '../assets/feature6.png';
 import type { LandingCopy } from '../content';
 import { RevealSection } from './RevealSection';
 
@@ -15,6 +21,8 @@ interface CopyProps {
 interface HeroProps extends CopyProps {
   portalUrl: string;
 }
+
+const featureImages = [feature1Image, feature2Image, feature3Image, feature4Image, feature5Image, feature6Image];
 
 function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -147,46 +155,70 @@ export function StatsSection({ copy }: CopyProps) {
   );
 }
 
-const featureIcons = [Receipt, IndianRupee, UsersRound, ShieldCheck, BarChart3, FileSpreadsheet];
-
 export function FeaturesSection({ copy }: CopyProps) {
-  function tiltCard(event: PointerEvent<HTMLElement>) {
-    if (prefersReducedMotion() || !window.matchMedia('(pointer: fine)').matches) return;
-    const card = event.currentTarget;
-    const bounds = card.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width;
-    const y = (event.clientY - bounds.top) / bounds.height;
-    card.style.setProperty('--mx', `${x * 100}%`);
-    card.style.setProperty('--my', `${y * 100}%`);
-    gsap.to(card, { rotateX: (0.5 - y) * 9, rotateY: (x - 0.5) * 11, y: -6, duration: 0.35, ease: 'power2.out', transformPerspective: 900 });
-  }
-  function resetCard(event: PointerEvent<HTMLElement>) {
-    gsap.to(event.currentTarget, { rotateX: 0, rotateY: 0, y: 0, duration: 0.5, ease: 'power3.out' });
-  }
+  const [activeFeatureIndex, setActiveFeatureIndex] = useState<number | null>(null);
+  const featureDialogTitleId = useId();
+  const activeFeature = activeFeatureIndex === null ? null : {
+    description: copy.features[activeFeatureIndex][1],
+    src: featureImages[activeFeatureIndex],
+    title: copy.features[activeFeatureIndex][0],
+  };
+
+  useEffect(() => {
+    if (activeFeatureIndex === null) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    function onKeyDown(event: globalThis.KeyboardEvent) {
+      if (event.key === 'Escape') setActiveFeatureIndex(null);
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [activeFeatureIndex]);
 
   return (
-    <RevealSection className="features-section" id="features" revealSelector=".feature-card">
-      <div className="landing-container">
-        <div className="section-heading">
-          <p className="section-eyebrow">{copy.featuresEyebrow}</p>
-          <h2>{copy.featuresTitle}</h2>
-          <p>{copy.featuresDescription}</p>
+    <>
+      <RevealSection className="features-section" id="features" revealSelector=".feature-card">
+        <div className="landing-container">
+          <div className="section-heading">
+            <p className="section-eyebrow">{copy.featuresEyebrow}</p>
+            <h2>{copy.featuresTitle}</h2>
+            <p>{copy.featuresDescription}</p>
+          </div>
+          <div className="features-grid">
+            {copy.features.map(([title, description], index) => (
+              <button className="feature-card reveal-item" key={title} onClick={() => setActiveFeatureIndex(index)} type="button">
+                <div className="feature-card__media">
+                  <img alt="" loading="lazy" src={featureImages[index]} />
+                </div>
+                <div className="feature-card__content">
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="features-grid">
-          {copy.features.map(([title, description], index) => {
-            const Icon = featureIcons[index];
-            return (
-              <article className="feature-card reveal-item" key={title} onPointerMove={tiltCard} onPointerLeave={resetCard}>
-                <span className="feature-card__glow" aria-hidden="true" />
-                <span className="feature-card__icon"><Icon size={22} /></span>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </article>
-            );
-          })}
+      </RevealSection>
+
+      {activeFeature && (
+        <div className="feature-modal" role="presentation">
+          <button aria-label="Close feature preview" className="feature-modal__backdrop" onClick={() => setActiveFeatureIndex(null)} type="button" />
+          <div aria-labelledby={featureDialogTitleId} aria-modal="true" className="feature-modal__dialog" role="dialog">
+            <button className="feature-modal__close" onClick={() => setActiveFeatureIndex(null)} type="button">Close</button>
+            <div className="feature-modal__image">
+              <img alt={activeFeature.title} src={activeFeature.src} />
+            </div>
+            <div className="feature-modal__content">
+              <h3 id={featureDialogTitleId}>{activeFeature.title}</h3>
+              <p>{activeFeature.description}</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </RevealSection>
+      )}
+    </>
   );
 }
 
@@ -298,7 +330,7 @@ export function HowSection({ copy }: CopyProps) {
         <div className="how-grid">
           {copy.howSteps.map(([title, description], index) => {
             const Icon = icons[index];
-            return <article className="how-card reveal-item" key={title}><span className="how-card__number">0{index + 1}</span><span className="how-card__icon"><Icon size={21} /></span><h3>{title}</h3><p>{description}</p></article>;
+            return <article aria-label={`Step ${index + 1}: ${title}`} className="how-card reveal-item" key={title}><div className="how-card__heading"><span className="how-card__icon"><Icon size={20} strokeWidth={1.7} /></span><h3>{title}</h3></div><p>{description}</p></article>;
           })}
         </div>
       </div>
