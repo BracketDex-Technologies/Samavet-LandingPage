@@ -30,23 +30,14 @@ test('publishes robots and sitemap entries for every indexable route', async () 
     readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8'),
   ]);
   assert.match(robots, /Sitemap: https:\/\/www\.samavet\.in\/sitemap\.xml/);
-  for (const route of ['epawati-for-ganesh-mandals', 'temple-donation-management-software', 'ngo-digital-receipt-system', 'blog']) {
+  for (const route of ['blog']) {
     assert.match(sitemap, new RegExp(`https://www\\.samavet\\.in/${route}`));
+  }
+  for (const removedRoute of ['epawati-for-ganesh-mandals', 'temple-donation-management-software', 'ngo-digital-receipt-system']) {
+    assert.doesNotMatch(sitemap, new RegExp(`https://www\\.samavet\\.in/${removedRoute}`));
   }
   assert.match(sitemap, /hreflang="mr"/);
   assert.match(sitemap, /https:\/\/www\.samavet\.in\/mr/);
-});
-
-test('provides unique vertical pages for Mandals, temples, and NGOs', async () => {
-  const [page, main] = await Promise.all([
-    readFile(new URL('../src/landing/SeoLandingPage.tsx', import.meta.url), 'utf8'),
-    readFile(new URL('../src/main.tsx', import.meta.url), 'utf8'),
-  ]);
-  assert.match(page, /Digital Vargani and receipt software/);
-  assert.match(page, /Temple donation management built around clear records/);
-  assert.match(page, /Digital donation receipts and donor records your team can follow/);
-  assert.match(page, /FAQPage/);
-  assert.match(main, /seoPageKeyByPath/);
 });
 
 test('keeps one semantic hero heading without duplicate overlay text', async () => {

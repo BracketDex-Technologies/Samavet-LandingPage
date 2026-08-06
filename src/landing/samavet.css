@@ -145,10 +145,8 @@
 .button:hover svg { transform: translateX(4px); }
 
 .hero-artwork { height: 416px; margin-inline: auto; max-width: 448px; perspective: 1200px; position: relative; transform-style: preserve-3d; width: 100%; }
-.hero-phone-showcase { aspect-ratio: 1; clip-path: inset(0 10% 9% 0); left: 58%; pointer-events: none; position: absolute; top: 48%; transform: translate(-50%, -50%); transform-style: preserve-3d; width: clamp(480px, 42vw, 680px); z-index: 1; }
+.hero-phone-showcase { aspect-ratio: 1; left: 58%; pointer-events: none; position: absolute; top: 48%; transform: translate(-50%, -50%); transform-style: preserve-3d; width: clamp(480px, 42vw, 680px); z-index: 1; }
 .hero-phone-showcase__image { display: block; height: 100%; inset: 0; object-fit: contain; position: absolute; width: 100%; }
-.hero-coin { align-items: center; background: var(--ep-brand); border: 4px solid var(--ep-brand-soft); border-radius: 50%; box-shadow: 0 8px 18px color-mix(in oklab, var(--ep-brand) 24%, transparent); color: var(--ep-brand-foreground); display: flex; font: 600 17px/1 var(--ep-font-display); height: 39px; justify-content: center; position: absolute; width: 39px; z-index: 3; }
-.hero-coin--one { right: 42px; top: 56px; }.hero-coin--two { bottom: 78px; left: 48px; transform: scale(.76); }
 
 .stats-section { background: var(--ep-surface); border-block: 1px solid var(--ep-border); }
 .epawati-page .stats-grid { display: grid; gap: 32px 18px; grid-template-columns: repeat(2, 1fr); padding-block: 40px; }
@@ -226,6 +224,7 @@
 
 .how-grid { display: grid; gap: clamp(36px, 5vw, 72px); margin-top: 56px; }
 .how-card { background: transparent; border: 0; border-radius: 0; min-height: 0; padding: 6px 0; position: relative; }
+.how-card__number { color: var(--ep-brand); display: block; font: 700 13px/1 var(--ep-font-sans); letter-spacing: .14em; margin-bottom: 17px; }
 .how-card__heading { align-items: center; display: flex; gap: 12px; }
 .how-card__icon { align-items: center; color: color-mix(in oklab, var(--ep-foreground) 62%, transparent); display: inline-flex; flex: 0 0 auto; height: 24px; justify-content: center; width: 24px; }
 .how-card h3 { font-family: var(--ep-font-sans); font-size: 17px; font-weight: 700; letter-spacing: -.02em; line-height: 1.3; }
@@ -284,9 +283,6 @@
 .footer-nav { align-items: center; display: flex; flex-wrap: wrap; gap: 14px 28px; justify-content: center; margin-top: 30px; }
 .footer-nav a { color: #f3ece3; font-size: 14px; font-weight: 500; transition: color .15s ease; }
 .footer-nav a:hover { color: #e88a62; }
-.footer-solution-nav { align-items: center; display: flex; flex-wrap: wrap; gap: 8px 22px; justify-content: center; margin-top: 18px; }
-.footer-solution-nav a { color: rgb(247 241 232 / .58); font-size: 11px; text-decoration: underline; text-decoration-color: rgb(247 241 232 / .2); text-underline-offset: 4px; }
-.footer-solution-nav a:hover { color: #f3ece3; }
 .footer-divider { border-top: 1px dashed rgb(247 241 232 / .2); margin-top: 38px; }
 .footer-bottom { align-items: center; color: rgb(247 241 232 / .68); display: flex; flex-direction: column; font-size: 12px; gap: 24px; justify-content: space-between; padding-top: 36px; }
 .footer-copyright { justify-self: start; text-align: left; }
@@ -362,8 +358,9 @@
   .hero-actions .button { width: 100%; }
   .hero-artwork { height: 390px; margin-top: 8px; }
   .hero-phone-showcase { left: 56%; top: 50%; width: 520px; }
-  .hero-coin--one { right: 20px; top: 70px; }.hero-coin--two { bottom: 77px; left: 30px; }
   .section-heading h2 { font-size: 36px; }
+  .how-grid { gap: 42px; }
+  .how-card__number { margin-bottom: 13px; }
   .portal-dashboard { gap: 38px; }
   .browser-address { max-width: 210px; }
   .portal-tabs button { font-size: 9px !important; }

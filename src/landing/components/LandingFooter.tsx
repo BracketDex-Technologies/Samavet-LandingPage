@@ -31,12 +31,6 @@ export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps)
           <a href="/blog">{copy.blog}</a>
           <a href={portalUrl}>{isMarathi ? 'पोर्टल' : 'Portal'}</a>
         </nav>
-        <nav className="footer-solution-nav" aria-label="Samavet solutions">
-          <a href="/epawati-for-ganesh-mandals">{isMarathi ? 'गणेश मंडळांसाठी ई-पावती' : 'ePawati for Ganesh Mandals'}</a>
-          <a href="/temple-donation-management-software">{isMarathi ? 'मंदिर देणगी व्यवस्थापन' : 'Temple donation software'}</a>
-          <a href="/ngo-digital-receipt-system">{isMarathi ? 'NGO डिजिटल पावती प्रणाली' : 'NGO digital receipts'}</a>
-        </nav>
-
         <div className="footer-divider" aria-hidden="true" />
 
         <div className="footer-bottom">

@@ -36,51 +36,14 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
     const hero = heroRef.current;
     if (!hero) return;
     const reducedMotion = prefersReducedMotion();
-    const context = gsap.context(() => {
-      if (reducedMotion) {
-        gsap.set('.hero-reveal, .hero-artwork', { clearProps: 'all' });
+      const context = gsap.context(() => {
+        if (reducedMotion) {
+        gsap.set('.hero-reveal', { clearProps: 'all' });
         return;
       }
       gsap.fromTo('.hero-reveal', { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.09 });
-      gsap.fromTo('.hero-artwork', { autoAlpha: 0, scale: 0.94, y: 30 }, { autoAlpha: 1, scale: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 });
     }, hero);
-
-    if (reducedMotion || !window.matchMedia('(pointer: fine)').matches) return () => context.revert();
-
-    const artwork = hero.querySelector<HTMLElement>('.hero-artwork');
-    const layers = Array.from(hero.querySelectorAll<HTMLElement>('[data-depth]'));
-    if (!artwork) return () => context.revert();
-    const movers = layers.map((layer) => ({
-      depth: Number(layer.dataset.depth ?? 0),
-      x: gsap.quickTo(layer, 'x', { duration: 1.15, ease: 'power3' }),
-      y: gsap.quickTo(layer, 'y', { duration: 1.15, ease: 'power3' }),
-      rotateX: gsap.quickTo(layer, 'rotateX', { duration: 1.2, ease: 'power3' }),
-      rotateY: gsap.quickTo(layer, 'rotateY', { duration: 1.2, ease: 'power3' }),
-    }));
-    const moveArtwork = (event: globalThis.PointerEvent) => {
-      const bounds = artwork.getBoundingClientRect();
-      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-      movers.forEach((mover) => {
-        mover.x(x * 90 * mover.depth);
-        mover.y(y * 60 * mover.depth);
-        mover.rotateY(x * 9 * mover.depth);
-        mover.rotateX(-y * 9 * mover.depth);
-      });
-    };
-    const resetArtwork = () => movers.forEach((mover) => {
-      mover.x(0);
-      mover.y(0);
-      mover.rotateX(0);
-      mover.rotateY(0);
-    });
-    artwork.addEventListener('pointermove', moveArtwork);
-    artwork.addEventListener('pointerleave', resetArtwork);
-    return () => {
-      artwork.removeEventListener('pointermove', moveArtwork);
-      artwork.removeEventListener('pointerleave', resetArtwork);
-      context.revert();
-    };
+    return () => context.revert();
   }, [copy.heroTitle]);
 
   return (
@@ -98,11 +61,9 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
         </div>
 
         <div className="hero-artwork" aria-hidden="true">
-          <div className="hero-phone-showcase" data-depth="0.34">
+          <div className="hero-phone-showcase">
             <img className="hero-phone-showcase__image" src={heroMockup} alt="" />
           </div>
-          <span className="hero-coin hero-coin--one" data-depth="1.1">₹</span>
-          <span className="hero-coin hero-coin--two" data-depth="0.82">₹</span>
         </div>
       </div>
     </section>
@@ -325,7 +286,7 @@ export function HowSection({ copy }: CopyProps) {
         <div className="how-grid">
           {copy.howSteps.map(([title, description], index) => {
             const Icon = icons[index];
-            return <article aria-label={`Step ${index + 1}: ${title}`} className="how-card reveal-item" key={title}><div className="how-card__heading"><span className="how-card__icon"><Icon size={20} strokeWidth={1.7} /></span><h3>{title}</h3></div><p>{description}</p></article>;
+            return <article aria-label={`Step ${index + 1}: ${title}`} className="how-card reveal-item" key={title}><span className="how-card__number">{String(index + 1).padStart(2, '0')}</span><div className="how-card__heading"><span className="how-card__icon"><Icon size={20} strokeWidth={1.7} /></span><h3>{title}</h3></div><p>{description}</p></article>;
           })}
         </div>
       </div>
