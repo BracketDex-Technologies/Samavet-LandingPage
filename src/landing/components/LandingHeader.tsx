@@ -26,6 +26,7 @@ export function LandingHeader({ language, onLanguageChange, portalUrl }: Landing
   const menuLabel = isMarathi ? 'मेनू उघडा किंवा बंद करा' : 'Toggle menu';
   const themeLabel = isMarathi ? 'रंगसंगती बदला' : 'Toggle color theme';
   const portalLabel = isMarathi ? 'पोर्टल लॉगिन' : 'Portal login';
+  const blogLabel = isMarathi ? 'ब्लॉग' : 'Blog';
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -67,6 +68,7 @@ export function LandingHeader({ language, onLanguageChange, portalUrl }: Landing
 
         <nav aria-label={isMarathi ? 'मुख्य नेव्हिगेशन' : 'Primary navigation'} className={`landing-nav${menuOpen ? ' is-open' : ''}`} id="landing-navigation">
           {landingNavItems[language].map(([href, label], index) => <span className="landing-nav__item" key={href}>{index > 0 ? <i aria-hidden="true">|</i> : null}<a href={href} onClick={() => setMenuOpen(false)}>{label}</a></span>)}
+          <span className="landing-nav__item"><i aria-hidden="true">|</i><a href="/blog" onClick={() => setMenuOpen(false)}>{blogLabel}</a></span>
           <a className="landing-nav__mobile-cta" href={portalUrl}>{portalLabel}</a>
         </nav>
 
