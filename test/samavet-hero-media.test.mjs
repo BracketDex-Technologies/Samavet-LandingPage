@@ -4,7 +4,7 @@ import test from 'node:test';
 
 test('renders the ePawati hero as layered HTML without background SVG artwork', async () => {
   const source = await readFile(new URL('../src/landing/components/ContentSections.tsx', import.meta.url), 'utf8');
-  assert.match(source, /mockup2\.png/);
+  assert.match(source, /phone_mockup_updated_transparent_4500x3000\.png/);
   assert.match(source, /hero-phone-showcase__image/);
   assert.doesNotMatch(source, /hero-edge-card/);
   assert.doesNotMatch(source, /hero-coin/);

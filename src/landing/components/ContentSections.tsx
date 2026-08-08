@@ -9,7 +9,7 @@ import feature3Image from '../assets/feature3.png';
 import feature4Image from '../assets/feature4..png';
 import feature5Image from '../assets/feature5.png';
 import feature6Image from '../assets/feature6.png';
-import heroMockup from '../assets/mockup2.png';
+import heroMockup from '../assets/phone_mockup_updated_transparent_4500x3000.png';
 import type { LandingCopy } from '../content';
 import { RevealSection } from './RevealSection';
 

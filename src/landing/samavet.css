@@ -144,8 +144,8 @@
 .button svg { transition: transform .15s ease; }
 .button:hover svg { transform: translateX(4px); }
 
-.hero-artwork { height: 416px; margin-inline: auto; max-width: 448px; perspective: 1200px; position: relative; transform-style: preserve-3d; width: 100%; }
-.hero-phone-showcase { aspect-ratio: 1; left: 58%; pointer-events: none; position: absolute; top: 48%; transform: translate(-50%, -50%); transform-style: preserve-3d; width: clamp(480px, 42vw, 680px); z-index: 1; }
+.hero-artwork { height: 416px; margin-inline: auto; max-width: 620px; perspective: 1200px; position: relative; transform-style: preserve-3d; width: 100%; }
+.hero-phone-showcase { aspect-ratio: 3 / 2; left: 55%; pointer-events: none; position: absolute; top: 52%; transform: translate(-50%, -50%); transform-style: preserve-3d; width: clamp(620px, 56vw, 900px); z-index: 1; }
 .hero-phone-showcase__image { display: block; height: 100%; inset: 0; object-fit: contain; position: absolute; width: 100%; }
 
 .stats-section { background: var(--ep-surface); border-block: 1px solid var(--ep-border); }
@@ -357,7 +357,7 @@
   .hero-actions { align-items: stretch; flex-direction: column; }
   .hero-actions .button { width: 100%; }
   .hero-artwork { height: 390px; margin-top: 8px; }
-  .hero-phone-showcase { left: 56%; top: 50%; width: 520px; }
+  .hero-phone-showcase { left: 53%; top: 52%; width: 620px; }
   .section-heading h2 { font-size: 36px; }
   .how-grid { gap: 42px; }
   .how-card__number { margin-bottom: 13px; }
