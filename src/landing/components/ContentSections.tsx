@@ -3,12 +3,10 @@ import { ArrowRight, BarChart3, Check, ChevronDown, CircleCheck, FileSpreadsheet
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import feature1Image from '../assets/feature1.png';
-import feature2Image from '../assets/feature2.png';
-import feature3Image from '../assets/feature3.png';
-import feature4Image from '../assets/feature4..png';
-import feature5Image from '../assets/feature5.png';
-import feature6Image from '../assets/feature6.png';
+import featurePhoneMockup from '../assets/f-phonemockup.png';
+import featureLaptopMockup from '../assets/f-laptopmockup.png';
+import feature3Screenshot from '../assets/feature3rd.png';
+import feature4Flipbook from '../assets/feature4th.png';
 import heroMockup from '../assets/phone_mockup_updated_transparent_4500x3000.png';
 import type { LandingCopy } from '../content';
 import { RevealSection } from './RevealSection';
@@ -23,7 +21,12 @@ interface HeroProps extends CopyProps {
   portalUrl: string;
 }
 
-const featureImages = [feature1Image, feature2Image, feature3Image, feature4Image, feature5Image, feature6Image];
+const featureVisuals = [
+  { kind: 'phone', src: featurePhoneMockup },
+  { kind: 'laptop', src: featureLaptopMockup },
+  { kind: 'screenshot', src: feature3Screenshot },
+  { kind: 'flipbook', src: feature4Flipbook },
+] as const;
 
 function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -86,69 +89,32 @@ export function StatsSection({ copy }: CopyProps) {
 }
 
 export function FeaturesSection({ copy }: CopyProps) {
-  const [activeFeatureIndex, setActiveFeatureIndex] = useState<number | null>(null);
-  const featureDialogTitleId = useId();
-  const activeFeature = activeFeatureIndex === null ? null : {
-    description: copy.features[activeFeatureIndex][1],
-    src: featureImages[activeFeatureIndex],
-    title: copy.features[activeFeatureIndex][0],
-  };
-
-  useEffect(() => {
-    if (activeFeatureIndex === null) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    function onKeyDown(event: globalThis.KeyboardEvent) {
-      if (event.key === 'Escape') setActiveFeatureIndex(null);
-    }
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [activeFeatureIndex]);
-
   return (
-    <>
-      <RevealSection className="features-section" id="features" revealSelector=".feature-card">
-        <div className="landing-container">
-          <div className="section-heading">
-            <p className="section-eyebrow">{copy.featuresEyebrow}</p>
-            <h2>{copy.featuresTitle}</h2>
-            <p>{copy.featuresDescription}</p>
-          </div>
-          <div className="features-grid">
-            {copy.features.map(([title, description], index) => (
-              <button className="feature-card reveal-item" key={title} onClick={() => setActiveFeatureIndex(index)} type="button">
-                <div className="feature-card__media">
-                  <img alt="" loading="lazy" src={featureImages[index]} />
+    <RevealSection className="features-section" id="features" revealSelector=".feature-row">
+      <div className="landing-container">
+        <div className="section-heading section-heading--center">
+          <p className="section-eyebrow">{copy.featuresEyebrow}</p>
+          <h2>{copy.featuresTitle}</h2>
+          <p>{copy.featuresDescription}</p>
+        </div>
+        <div className="features-showcase">
+          {copy.features.map(([title, description], index) => {
+            const visual = featureVisuals[index];
+            return (
+              <article className={`feature-row reveal-item${index % 2 === 1 ? ' feature-row--reverse' : ''}`} key={title}>
+                <div className={`feature-row__visual${visual ? ` feature-row__visual--${visual.kind}` : ''}`} aria-hidden="true">
+                  {visual && <img className="feature-row__image" alt="" loading="lazy" src={visual.src} />}
                 </div>
-                <div className="feature-card__content">
+                <div className="feature-row__copy">
                   <h3>{title}</h3>
                   <p>{description}</p>
                 </div>
-              </button>
-            ))}
-          </div>
+              </article>
+            );
+          })}
         </div>
-      </RevealSection>
-
-      {activeFeature && (
-        <div className="feature-modal" role="presentation">
-          <button aria-label="Close feature preview" className="feature-modal__backdrop" onClick={() => setActiveFeatureIndex(null)} type="button" />
-          <div aria-labelledby={featureDialogTitleId} aria-modal="true" className="feature-modal__dialog" role="dialog">
-            <button className="feature-modal__close" onClick={() => setActiveFeatureIndex(null)} type="button">Close</button>
-            <div className="feature-modal__image">
-              <img alt={activeFeature.title} src={activeFeature.src} />
-            </div>
-            <div className="feature-modal__content">
-              <h3 id={featureDialogTitleId}>{activeFeature.title}</h3>
-              <p>{activeFeature.description}</p>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+      </div>
+    </RevealSection>
   );
 }
 

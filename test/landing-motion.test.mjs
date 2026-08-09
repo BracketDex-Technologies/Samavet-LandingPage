@@ -18,5 +18,5 @@ test('makes motion progressive enhancement for touch and reduced-motion users', 
   ]);
   assert.match(sections, /prefers-reduced-motion: reduce/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
-  assert.match(styles, /\.feature-card:hover/);
+  assert.match(styles, /\.epawati-page \.button:hover/);
 });
