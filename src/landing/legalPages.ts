@@ -1,9 +1,9 @@
-import acceptableUsePolicy from '../../docs/LEGAL/ACCEPTABLE_USE_POLICY.md?raw';
-import cookiePolicy from '../../docs/LEGAL/COOKIE_POLICY.md?raw';
-import donationDisclaimer from '../../docs/LEGAL/DONATION_DISCLAIMER.md?raw';
-import privacyPolicy from '../../docs/LEGAL/PRIVACY_POLICY.md?raw';
-import refundPolicy from '../../docs/LEGAL/REFUND_AND_CANCELLATION_POLICY.md?raw';
-import termsAndConditions from '../../docs/LEGAL/TERMS_AND_CONDITIONS.md?raw';
+import acceptableUsePolicy from './legal/ACCEPTABLE_USE_POLICY.md?raw';
+import cookiePolicy from './legal/COOKIE_POLICY.md?raw';
+import donationDisclaimer from './legal/DONATION_DISCLAIMER.md?raw';
+import privacyPolicy from './legal/PRIVACY_POLICY.md?raw';
+import refundPolicy from './legal/REFUND_AND_CANCELLATION_POLICY.md?raw';
+import termsAndConditions from './legal/TERMS_AND_CONDITIONS.md?raw';
 
 export const legalPages = [
   { path: '/privacy-policy', label: 'Privacy Policy', source: privacyPolicy },
