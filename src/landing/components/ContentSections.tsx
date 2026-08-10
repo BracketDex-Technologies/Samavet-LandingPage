@@ -59,7 +59,7 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
           <p className="hero-description hero-reveal">{copy.heroDescription}</p>
           <div className="hero-actions hero-reveal">
             <a className="button button--primary" href={portalUrl}>{copy.portalCta}<ArrowRight size={18} /></a>
-            <a className="button button--secondary" href="#portal">{copy.portalPreviewCta}</a>
+            <a className="button button--secondary" href="/portal">{copy.portalPreviewCta}</a>
           </div>
         </div>
 

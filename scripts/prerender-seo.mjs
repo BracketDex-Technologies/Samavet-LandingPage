@@ -4,6 +4,30 @@ import path from 'node:path';
 const origin = 'https://www.samavet.in';
 const socialImage = `${origin}/ganpati_mandal_hero.png`;
 const routes = [
+  ...[
+    ['features', 'Platform'],
+    ['portal', 'ePawati'],
+    ['how', 'Services'],
+    ['faq', 'FAQ'],
+    ['contact', 'Contact'],
+  ].flatMap(([section, label]) => [
+    {
+      path: `/${section}`,
+      lang: 'en',
+      type: 'website',
+      title: `${label} | Samavet`,
+      description: 'Digital Vargani, ePawati and Pawati software for Ganesh mandals, temples and trusts.',
+      keywords: 'digital vargani, digital pawati, ePawati, Ganesh mandal software, donation receipt software',
+    },
+    {
+      path: `/mr/${section}`,
+      lang: 'mr',
+      type: 'website',
+      title: `${label} | समवेत`,
+      description: 'गणेश मंडळे, मंदिरे आणि ट्रस्टसाठी डिजिटल वर्गणी, ई-पावती आणि पावती सॉफ्टवेअर.',
+      keywords: 'डिजिटल वर्गणी, डिजिटल पावती, ई-पावती, गणेश मंडळ पावती, मंडळ वर्गणी सॉफ्टवेअर',
+    },
+  ]),
   {
     path: '/mr',
     lang: 'mr',
@@ -28,6 +52,54 @@ const routes = [
     title: 'Ahwal | Create a 3D Book from a PDF',
     description: 'Upload a PDF and create a temporary interactive 3D Ahwal book directly in your browser. No server upload or storage.',
     keywords: 'Ahwal, 3D book maker, PDF book maker, Samavet Ahwal, GLB USDZ book',
+  },
+  {
+    path: '/privacy-policy',
+    lang: 'en',
+    type: 'article',
+    title: 'Privacy Policy | Samavet',
+    description: 'Privacy Policy for Samavet ePawati users, organisations, mandals, trusts and committees.',
+    keywords: 'Samavet privacy policy, ePawati privacy policy, donor data privacy',
+  },
+  {
+    path: '/terms-and-conditions',
+    lang: 'en',
+    type: 'article',
+    title: 'Terms & Conditions | Samavet',
+    description: 'Terms and Conditions for Samavet ePawati users, organisations, mandals, trusts and committees.',
+    keywords: 'Samavet terms, ePawati terms and conditions',
+  },
+  {
+    path: '/refund-and-cancellation-policy',
+    lang: 'en',
+    type: 'article',
+    title: 'Refund & Cancellation | Samavet',
+    description: 'Refund and Cancellation Policy for Samavet ePawati subscriptions and organisations.',
+    keywords: 'Samavet refund policy, ePawati cancellation policy',
+  },
+  {
+    path: '/cookie-policy',
+    lang: 'en',
+    type: 'article',
+    title: 'Cookie Policy | Samavet',
+    description: 'Cookie and Tracking Policy for Samavet ePawati.',
+    keywords: 'Samavet cookie policy, ePawati tracking policy',
+  },
+  {
+    path: '/acceptable-use-policy',
+    lang: 'en',
+    type: 'article',
+    title: 'Acceptable Use | Samavet',
+    description: 'Acceptable Use Policy for Samavet ePawati organisations and users.',
+    keywords: 'Samavet acceptable use policy, ePawati user policy',
+  },
+  {
+    path: '/donation-disclaimer',
+    lang: 'en',
+    type: 'article',
+    title: 'Donation Disclaimer | Samavet',
+    description: 'Donation Disclaimer explaining the responsibility split between Samavet ePawati and organisations.',
+    keywords: 'Samavet donation disclaimer, ePawati donation responsibility',
   },
 ];
 

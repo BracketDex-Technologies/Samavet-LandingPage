@@ -5,8 +5,8 @@ import test from 'node:test';
 import { landingNavItems } from '../src/landing/navItems.js';
 
 test('uses the approved bilingual landing navigation', () => {
-  assert.deepEqual(landingNavItems.en, [['#features', 'Platform'], ['#portal', 'ePawati'], ['/ahwal', 'Ahwal'], ['#how', 'Services'], ['#contact', 'Contact']]);
-  assert.deepEqual(landingNavItems.mr, [['#features', 'व्यासपीठ'], ['#portal', 'ई-पावती'], ['/ahwal', 'अहवाल'], ['#how', 'सेवा'], ['#contact', 'संपर्क']]);
+  assert.deepEqual(landingNavItems.en, [['/features', 'Platform'], ['/portal', 'ePawati'], ['/ahwal', 'Ahwal'], ['/how', 'Services'], ['/contact', 'Contact']]);
+  assert.deepEqual(landingNavItems.mr, [['/features', 'व्यासपीठ'], ['/portal', 'ई-पावती'], ['/ahwal', 'अहवाल'], ['/how', 'सेवा'], ['/contact', 'संपर्क']]);
 });
 
 test('keeps language, responsive menu, and portal controls in the header', async () => {

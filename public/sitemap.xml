@@ -19,6 +19,76 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.samavet.in/" />
   </url>
   <url>
+    <loc>https://www.samavet.in/features</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.samavet.in/features" />
+    <xhtml:link rel="alternate" hreflang="mr" href="https://www.samavet.in/mr/features" />
+  </url>
+  <url>
+    <loc>https://www.samavet.in/portal</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.samavet.in/portal" />
+    <xhtml:link rel="alternate" hreflang="mr" href="https://www.samavet.in/mr/portal" />
+  </url>
+  <url>
+    <loc>https://www.samavet.in/how</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.samavet.in/how" />
+    <xhtml:link rel="alternate" hreflang="mr" href="https://www.samavet.in/mr/how" />
+  </url>
+  <url>
+    <loc>https://www.samavet.in/faq</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.samavet.in/faq" />
+    <xhtml:link rel="alternate" hreflang="mr" href="https://www.samavet.in/mr/faq" />
+  </url>
+  <url>
+    <loc>https://www.samavet.in/contact</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.samavet.in/contact" />
+    <xhtml:link rel="alternate" hreflang="mr" href="https://www.samavet.in/mr/contact" />
+  </url>
+  <url>
+    <loc>https://www.samavet.in/mr/features</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/mr/portal</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/mr/how</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/mr/faq</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/mr/contact</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.samavet.in/blog</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -32,5 +102,41 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.samavet.in/ahwal" />
     <xhtml:link rel="alternate" hreflang="mr" href="https://www.samavet.in/ahwal?lang=mr" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.samavet.in/ahwal" />
+  </url>
+  <url>
+    <loc>https://www.samavet.in/privacy-policy</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/terms-and-conditions</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/refund-and-cancellation-policy</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/cookie-policy</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/acceptable-use-policy</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/donation-disclaimer</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>
