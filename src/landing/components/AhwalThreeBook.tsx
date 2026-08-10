@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
-import type { Object3D } from 'three';
 
 import { PageCache, type RenderedPdfPage } from '../ahwalBookUtils';
 
 interface AhwalThreeBookProps {
   coverUrl: string | null;
   currentPage: number;
-  onExportReady?: (object: Object3D | null) => void;
   onNext: () => void;
   onPrevious: () => void;
   onStatus?: (message: string) => void;
@@ -20,7 +18,7 @@ interface AhwalThreeBookProps {
 
 const RENDER_WINDOW = 5;
 
-export function AhwalThreeBook({ coverUrl, currentPage, onExportReady, onNext, onPrevious, onStatus, onZoomChange, pageCount, pdfDocument, zoom }: AhwalThreeBookProps) {
+export function AhwalThreeBook({ coverUrl, currentPage, onNext, onPrevious, onStatus, onZoomChange, pageCount, pdfDocument, zoom }: AhwalThreeBookProps) {
   const cacheRef = useRef<PageCache | null>(null);
   const [pageMap, setPageMap] = useState<Record<number, RenderedPdfPage>>({});
   const [coverPage, setCoverPage] = useState<RenderedPdfPage | null>(null);
@@ -40,9 +38,8 @@ export function AhwalThreeBook({ coverUrl, currentPage, onExportReady, onNext, o
     cacheRef.current = new PageCache(pdfDocument, 16);
     setPageMap({});
     setCoverPage(null);
-    onExportReady?.(null);
     return () => cacheRef.current?.clear();
-  }, [onExportReady, pdfDocument]);
+  }, [pdfDocument]);
 
   useEffect(() => {
     const cache = cacheRef.current;

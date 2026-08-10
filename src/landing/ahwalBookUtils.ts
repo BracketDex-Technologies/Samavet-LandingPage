@@ -119,20 +119,3 @@ export function easeInOutCubic(value: number) {
     ? 4 * value * value * value
     : 1 - Math.pow(-2 * value + 2, 3) / 2;
 }
-
-export function disposeObject(object: import('three').Object3D) {
-  object.traverse((child) => {
-    const mesh = child as import('three').Mesh;
-    mesh.geometry?.dispose();
-    const material = mesh.material;
-    if (Array.isArray(material)) {
-      material.forEach((item) => {
-        (item as import('three').MeshStandardMaterial).map?.dispose();
-        item.dispose();
-      });
-    } else {
-      (material as import('three').MeshStandardMaterial | undefined)?.map?.dispose();
-      material?.dispose();
-    }
-  });
-}

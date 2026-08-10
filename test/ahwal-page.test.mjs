@@ -25,11 +25,7 @@ test('implements client-only PDF to 3D Ahwal book maker', async () => {
   assert.match(utils, /new Map<number, RenderedPdfPage>/);
   assert.match(utils, /getPrefetchPages/);
   assert.match(utils, /renderPdfPageImage/);
-  assert.match(maker, /GLTFExporter/);
-  assert.match(maker, /USDZExporter/);
-  assert.match(maker, /Download GLB/);
-  assert.match(maker, /Download GLTF/);
-  assert.match(maker, /Download USDZ/);
+  assert.doesNotMatch(maker, /GLTFExporter|USDZExporter|Download GLB|Download GLTF|Download USDZ/);
   assert.match(utils, /pdfjs-dist/);
   assert.match(utils, /pdf\.worker\.min\.mjs/);
   assert.match(stage, /simple-book-reader/);
@@ -60,4 +56,5 @@ test('keeps Ahwal free of backend storage and public sharing logic', async () =>
   assert.doesNotMatch(source, /apiRequest|Supabase|supabase|Prisma|MandalBookManager|PublishedBookReader/);
   assert.doesNotMatch(source, /publish|unpublish|metadataPath|session|share token|viewCount/);
   assert.doesNotMatch(source, /localStorage|sessionStorage|indexedDB/);
+  assert.doesNotMatch(source, /GLTFExporter|USDZExporter|three/);
 });

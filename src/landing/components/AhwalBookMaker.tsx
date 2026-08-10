@@ -1,7 +1,6 @@
-import { ChevronLeft, ChevronRight, Download, FileText, Image, Upload, ZoomIn, ZoomOut } from 'lucide-react';
+import { ChevronLeft, ChevronRight, FileText, Image, Upload, ZoomIn, ZoomOut } from 'lucide-react';
 import { useEffect, useRef, useState, type DragEvent } from 'react';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
-import type { Object3D } from 'three';
 
 import { clampMagazinePage, loadPdfDocument } from '../ahwalBookUtils';
 import type { LandingLanguage } from '../content';
@@ -16,15 +15,6 @@ function releasePdfDocument(document: PDFDocumentProxy | null) {
   void destroyable?.destroy?.();
 }
 
-function downloadBlob(blob: Blob, fileName: string) {
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = fileName;
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
 function readImageAsDataUrl(file: File) {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -32,33 +22,6 @@ function readImageAsDataUrl(file: File) {
     reader.onerror = () => reject(new Error('Could not read this cover image.'));
     reader.readAsDataURL(file);
   });
-}
-
-async function exportGlb(sceneOrGroup: Object3D) {
-  const { GLTFExporter } = await import('three/examples/jsm/exporters/GLTFExporter.js');
-  const exporter = new GLTFExporter();
-  const result = await exporter.parseAsync(sceneOrGroup, { binary: true, embedImages: true });
-  const blob = result instanceof ArrayBuffer
-    ? new Blob([result], { type: 'model/gltf-binary' })
-    : new Blob([JSON.stringify(result)], { type: 'model/gltf+json' });
-  downloadBlob(blob, 'ahwal-magazine.glb');
-}
-
-async function exportGltf(sceneOrGroup: Object3D) {
-  const { GLTFExporter } = await import('three/examples/jsm/exporters/GLTFExporter.js');
-  const exporter = new GLTFExporter();
-  const result = await exporter.parseAsync(sceneOrGroup, { binary: false, embedImages: true });
-  const blob = result instanceof ArrayBuffer
-    ? new Blob([result], { type: 'model/gltf-binary' })
-    : new Blob([JSON.stringify(result, null, 2)], { type: 'model/gltf+json' });
-  downloadBlob(blob, 'ahwal-magazine.gltf');
-}
-
-async function exportUsdz(sceneOrGroup: Object3D) {
-  const { USDZExporter } = await import('three/examples/jsm/exporters/USDZExporter.js');
-  const exporter = new USDZExporter();
-  const arrayBuffer = await exporter.parseAsync(sceneOrGroup, { quickLookCompatible: true });
-  downloadBlob(new Blob([arrayBuffer], { type: 'model/vnd.usdz+zip' }), 'ahwal-magazine.usdz');
 }
 
 export function AhwalBookMaker({ language }: AhwalBookMakerProps) {
@@ -71,8 +34,6 @@ export function AhwalBookMaker({ language }: AhwalBookMakerProps) {
   const [error, setError] = useState('');
   const [dragActive, setDragActive] = useState(false);
   const [coverDragActive, setCoverDragActive] = useState(false);
-  const [bookObject, setBookObject] = useState<Object3D | null>(null);
-  const [exporting, setExporting] = useState<'glb' | 'gltf' | 'usdz' | null>(null);
   const [singlePage, setSinglePage] = useState(() => window.innerWidth < 760);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const coverInputRef = useRef<HTMLInputElement | null>(null);
@@ -110,7 +71,6 @@ export function AhwalBookMaker({ language }: AhwalBookMakerProps) {
     setPdfDocument(null);
     setCurrentPage(0);
     setZoom(1);
-    setBookObject(null);
 
     try {
       const document = await loadPdfDocument(file);
@@ -164,21 +124,6 @@ export function AhwalBookMaker({ language }: AhwalBookMakerProps) {
 
   function changeZoom(nextZoom: number) {
     setZoom(Math.max(1, Math.min(2.4, Number(nextZoom.toFixed(2)))));
-  }
-
-  async function runExport(kind: 'glb' | 'gltf' | 'usdz') {
-    if (!bookObject) return;
-    setExporting(kind);
-    setError('');
-    try {
-      if (kind === 'glb') await exportGlb(bookObject);
-      else if (kind === 'gltf') await exportGltf(bookObject);
-      else await exportUsdz(bookObject);
-    } catch (nextError) {
-      setError(nextError instanceof Error ? nextError.message : isMarathi ? 'डाउनलोड तयार झाला नाही.' : 'Could not prepare the download.');
-    } finally {
-      setExporting(null);
-    }
   }
 
   return (
@@ -251,7 +196,6 @@ export function AhwalBookMaker({ language }: AhwalBookMakerProps) {
                 <AhwalThreeBook
                   coverUrl={coverUrl}
                   currentPage={currentPage}
-                  onExportReady={setBookObject}
                   onNext={goNext}
                   onPrevious={goPrevious}
                   onStatus={setMessage}
@@ -272,19 +216,6 @@ export function AhwalBookMaker({ language }: AhwalBookMakerProps) {
                 <button aria-label={isMarathi ? 'झूम reset करा' : 'Reset zoom'} onClick={() => changeZoom(1)} type="button">{Math.round(zoom * 100)}%</button>
                 <button aria-label={isMarathi ? 'झूम वाढवा' : 'Zoom in'} onClick={() => changeZoom(zoom + 0.18)} type="button"><ZoomIn size={18} /></button>
               </div>
-
-              <div className="ahwal-downloads" aria-label={isMarathi ? 'डाउनलोड' : 'Downloads'}>
-                <div className="ahwal-downloads__group">
-                  <span>{isMarathi ? 'Android / Web' : 'Android / Web'}</span>
-                  <button disabled={!bookObject || Boolean(exporting)} onClick={() => void runExport('glb')} type="button"><Download size={17} />{exporting === 'glb' ? (isMarathi ? 'तयार करत आहे...' : 'Exporting...') : 'Download GLB'}</button>
-                  <button disabled={!bookObject || Boolean(exporting)} onClick={() => void runExport('gltf')} type="button"><Download size={17} />{exporting === 'gltf' ? (isMarathi ? 'तयार करत आहे...' : 'Exporting...') : 'Download GLTF'}</button>
-                </div>
-                <div className="ahwal-downloads__group">
-                  <span>{isMarathi ? 'iOS' : 'iOS'}</span>
-                  <button disabled={!bookObject || Boolean(exporting)} onClick={() => void runExport('usdz')} type="button"><Download size={17} />{exporting === 'usdz' ? (isMarathi ? 'तयार करत आहे...' : 'Exporting...') : 'Download USDZ'}</button>
-                </div>
-              </div>
-              <p className="ahwal-export-note">{isMarathi ? 'डाउनलोड केलेला model सध्याच्या static 3D स्थितीसह texture export करतो; live page-flip interaction export होत नाही.' : 'Downloads export the current static 3D magazine model with textures; live page-flip interaction is not preserved.'}</p>
             </div>
           ) : null}
         </div>
