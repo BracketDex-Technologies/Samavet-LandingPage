@@ -1,11 +1,15 @@
-import { ArrowLeft, ArrowUpRight, CalendarDays } from 'lucide-react';
-import { useEffect } from 'react';
+import { ArrowUpRight, CalendarDays } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 import blogEcoFriendlyImage from './assets/blog-eco-friendly.png';
 import blogWhatIsSamavetImage from './assets/blog-what-is-samavet.png';
 import blogImage from './assets/samavet-ganesh-procession.webp';
-import samavetLogo from './assets/samavet-logo-transparent.png';
+import { LandingFooter } from './components/LandingFooter';
+import { LandingHeader } from './components/LandingHeader';
+import { localizedCopy, type LandingLanguage } from './content';
+import { PORTAL_URL } from './links.js';
 import { applyPageSeo } from './seo';
+import './samavet.css';
 import './blog.css';
 
 const blogPosts = [
@@ -42,7 +46,14 @@ const blogPosts = [
   },
 ] as const;
 
+function getInitialLanguage(): LandingLanguage {
+  return new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'mr';
+}
+
 export default function BlogPage() {
+  const [language, setLanguage] = useState<LandingLanguage>(getInitialLanguage);
+  const copy = localizedCopy[language];
+
   useEffect(() => {
     applyPageSeo({
       title: 'समवेत ब्लॉग | ई-पावती, डिजिटल वर्गणी आणि समुदाय तंत्रज्ञान',
@@ -53,16 +64,15 @@ export default function BlogPage() {
     });
   }, []);
 
-  return (
-    <main className="samavet-blog-page">
-      <header className="blog-page-header">
-        <a className="blog-page-brand" href="/" aria-label="Samavet home">
-          <img alt="Samavet logo" src={samavetLogo} />
-          <span><strong>SAMAVET</strong><small>Community Technology</small></span>
-        </a>
-        <a className="blog-page-home" href="/"><ArrowLeft aria-hidden="true" size={18} />मुख्यपृष्ठ</a>
-      </header>
+  function changeLanguage(nextLanguage: LandingLanguage) {
+    const nextSearch = nextLanguage === 'en' ? '?lang=en' : '';
+    window.history.replaceState({}, '', `/blog${nextSearch}`);
+    setLanguage(nextLanguage);
+  }
 
+  return (
+    <main className={`epawati-page samavet-blog-page${language === 'mr' ? ' epawati-page--mr' : ''}`}>
+      <LandingHeader language={language} onLanguageChange={changeLanguage} portalUrl={PORTAL_URL} />
       <section className="blog-page-content" aria-labelledby="blog-page-title">
         <div className="blog-page-heading">
           <p>लेख</p>
@@ -92,11 +102,7 @@ export default function BlogPage() {
           ))}
         </div>
       </section>
-
-      <footer className="blog-page-footer">
-        <span>&copy; {new Date().getFullYear()} Samavet.</span>
-        <a href="https://bracketdex.com" rel="noreferrer" target="_blank">Powered by BracketDex Technologies</a>
-      </footer>
+      <LandingFooter copy={copy} language={language} portalUrl={PORTAL_URL} />
     </main>
   );
 }

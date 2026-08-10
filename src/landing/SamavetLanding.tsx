@@ -8,8 +8,17 @@ import { PORTAL_URL } from './links.js';
 import { applyPageSeo, SITE_ORIGIN } from './seo';
 import './samavet.css';
 
+const LANDING_SECTION_IDS = new Set(['features', 'portal', 'how', 'faq', 'contact']);
+
+function getLandingSectionFromPath() {
+  const normalizedPath = window.location.pathname.replace(/\/+$/, '') || '/';
+  const pathWithoutLanguage = normalizedPath.startsWith('/mr/') ? normalizedPath.slice(3) : normalizedPath;
+  const sectionId = pathWithoutLanguage.replace(/^\//, '');
+  return LANDING_SECTION_IDS.has(sectionId) ? sectionId : '';
+}
+
 function getInitialLanguage(): LandingLanguage {
-  return window.location.pathname === '/mr' || new URLSearchParams(window.location.search).get('lang') === 'mr' ? 'mr' : 'en';
+  return window.location.pathname === '/mr' || window.location.pathname.startsWith('/mr/') || new URLSearchParams(window.location.search).get('lang') === 'mr' ? 'mr' : 'en';
 }
 
 export default function SamavetLanding() {
@@ -41,9 +50,17 @@ export default function SamavetLanding() {
     });
   }, [language]);
 
+  useEffect(() => {
+    const sectionId = getLandingSectionFromPath();
+    if (!sectionId) return;
+    requestAnimationFrame(() => document.getElementById(sectionId)?.scrollIntoView({ block: 'start' }));
+  }, []);
+
   function changeLanguage(nextLanguage: LandingLanguage) {
-    const nextPath = nextLanguage === 'mr' ? '/mr' : '/';
-    window.history.replaceState({}, '', `${nextPath}${window.location.hash}`);
+    const sectionId = getLandingSectionFromPath();
+    const nextBasePath = nextLanguage === 'mr' ? '/mr' : '';
+    const nextPath = sectionId ? `${nextBasePath}/${sectionId}` : nextBasePath || '/';
+    window.history.replaceState({}, '', nextPath);
     setLanguage(nextLanguage);
   }
 

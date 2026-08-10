@@ -5,6 +5,15 @@ import type { LandingCopy, LandingLanguage } from '../content';
 import { buildWhatsAppLink, WHATSAPP_PHONE } from '../links.js';
 import { landingNavItems } from '../navItems.js';
 
+const legalLinks = [
+  ['/privacy-policy', 'Privacy'],
+  ['/terms-and-conditions', 'Terms'],
+  ['/refund-and-cancellation-policy', 'Refunds'],
+  ['/cookie-policy', 'Cookies'],
+  ['/acceptable-use-policy', 'Acceptable Use'],
+  ['/donation-disclaimer', 'Donation Disclaimer'],
+];
+
 interface LandingFooterProps {
   copy: LandingCopy;
   language: LandingLanguage;
@@ -26,15 +35,18 @@ export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps)
   return (
     <footer className="landing-footer">
       <div className="landing-container footer-container">
-        <a className="footer-brand-lockup" href="#top" aria-label={isMarathi ? 'समवेत मुख्यपृष्ठ' : 'Samavet home'}>
+        <a className="footer-brand-lockup" href="/" aria-label={isMarathi ? 'समवेत मुख्यपृष्ठ' : 'Samavet home'}>
           <img alt="" src={samavetLogo} />
         </a>
 
         <nav className="footer-nav" aria-label={isMarathi ? 'फूटर नेव्हिगेशन' : 'Footer navigation'}>
           {landingNavItems[language].map(([href, label]) => <a href={resolveFooterHref(href)} key={href}>{label}</a>)}
-          <a href="#faq">{isMarathi ? 'प्रश्नोत्तरे' : 'FAQ'}</a>
+          <a href="/faq">{isMarathi ? 'प्रश्नोत्तरे' : 'FAQ'}</a>
           <a href="/blog">{copy.blog}</a>
           <a href={portalUrl}>{isMarathi ? 'पोर्टल' : 'Portal'}</a>
+        </nav>
+        <nav className="footer-legal-nav" aria-label="Legal navigation">
+          {legalLinks.map(([href, label]) => <a href={href} key={href}>{label}</a>)}
         </nav>
         <div className="footer-divider" aria-hidden="true" />
 
