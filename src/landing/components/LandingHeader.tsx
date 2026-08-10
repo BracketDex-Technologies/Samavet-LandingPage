@@ -66,7 +66,7 @@ export function LandingHeader({ language, onLanguageChange, portalUrl }: Landing
     <>
       <header className={`landing-header${isScrolled ? ' is-scrolled' : ''}`}>
         <div className="landing-header__inner">
-        <a className="landing-brand" href="#top" onClick={() => setMenuOpen(false)} aria-label={isMarathi ? 'समवेत मुख्यपृष्ठ' : 'Samavet home'}>
+        <a className="landing-brand" href="/" onClick={() => setMenuOpen(false)} aria-label={isMarathi ? 'समवेत मुख्यपृष्ठ' : 'Samavet home'}>
           <img alt="" className="landing-brand__logo" src={samavetLogo} />
           <span className="landing-brand__copy"><strong>{isMarathi ? 'समवेत' : 'SAMAVET'}</strong></span>
         </a>

@@ -33,4 +33,40 @@
     <xhtml:link rel="alternate" hreflang="mr" href="https://www.samavet.in/ahwal?lang=mr" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.samavet.in/ahwal" />
   </url>
+  <url>
+    <loc>https://www.samavet.in/privacy-policy</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/terms-and-conditions</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/refund-and-cancellation-policy</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/cookie-policy</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/acceptable-use-policy</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.samavet.in/donation-disclaimer</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
 </urlset>

@@ -4,13 +4,15 @@ import { Agentation } from 'agentation'
 import './index.css'
 import AhwalPage from './landing/AhwalPage.tsx'
 import BlogPage from './landing/BlogPage.tsx'
+import LegalPage from './landing/LegalPage.tsx'
+import { legalPagePaths } from './landing/legalPages.ts'
 import SamavetLanding from './landing/SamavetLanding.tsx'
 
 const pathname = window.location.pathname.replace(/\/+$/, '') || '/'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {pathname === '/blog' ? <BlogPage /> : pathname === '/ahwal' ? <AhwalPage /> : <SamavetLanding />}
+    {pathname === '/blog' ? <BlogPage /> : pathname === '/ahwal' ? <AhwalPage /> : legalPagePaths.has(pathname) ? <LegalPage /> : <SamavetLanding />}
     {import.meta.env.DEV ? <Agentation /> : null}
   </StrictMode>,
 )
