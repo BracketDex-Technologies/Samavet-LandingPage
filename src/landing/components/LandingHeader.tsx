@@ -18,9 +18,11 @@ function getInitialTheme() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-function resolveLandingHref(href: string) {
-  if (typeof window === 'undefined' || !href.startsWith('#')) return href;
-  return window.location.pathname.replace(/\/+$/, '') === '/ahwal' ? `/${href}` : href;
+function resolveLandingHref(href: string, language: LandingLanguage) {
+  if (!href.startsWith('/')) return href;
+  if (language !== 'mr') return href;
+  if (href === '/ahwal' || href === '/blog') return href;
+  return `/mr${href}`;
 }
 
 export function LandingHeader({ language, onLanguageChange, portalUrl }: LandingHeaderProps) {
@@ -72,7 +74,7 @@ export function LandingHeader({ language, onLanguageChange, portalUrl }: Landing
         </a>
 
         <nav aria-label={isMarathi ? 'मुख्य नेव्हिगेशन' : 'Primary navigation'} className={`landing-nav${menuOpen ? ' is-open' : ''}`} id="landing-navigation">
-          {landingNavItems[language].map(([href, label], index) => <span className="landing-nav__item" key={href}>{index > 0 ? <i aria-hidden="true">|</i> : null}<a href={resolveLandingHref(href)} onClick={() => setMenuOpen(false)}>{label}</a></span>)}
+          {landingNavItems[language].map(([href, label], index) => <span className="landing-nav__item" key={href}>{index > 0 ? <i aria-hidden="true">|</i> : null}<a href={resolveLandingHref(href, language)} onClick={() => setMenuOpen(false)}>{label}</a></span>)}
           <span className="landing-nav__item"><i aria-hidden="true">|</i><a href="/blog" onClick={() => setMenuOpen(false)}>{blogLabel}</a></span>
           <a className="landing-nav__mobile-cta" href={portalUrl}>{portalLabel}</a>
         </nav>
