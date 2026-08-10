@@ -33,6 +33,11 @@ test('keeps Instagram, email, and WhatsApp social actions in the footer', async 
   assert.match(source, /https:\/\/www\.instagram\.com\/samavetofficial\//);
   assert.match(source, /Email/);
   assert.match(source, /mailto:Samavetofficial@gmail\.com/);
+  assert.match(source, /data-social="instagram"/);
+  assert.match(source, /data-social="email"/);
+  assert.match(source, /data-social="whatsapp"/);
+  assert.match(source, /className="filled"/);
+  assert.match(source, /className="tooltip"/);
   assert.match(source, /Mail/);
   assert.match(source, /MessageCircle/);
   assert.match(source, /samavet-logo-transparent\.png/);

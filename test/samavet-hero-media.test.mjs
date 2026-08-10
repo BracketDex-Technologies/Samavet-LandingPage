@@ -21,8 +21,13 @@ test('renders the ePawati hero as layered HTML without background SVG artwork', 
 
 test('uses corrected ePawati branding and the approved live claims', async () => {
   const content = await readFile(new URL('../src/landing/content.ts', import.meta.url), 'utf8');
-  assert.match(content, /Digital Pawati for/);
-  assert.match(content, /every mandal collection\./);
+  assert.match(content, /Digital Pawati Trusted/);
+  assert.match(content, /for fast & Transparent/);
+  assert.match(content, /Vargani Collection/);
+  assert.match(content, /Mandal/);
+  assert.match(content, /Mandir/);
+  assert.match(content, /Trust/);
+  assert.match(content, /Organisation/);
   assert.match(content, /value: '300\+'/);
   assert.match(content, /value: '50\+'/);
   assert.match(content, /value: '5,000\+'/);

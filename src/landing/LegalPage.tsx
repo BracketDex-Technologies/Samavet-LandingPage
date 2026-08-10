@@ -6,6 +6,7 @@ import { localizedCopy, type LandingLanguage } from './content';
 import { legalPages } from './legalPages';
 import { PORTAL_URL } from './links.js';
 import { applyPageSeo } from './seo';
+import samavetLogoWatermark from './assets/samavet-logo-transparent.png';
 import './samavet.css';
 import './legal.css';
 
@@ -106,8 +107,8 @@ export default function LegalPage() {
     <main className={`epawati-page legal-page${language === 'mr' ? ' epawati-page--mr' : ''}`}>
       <LandingHeader language={language} onLanguageChange={changeLanguage} portalUrl={PORTAL_URL} />
       <section className="legal-page__content">
-        <img alt="" aria-hidden="true" className="legal-page__watermark" src="/samavet-logo.jpeg" />
         <article className="legal-page__article">
+          <img alt="" aria-hidden="true" className="legal-page__watermark" src={samavetLogoWatermark} />
           {body}
         </article>
       </section>

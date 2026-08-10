@@ -10,6 +10,7 @@ import feature4Flipbook from '../assets/feature4th.png';
 import heroMockup from '../assets/phone_mockup_updated_transparent_4500x3000.png';
 import type { LandingCopy } from '../content';
 import { RevealSection } from './RevealSection';
+import { FlipWords } from './ui/FlipWords';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,7 +56,15 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
       <div className="hero-glow hero-glow--forest" aria-hidden="true" />
       <div className="landing-container hero-layout">
         <div className="hero-copy">
-          <h1 className="hero-reveal">{copy.heroTitle[0]}<span>{copy.heroTitle[1]}</span></h1>
+          <h1 className="hero-reveal">
+            <span className="hero-title-main">{copy.heroTitle[0]}</span>
+            <span className="hero-title-line">
+              {copy.heroTitle[1] ? <span>{copy.heroTitle[1]}</span> : null}
+              <FlipWords words={copy.heroAudienceWords} />
+            </span>
+            <span className="hero-title-support">{copy.heroTitle[2]}</span>
+            <span className="hero-title-final">{copy.heroTitle[3]}</span>
+          </h1>
           <p className="hero-description hero-reveal">{copy.heroDescription}</p>
           <div className="hero-actions hero-reveal">
             <a className="button button--primary" href={portalUrl}>{copy.portalCta}<ArrowRight size={18} /></a>
