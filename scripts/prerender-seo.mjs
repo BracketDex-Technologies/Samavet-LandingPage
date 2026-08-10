@@ -21,6 +21,14 @@ const routes = [
     description: 'गणेश मंडळे, मंदिरे आणि ट्रस्टसाठी डिजिटल ई-पावती, वर्गणी व्यवस्थापन आणि समुदाय तंत्रज्ञानाविषयी समवेतच्या बातम्या आणि लेख.',
     keywords: 'समवेत ब्लॉग, ई-पावती बातम्या, डिजिटल वर्गणी, गणेश मंडळ डिजिटल पावती, मंदिर देणगी व्यवस्थापन',
   },
+  {
+    path: '/ahwal',
+    lang: 'en',
+    type: 'website',
+    title: 'Ahwal | Create a 3D Book from a PDF',
+    description: 'Upload a PDF and create a temporary interactive 3D Ahwal book directly in your browser. No server upload or storage.',
+    keywords: 'Ahwal, 3D book maker, PDF book maker, Samavet Ahwal, GLB USDZ book',
+  },
 ];
 
 function escapeHtml(value) {

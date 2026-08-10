@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent } from 'react';
-import { ArrowRight, BarChart3, Check, ChevronDown, CircleCheck, FileSpreadsheet, QrCode, Receipt, Smartphone } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, CircleCheck, FileSpreadsheet, Receipt } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -215,19 +215,21 @@ export function PortalSection({ copy }: CopyProps) {
 }
 
 export function HowSection({ copy }: CopyProps) {
-  const icons = [Smartphone, QrCode, BarChart3];
   return (
-    <RevealSection className="how-section" id="how" revealSelector=".how-card">
+    <RevealSection className="how-section" id="how" revealSelector=".how-step">
       <div className="landing-container">
         <div className="section-heading section-heading--center">
           <p className="section-eyebrow">{copy.howEyebrow}</p>
           <h2>{copy.howTitle}</h2>
         </div>
-        <div className="how-grid">
-          {copy.howSteps.map(([title, description], index) => {
-            const Icon = icons[index];
-            return <article aria-label={`Step ${index + 1}: ${title}`} className="how-card reveal-item" key={title}><span className="how-card__number">{String(index + 1).padStart(2, '0')}</span><div className="how-card__heading"><span className="how-card__icon"><Icon size={20} strokeWidth={1.7} /></span><h3>{title}</h3></div><p>{description}</p></article>;
-          })}
+        <div className="how-flow">
+          {copy.howSteps.map(([title, description], index) => (
+            <article aria-label={`Step ${index + 1}: ${title}`} className="how-step reveal-item" key={title}>
+              <span className="how-step__number">{String(index + 1).padStart(2, '0')}</span>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          ))}
         </div>
       </div>
     </RevealSection>
