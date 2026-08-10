@@ -23,9 +23,9 @@ test('uses corrected ePawati branding and the approved live claims', async () =>
   const content = await readFile(new URL('../src/landing/content.ts', import.meta.url), 'utf8');
   assert.match(content, /Digital Pawati for/);
   assert.match(content, /every mandal collection\./);
-  assert.match(content, /value: '12'/);
-  assert.match(content, /value: '33'/);
-  assert.match(content, /value: '0\.5h'/);
+  assert.match(content, /value: '300\+'/);
+  assert.match(content, /value: '50\+'/);
+  assert.match(content, /value: '5,000\+'/);
   assert.doesNotMatch(content, /wPawati/);
 });
 
