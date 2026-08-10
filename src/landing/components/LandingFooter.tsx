@@ -11,6 +11,11 @@ interface LandingFooterProps {
   portalUrl: string;
 }
 
+function resolveFooterHref(href: string) {
+  if (typeof window === 'undefined' || !href.startsWith('#')) return href;
+  return window.location.pathname.replace(/\/+$/, '') === '/ahwal' ? `/${href}` : href;
+}
+
 export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps) {
   const isMarathi = language === 'mr';
   const whatsappUrl = buildWhatsAppLink(
@@ -26,7 +31,7 @@ export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps)
         </a>
 
         <nav className="footer-nav" aria-label={isMarathi ? 'फूटर नेव्हिगेशन' : 'Footer navigation'}>
-          {landingNavItems[language].map(([href, label]) => <a href={href} key={href}>{label}</a>)}
+          {landingNavItems[language].map(([href, label]) => <a href={resolveFooterHref(href)} key={href}>{label}</a>)}
           <a href="#faq">{isMarathi ? 'प्रश्नोत्तरे' : 'FAQ'}</a>
           <a href="/blog">{copy.blog}</a>
           <a href={portalUrl}>{isMarathi ? 'पोर्टल' : 'Portal'}</a>

@@ -36,7 +36,7 @@ test('publishes robots and sitemap entries for every indexable route', async () 
     readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8'),
   ]);
   assert.match(robots, /Sitemap: https:\/\/www\.samavet\.in\/sitemap\.xml/);
-  for (const route of ['blog']) {
+  for (const route of ['blog', 'ahwal']) {
     assert.match(sitemap, new RegExp(`https://www\\.samavet\\.in/${route}`));
   }
   for (const removedRoute of ['epawati-for-ganesh-mandals', 'temple-donation-management-software', 'ngo-digital-receipt-system']) {
@@ -60,4 +60,5 @@ test('generates route-specific static metadata after the Vite build', async () =
   ]);
   assert.match(packageJson, /node scripts\/prerender-seo\.mjs/);
   assert.match(script, /Generated SEO HTML/);
+  assert.match(script, /path: '\/ahwal'/);
 });
