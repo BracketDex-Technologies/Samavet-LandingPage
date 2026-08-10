@@ -20,9 +20,11 @@ interface LandingFooterProps {
   portalUrl: string;
 }
 
-function resolveFooterHref(href: string) {
-  if (typeof window === 'undefined' || !href.startsWith('#')) return href;
-  return window.location.pathname.replace(/\/+$/, '') === '/ahwal' ? `/${href}` : href;
+function resolveFooterHref(href: string, language: LandingLanguage) {
+  if (!href.startsWith('/')) return href;
+  if (language !== 'mr') return href;
+  if (href === '/ahwal' || href === '/blog') return href;
+  return `/mr${href}`;
 }
 
 export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps) {
@@ -40,8 +42,8 @@ export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps)
         </a>
 
         <nav className="footer-nav" aria-label={isMarathi ? 'फूटर नेव्हिगेशन' : 'Footer navigation'}>
-          {landingNavItems[language].map(([href, label]) => <a href={resolveFooterHref(href)} key={href}>{label}</a>)}
-          <a href="/faq">{isMarathi ? 'प्रश्नोत्तरे' : 'FAQ'}</a>
+          {landingNavItems[language].map(([href, label]) => <a href={resolveFooterHref(href, language)} key={href}>{label}</a>)}
+          <a href={resolveFooterHref('/faq', language)}>{isMarathi ? 'प्रश्नोत्तरे' : 'FAQ'}</a>
           <a href="/blog">{copy.blog}</a>
           <a href={portalUrl}>{isMarathi ? 'पोर्टल' : 'Portal'}</a>
         </nav>
