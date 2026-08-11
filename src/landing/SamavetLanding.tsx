@@ -2,9 +2,11 @@ import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { useEffect, useState } from 'react';
 
-import { ComparisonSection, ContactSection, FAQSection, FeaturesSection, HeroSection, HowSection, PortalSection, StatsSection } from './components/ContentSections';
+import { ClickSpark } from './components/ClickSpark';
+import { ComparisonSection, ContactSection, FAQSection, FeaturesSection, HeroSection, HowSection, IndianMashupDivider, MandalaDotDivider, PortalSection, StatsSection } from './components/ContentSections';
 import { LandingFooter } from './components/LandingFooter';
 import { LandingHeader } from './components/LandingHeader';
+import { ProgressiveBlur } from './components/ProgressiveBlur';
 import { localizedCopy, type LandingLanguage } from './content';
 import { PORTAL_URL } from './links.js';
 import { applyPageSeo, SITE_ORIGIN } from './seo';
@@ -78,16 +80,25 @@ export default function SamavetLanding() {
 
   return (
     <main className={`epawati-page${language === 'mr' ? ' epawati-page--mr' : ''}`}>
-      <LandingHeader language={language} onLanguageChange={changeLanguage} portalUrl={PORTAL_URL} />
-      <HeroSection copy={copy} portalUrl={PORTAL_URL} />
-      <StatsSection copy={copy} />
-      <FeaturesSection copy={copy} />
-      <PortalSection copy={copy} />
-      <HowSection copy={copy} />
-      <ComparisonSection copy={copy} />
-      <FAQSection copy={copy} />
-      <ContactSection copy={copy} />
-      <LandingFooter copy={copy} language={language} portalUrl={PORTAL_URL} />
+      <ClickSpark sparkCount={8} sparkRadius={18} sparkSize={6} duration={300}>
+        <LandingHeader language={language} onLanguageChange={changeLanguage} portalUrl={PORTAL_URL} />
+        <HeroSection copy={copy} portalUrl={PORTAL_URL} />
+        <StatsSection copy={copy} />
+        <IndianMashupDivider />
+        <FeaturesSection copy={copy} />
+        <MandalaDotDivider />
+        <PortalSection copy={copy} />
+        <MandalaDotDivider />
+        <HowSection copy={copy} />
+        <MandalaDotDivider />
+        <ComparisonSection copy={copy} />
+        <MandalaDotDivider />
+        <FAQSection copy={copy} />
+        <ContactSection copy={copy} />
+        <LandingFooter copy={copy} language={language} portalUrl={PORTAL_URL} />
+        <ProgressiveBlur height="128px" position="top" />
+        <ProgressiveBlur blurAmount="5px" height="151px" hideAtPageEnd position="bottom" />
+      </ClickSpark>
     </main>
   );
 }

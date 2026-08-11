@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent } from 'react';
 import { ArrowRight, Check, ChevronDown, CircleCheck, FileSpreadsheet, Receipt } from 'lucide-react';
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -15,6 +15,7 @@ import heroCtaIcon3 from '../assets/icon3.svg';
 import heroCtaIcon4 from '../assets/icon4.svg';
 import type { LandingCopy } from '../content';
 import { RevealSection } from './RevealSection';
+import CountUp from './ui/CountUp';
 import { FlipWords } from './ui/FlipWords';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -55,11 +56,28 @@ function splitTextCharacters(text: string) {
   return Array.from(text);
 }
 
+function parseStatValue(value: string) {
+  const digitMap: Record<string, string> = { '०': '0', '१': '1', '२': '2', '३': '3', '४': '4', '५': '5', '६': '6', '७': '7', '८': '8', '९': '9' };
+  const match = value.match(/^([\d०-९,]+)(.*)$/);
+  if (!match) return null;
+
+  const numericText = match[1].replace(/[०-९]/g, (digit) => digitMap[digit]).replace(/,/g, '');
+  const target = Number(numericText);
+  if (!Number.isFinite(target)) return null;
+
+  return {
+    locale: /[०-९]/.test(match[1]) ? 'mr-IN-u-nu-deva' : 'en-US',
+    separator: value.includes(',') ? ',' : '',
+    suffix: match[2],
+    target,
+  };
+}
+
 function FeatureScrollCharacter({ centerIndex, char, index, scrollYProgress }: FeatureScrollCharacterProps) {
   const isSpace = char === ' ';
   const distanceFromCenter = index - centerIndex;
-  const x = useTransform(scrollYProgress, [0, 0.55], [distanceFromCenter * 44, 0]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.55], [distanceFromCenter * 42, 0]);
+  const x = useTransform(scrollYProgress, [0, 0.72], [distanceFromCenter * 44, 0]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.72], [distanceFromCenter * 42, 0]);
 
   return (
     <motion.span
@@ -78,6 +96,7 @@ function FeatureScrollTitle({ text }: { text: string }) {
     target: targetRef,
     offset: ['start 88%', 'center 45%'],
   });
+  const smoothScrollYProgress = useSpring(scrollYProgress, { damping: 26, mass: 0.45, stiffness: 85 });
   let characterIndex = 0;
   const tokens = (text.match(/\S+|\s+/g) ?? [text]).map((segment) => {
     const chars = splitTextCharacters(segment).map((char) => ({ char, index: characterIndex++ }));
@@ -93,7 +112,7 @@ function FeatureScrollTitle({ text }: { text: string }) {
         {tokens.map((token, tokenIndex) => (
           <span className={token.isSpace ? 'feature-scroll-title__word feature-scroll-title__word--space' : 'feature-scroll-title__word'} key={`${tokenIndex}-${token.chars[0]?.index ?? 0}`}>
             {token.chars.map(({ char, index }) => (
-              <FeatureScrollCharacter centerIndex={centerIndex} char={char} index={index} key={`${char}-${index}`} scrollYProgress={scrollYProgress} />
+              <FeatureScrollCharacter centerIndex={centerIndex} char={char} index={index} key={`${char}-${index}`} scrollYProgress={smoothScrollYProgress} />
             ))}
           </span>
         ))}
@@ -157,25 +176,162 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
   );
 }
 
+export function IndianMashupDivider() {
+  return (
+    <div aria-hidden="true" className="custom-divider">
+      <svg className="custom-divider__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 20 1200 80" preserveAspectRatio="xMidYMid meet">
+        <g fill="#e65100">
+          <circle cx="60" cy="60" r="3" opacity="0.3" />
+          <circle cx="85" cy="60" r="3" opacity="0.4" />
+          <circle cx="110" cy="60" r="3" opacity="0.5" />
+          <circle cx="135" cy="60" r="3" opacity="0.6" />
+          <circle cx="160" cy="60" r="3" opacity="0.7" />
+          <circle cx="185" cy="60" r="3" opacity="0.8" />
+          <circle cx="210" cy="60" r="3" opacity="0.9" />
+          <circle cx="235" cy="60" r="3" />
+          <circle cx="260" cy="60" r="3" />
+          <circle cx="285" cy="60" r="3" />
+          <circle cx="310" cy="60" r="3" />
+          <circle cx="335" cy="60" r="3" />
+          <circle cx="360" cy="60" r="3" />
+          <circle cx="385" cy="60" r="3" />
+          <circle cx="410" cy="60" r="3" />
+          <circle cx="435" cy="60" r="3.5" />
+          <circle cx="460" cy="60" r="3.5" />
+          <circle cx="485" cy="60" r="3.5" />
+          <circle cx="510" cy="60" r="4" />
+          <circle cx="535" cy="60" r="4" />
+          <circle cx="560" cy="60" r="4.5" />
+        </g>
+        <g transform="translate(600, 60)" fill="#ff6b00">
+          <path d="M 0,-25 C 10,-12 10,-5 0,0 C -10,-5 -10,-12 0,-25 Z" fill="#e65100" />
+          <path d="M -20,-15 C -10,-15 -5,-5 0,0 C -10,0 -20,-5 -20,-15 Z" fill="#ff6b00" />
+          <path d="M 20,-15 C 10,-15 5,-5 0,0 C 10,0 20,-5 20,-15 Z" fill="#ff6b00" />
+          <path d="M -28,5 C -20,-2 -10,0 0,0 C -10,8 -20,10 -28,5 Z" fill="#ff8c00" />
+          <path d="M 28,5 C 20,-2 10,0 0,0 C 10,8 20,10 28,5 Z" fill="#ff8c00" />
+          <circle cx="0" cy="0" r="4.5" fill="#ffb74d" />
+        </g>
+        <g fill="#e65100">
+          <circle cx="640" cy="60" r="4.5" />
+          <circle cx="665" cy="60" r="4" />
+          <circle cx="690" cy="60" r="4" />
+          <circle cx="715" cy="60" r="3.5" />
+          <circle cx="740" cy="60" r="3.5" />
+          <circle cx="765" cy="60" r="3.5" />
+          <circle cx="790" cy="60" r="3" />
+          <circle cx="815" cy="60" r="3" />
+          <circle cx="840" cy="60" r="3" />
+          <circle cx="865" cy="60" r="3" />
+          <circle cx="890" cy="60" r="3" />
+          <circle cx="915" cy="60" r="3" />
+          <circle cx="940" cy="60" r="3" />
+          <circle cx="965" cy="60" r="3" />
+          <circle cx="990" cy="60" r="3" opacity="0.9" />
+          <circle cx="1015" cy="60" r="3" opacity="0.8" />
+          <circle cx="1040" cy="60" r="3" opacity="0.7" />
+          <circle cx="1065" cy="60" r="3" opacity="0.6" />
+          <circle cx="1090" cy="60" r="3" opacity="0.5" />
+          <circle cx="1115" cy="60" r="3" opacity="0.4" />
+          <circle cx="1140" cy="60" r="3" opacity="0.3" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+export function MandalaDotDivider() {
+  const leftDots = [
+    [60, 3, 0.3], [85, 3, 0.4], [110, 3, 0.5], [135, 3, 0.6], [160, 3, 0.7], [185, 3, 0.8], [210, 3, 0.9],
+    [235, 3], [260, 3], [285, 3], [310, 3], [335, 3], [360, 3], [385, 3], [410, 3], [435, 3.5], [460, 3.5], [485, 3.5], [510, 4], [535, 4], [560, 4.5],
+  ] as const;
+  const rightDots = [
+    [640, 4.5], [665, 4], [690, 4], [715, 3.5], [740, 3.5], [765, 3.5], [790, 3], [815, 3], [840, 3], [865, 3], [890, 3], [915, 3], [940, 3], [965, 3],
+    [990, 3, 0.9], [1015, 3, 0.8], [1040, 3, 0.7], [1065, 3, 0.6], [1090, 3, 0.5], [1115, 3, 0.4], [1140, 3, 0.3],
+  ] as const;
+
+  return (
+    <div aria-hidden="true" className="mandala-dot-divider">
+      <svg className="mandala-dot-divider__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 20 1200 80" preserveAspectRatio="xMidYMid meet">
+        <g fill="#e65100">
+          {leftDots.map(([cx, r, opacity]) => <circle cx={cx} cy="60" key={cx} opacity={opacity} r={r} />)}
+        </g>
+        <g transform="translate(600, 60)">
+          <path d="M 0,-20 L 5,-5 L 20,0 L 5,5 L 0,20 L -5,5 L -20,0 L -5,-5 Z" fill="#ff6b00" />
+          <circle cx="0" cy="0" r="5" fill="#e65100" />
+        </g>
+        <g fill="#e65100">
+          {rightDots.map(([cx, r, opacity]) => <circle cx={cx} cy="60" key={cx} opacity={opacity} r={r} />)}
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 export function StatsSection({ copy }: CopyProps) {
   return (
     <section className="stats-section" aria-label="ePawati impact">
       <div className="landing-container stats-grid">
-        {copy.stats.map((stat) => (
-          <div className="stat" key={stat.label}>
-            <strong>{stat.value}</strong>
-            <span>{stat.label}</span>
-          </div>
-        ))}
+        {copy.stats.map((stat) => {
+          const count = parseStatValue(stat.value);
+          return (
+            <div className="stat" key={stat.label}>
+              <strong aria-label={stat.value}>
+                {count ? <CountUp duration={1.6} locale={count.locale} separator={count.separator} to={count.target} /> : stat.value}
+                {count?.suffix ? <span aria-hidden="true" className="stat-value__suffix">{count.suffix}</span> : null}
+              </strong>
+              <span>{stat.label}</span>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
 }
 
 export function FeaturesSection({ copy }: CopyProps) {
+  const featuresRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const section = featuresRef.current;
+    if (!section) return;
+
+    if (prefersReducedMotion()) {
+      gsap.set(section.querySelectorAll('.feature-row__copy'), { clearProps: 'all' });
+      return;
+    }
+
+    const context = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>('.feature-row').forEach((row) => {
+        const copyBlock = row.querySelector<HTMLElement>('.feature-row__copy');
+        if (!copyBlock) return;
+
+        const appearsFromLeft = row.classList.contains('feature-row--reverse');
+        gsap.fromTo(copyBlock, {
+          autoAlpha: 0,
+          filter: 'blur(14px)',
+          x: appearsFromLeft ? '-42vw' : '42vw',
+        }, {
+          autoAlpha: 1,
+          duration: 1.15,
+          ease: 'power3.out',
+          filter: 'blur(0px)',
+          scrollTrigger: {
+            end: 'top 36%',
+            scrub: 0.75,
+            start: 'top 90%',
+            trigger: row,
+          },
+          x: 0,
+        });
+      });
+    }, section);
+
+    return () => context.revert();
+  }, [copy.features]);
+
   return (
     <RevealSection className="features-section" id="features" revealSelector=".feature-row">
-      <div className="landing-container">
+      <div className="landing-container" ref={featuresRef}>
         <div className="section-heading section-heading--center">
           <p className="section-eyebrow">{copy.featuresEyebrow}</p>
           <FeatureScrollTitle text={copy.featuresTitle} />
