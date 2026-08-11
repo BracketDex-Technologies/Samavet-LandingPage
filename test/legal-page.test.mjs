@@ -25,5 +25,5 @@ test('routes legal markdown pages and keeps the Samavet watermark', async () => 
   }
 
   assert.match(main, /legalPagePaths\.has\(pathname\)/);
-  assert.match(legalPage, /samavet-logo\.jpeg/);
+  assert.match(legalPage, /samavet-logo-transparent\.png/);
 });

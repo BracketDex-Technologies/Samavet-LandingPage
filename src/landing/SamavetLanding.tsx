@@ -1,3 +1,5 @@
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import { useEffect, useState } from 'react';
 
 import { ComparisonSection, ContactSection, FAQSection, FeaturesSection, HeroSection, HowSection, PortalSection, StatsSection } from './components/ContentSections';
@@ -49,6 +51,16 @@ export default function SamavetLanding() {
       ],
     });
   }, [language]);
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      anchors: true,
+      autoRaf: true,
+      duration: 1,
+    });
+
+    return () => lenis.destroy();
+  }, []);
 
   useEffect(() => {
     const sectionId = getLandingSectionFromPath();

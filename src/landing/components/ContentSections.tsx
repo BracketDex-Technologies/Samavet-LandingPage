@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent } from 'react';
 import { ArrowRight, Check, ChevronDown, CircleCheck, FileSpreadsheet, Receipt } from 'lucide-react';
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -8,6 +9,10 @@ import featureLaptopMockup from '../assets/f-laptopmockup.png';
 import feature3Screenshot from '../assets/feature3rd.png';
 import feature4Flipbook from '../assets/feature4th.png';
 import heroMockup from '../assets/phone_mockup_updated_transparent_4500x3000.png';
+import heroCtaIcon1 from '../assets/icon1.svg';
+import heroCtaIcon2 from '../assets/icon2.svg';
+import heroCtaIcon3 from '../assets/icon3.svg';
+import heroCtaIcon4 from '../assets/icon4.svg';
 import type { LandingCopy } from '../content';
 import { RevealSection } from './RevealSection';
 import { FlipWords } from './ui/FlipWords';
@@ -22,15 +27,79 @@ interface HeroProps extends CopyProps {
   portalUrl: string;
 }
 
+interface FeatureScrollCharacterProps {
+  centerIndex: number;
+  char: string;
+  index: number;
+  scrollYProgress: MotionValue<number>;
+}
+
 const featureVisuals = [
   { kind: 'phone', src: featurePhoneMockup },
   { kind: 'laptop', src: featureLaptopMockup },
   { kind: 'screenshot', src: feature3Screenshot },
   { kind: 'flipbook', src: feature4Flipbook },
 ] as const;
+const heroCtaIcons = [heroCtaIcon1, heroCtaIcon2, heroCtaIcon3, heroCtaIcon4];
 
 function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function splitTextCharacters(text: string) {
+  if (typeof Intl.Segmenter === 'function') {
+    const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+    return Array.from(segmenter.segment(text), ({ segment }) => segment);
+  }
+
+  return Array.from(text);
+}
+
+function FeatureScrollCharacter({ centerIndex, char, index, scrollYProgress }: FeatureScrollCharacterProps) {
+  const isSpace = char === ' ';
+  const distanceFromCenter = index - centerIndex;
+  const x = useTransform(scrollYProgress, [0, 0.55], [distanceFromCenter * 44, 0]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.55], [distanceFromCenter * 42, 0]);
+
+  return (
+    <motion.span
+      className={`feature-scroll-title__char${isSpace ? ' feature-scroll-title__space' : ''}`}
+      style={{ x, rotateX }}
+    >
+      {isSpace ? '\u00a0' : char}
+    </motion.span>
+  );
+}
+
+function FeatureScrollTitle({ text }: { text: string }) {
+  const targetRef = useRef<HTMLHeadingElement | null>(null);
+  const reducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ['start 88%', 'center 45%'],
+  });
+  let characterIndex = 0;
+  const tokens = (text.match(/\S+|\s+/g) ?? [text]).map((segment) => {
+    const chars = splitTextCharacters(segment).map((char) => ({ char, index: characterIndex++ }));
+    return { chars, isSpace: /^\s+$/.test(segment) };
+  });
+  const centerIndex = Math.floor(characterIndex / 2);
+
+  if (reducedMotion) return <h2>{text}</h2>;
+
+  return (
+    <h2 aria-label={text} className="feature-scroll-title" ref={targetRef}>
+      <span aria-hidden="true">
+        {tokens.map((token, tokenIndex) => (
+          <span className={token.isSpace ? 'feature-scroll-title__word feature-scroll-title__word--space' : 'feature-scroll-title__word'} key={`${tokenIndex}-${token.chars[0]?.index ?? 0}`}>
+            {token.chars.map(({ char, index }) => (
+              <FeatureScrollCharacter centerIndex={centerIndex} char={char} index={index} key={`${char}-${index}`} scrollYProgress={scrollYProgress} />
+            ))}
+          </span>
+        ))}
+      </span>
+    </h2>
+  );
 }
 
 export function HeroSection({ copy, portalUrl }: HeroProps) {
@@ -67,7 +136,13 @@ export function HeroSection({ copy, portalUrl }: HeroProps) {
           </h1>
           <p className="hero-description hero-reveal">{copy.heroDescription}</p>
           <div className="hero-actions hero-reveal">
-            <a className="button button--primary" href={portalUrl}>{copy.portalCta}<ArrowRight size={18} /></a>
+            <a className="button button--primary hero-cta-button" href={portalUrl}>
+              <span className="btn-text">{copy.portalCta}</span>
+              <span className="hero-cta-icons" aria-hidden="true">
+                <ArrowRight className="hero-cta-icon hero-cta-icon--default hero-cta-icon--1" size={22} />
+                {heroCtaIcons.map((icon, index) => <img alt="" className={`hero-cta-icon hero-cta-icon--${index + 2}`} key={icon} src={icon} />)}
+              </span>
+            </a>
             <a className="button button--secondary" href="/portal">{copy.portalPreviewCta}</a>
           </div>
         </div>
@@ -103,7 +178,7 @@ export function FeaturesSection({ copy }: CopyProps) {
       <div className="landing-container">
         <div className="section-heading section-heading--center">
           <p className="section-eyebrow">{copy.featuresEyebrow}</p>
-          <h2>{copy.featuresTitle}</h2>
+          <FeatureScrollTitle text={copy.featuresTitle} />
           <p>{copy.featuresDescription}</p>
         </div>
         <div className="features-showcase">
