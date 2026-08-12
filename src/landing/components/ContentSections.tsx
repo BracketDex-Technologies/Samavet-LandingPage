@@ -307,10 +307,11 @@ export function FeaturesSection({ copy }: CopyProps) {
         if (!copyBlock) return;
 
         const appearsFromLeft = row.classList.contains('feature-row--reverse');
+        const revealDistance = window.innerWidth < 768 ? '84px' : '42vw';
         gsap.fromTo(copyBlock, {
           autoAlpha: 0,
           filter: 'blur(14px)',
-          x: appearsFromLeft ? '-42vw' : '42vw',
+          x: appearsFromLeft ? `-${revealDistance}` : revealDistance,
         }, {
           autoAlpha: 1,
           duration: 1.15,

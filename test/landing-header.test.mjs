@@ -12,7 +12,8 @@ test('uses the approved bilingual landing navigation', () => {
 test('keeps language, responsive menu, and portal controls in the header', async () => {
   const source = await readFile(new URL('../src/landing/components/LandingHeader.tsx', import.meta.url), 'utf8');
   assert.match(source, /epawati-theme/);
-  assert.match(source, /prefers-color-scheme: dark/);
+  assert.match(source, /return 'light'/);
+  assert.doesNotMatch(source, /prefers-color-scheme: dark/);
   assert.match(source, /aria-pressed/);
   assert.match(source, /aria-expanded/);
   assert.match(source, /samavet-logo-transparent\.png/);
