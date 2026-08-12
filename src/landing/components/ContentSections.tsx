@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent } from 'react';
 import { ArrowRight, Check, ChevronDown, CircleCheck, FileSpreadsheet, Receipt } from 'lucide-react';
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from 'framer-motion';
+import { AnimatePresence, motion as motionReact } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -367,6 +368,7 @@ export function PortalSection({ copy }: CopyProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const rowsRef = useRef<HTMLDivElement>(null);
   const tabId = useId();
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -433,18 +435,34 @@ export function PortalSection({ copy }: CopyProps) {
               <div className="portal-activity">
                 <div className="portal-tabs" role="tablist" aria-label={copy.portalEyebrow}>
                   {portalTabKeys.map((key, index) => (
-                    <button aria-controls={`${tabId}-panel`} aria-selected={activeTab === key} className={activeTab === key ? 'is-active' : ''} id={`${tabId}-tab-${index}`} key={key} onClick={() => setActiveTab(key)} onKeyDown={(event) => handleTabKeyDown(event, index)} role="tab" tabIndex={activeTab === key ? 0 : -1} type="button">{copy.portalTabs[index]}</button>
+                    <button aria-controls={`${tabId}-panel`} aria-selected={activeTab === key} className={activeTab === key ? 'is-active' : ''} id={`${tabId}-tab-${index}`} key={key} onClick={() => setActiveTab(key)} onKeyDown={(event) => handleTabKeyDown(event, index)} role="tab" tabIndex={activeTab === key ? 0 : -1} type="button">
+                      {activeTab === key ? <motionReact.span className="portal-tabs__active-surface" layoutId={`${tabId}-portal-tab-surface`} transition={reduceMotion ? { duration: 0 } : { damping: 24, stiffness: 260, type: 'spring' }} /> : null}
+                      <span className="portal-tabs__label">{copy.portalTabs[index]}</span>
+                    </button>
                   ))}
                 </div>
-                <div aria-labelledby={`${tabId}-tab-${portalTabKeys.indexOf(activeTab)}`} className="portal-rows" id={`${tabId}-panel`} ref={rowsRef} role="tabpanel">
-                  {activeRows.map(([name, detail, amount]) => (
-                    <div className="portal-row" key={`${activeTab}-${name}`}>
-                      <span className="portal-avatar">{activeTab === 'reports' ? <FileSpreadsheet size={16} /> : name.charAt(0)}</span>
-                      <span className="portal-row__copy"><strong>{name}</strong><small>{detail}</small></span>
-                      <b>{amount}</b>
-                    </div>
-                  ))}
-                </div>
+                <AnimatePresence mode="wait" initial={false}>
+                  <motionReact.div
+                    animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+                    aria-labelledby={`${tabId}-tab-${portalTabKeys.indexOf(activeTab)}`}
+                    className="portal-rows"
+                    exit={reduceMotion ? { opacity: 0 } : { filter: 'blur(5px)', opacity: 0, y: -5 }}
+                    id={`${tabId}-panel`}
+                    initial={reduceMotion ? { opacity: 0 } : { filter: 'blur(6px)', opacity: 0, y: 8 }}
+                    key={activeTab}
+                    ref={rowsRef}
+                    role="tabpanel"
+                    transition={reduceMotion ? { duration: 0.12 } : { damping: 22, stiffness: 210, type: 'spring' }}
+                  >
+                    {activeRows.map(([name, detail, amount]) => (
+                      <div className="portal-row" key={`${activeTab}-${name}`}>
+                        <span className="portal-avatar">{activeTab === 'reports' ? <FileSpreadsheet size={16} /> : name.charAt(0)}</span>
+                        <span className="portal-row__copy"><strong>{name}</strong><small>{detail}</small></span>
+                        <b>{amount}</b>
+                      </div>
+                    ))}
+                  </motionReact.div>
+                </AnimatePresence>
               </div>
             </div>
           </div>

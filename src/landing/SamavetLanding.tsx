@@ -6,7 +6,6 @@ import { ClickSpark } from './components/ClickSpark';
 import { ComparisonSection, ContactSection, FAQSection, FeaturesSection, HeroSection, HowSection, IndianMashupDivider, MandalaDotDivider, PortalSection, StatsSection } from './components/ContentSections';
 import { LandingFooter } from './components/LandingFooter';
 import { LandingHeader } from './components/LandingHeader';
-import { ProgressiveBlur } from './components/ProgressiveBlur';
 import { localizedCopy, type LandingLanguage } from './content';
 import { PORTAL_URL } from './links.js';
 import { applyPageSeo, SITE_ORIGIN } from './seo';
@@ -96,8 +95,6 @@ export default function SamavetLanding() {
         <FAQSection copy={copy} />
         <ContactSection copy={copy} />
         <LandingFooter copy={copy} language={language} portalUrl={PORTAL_URL} />
-        <ProgressiveBlur height="128px" position="top" />
-        <ProgressiveBlur blurAmount="5px" height="151px" hideAtPageEnd position="bottom" />
       </ClickSpark>
     </main>
   );

@@ -1,9 +1,27 @@
 import { Menu, Moon, Sun, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 
 import samavetLogo from '../assets/samavet-logo-transparent.png';
 import type { LandingLanguage } from '../content';
 import { landingNavItems } from '../navItems.js';
+
+const THEME_TRANSITION_STYLE_ID = 'epawati-theme-toggle-vt';
+const THEME_TRANSITION_CSS = `
+html[data-epawati-vt='circle-blur']::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-epawati-vt='circle-blur']::view-transition-new(root) {
+  animation: epawati-circle-blur-reveal 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: normal;
+}
+
+@keyframes epawati-circle-blur-reveal {
+  from { clip-path: circle(0% at var(--epawati-vt-origin, 100% 100%)); filter: blur(8px); }
+  to { clip-path: circle(150% at var(--epawati-vt-origin, 100% 100%)); filter: blur(0); }
+}
+`;
 
 interface LandingHeaderProps {
   language: LandingLanguage;
@@ -16,6 +34,18 @@ function getInitialTheme() {
   const stored = window.localStorage.getItem('epawati-theme');
   if (stored === 'dark' || stored === 'light') return stored;
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function ensureThemeTransitionStyle() {
+  if (document.getElementById(THEME_TRANSITION_STYLE_ID)) return;
+  const style = document.createElement('style');
+  style.id = THEME_TRANSITION_STYLE_ID;
+  style.textContent = THEME_TRANSITION_CSS;
+  document.head.appendChild(style);
+}
+
+function shouldSkipThemeTransition() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('startViewTransition' in document);
 }
 
 function resolveLandingHref(href: string, language: LandingLanguage) {
@@ -36,10 +66,35 @@ export function LandingHeader({ language, onLanguageChange, portalUrl }: Landing
   const blogLabel = isMarathi ? 'ब्लॉग' : 'Blog';
 
   useEffect(() => {
+    ensureThemeTransitionStyle();
+  }, []);
+
+  useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     window.localStorage.setItem('epawati-theme', theme);
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#17251e' : '#f8f4e8');
   }, [theme]);
+
+  function toggleTheme(event: MouseEvent<HTMLButtonElement>) {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    if (shouldSkipThemeTransition()) {
+      setTheme(nextTheme);
+      return;
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const originX = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
+    const originY = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
+    const root = document.documentElement;
+    root.style.setProperty('--epawati-vt-origin', `${originX}% ${originY}%`);
+    root.dataset.epawatiVt = 'circle-blur';
+
+    const transition = (document as Document & { startViewTransition: (callback: () => void) => { finished: Promise<void> } }).startViewTransition(() => setTheme(nextTheme));
+    transition.finished.finally(() => {
+      delete root.dataset.epawatiVt;
+      root.style.removeProperty('--epawati-vt-origin');
+    });
+  }
 
   useEffect(() => {
     const updateScrolledState = () => setIsScrolled(window.scrollY > 20);
@@ -92,7 +147,7 @@ export function LandingHeader({ language, onLanguageChange, portalUrl }: Landing
           </div>
         </div>
       </header>
-      <button aria-label={themeLabel} className="floating-theme-toggle" onClick={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')} type="button">
+      <button aria-label={themeLabel} className="floating-theme-toggle" onClick={toggleTheme} type="button">
         {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
       </button>
     </>
