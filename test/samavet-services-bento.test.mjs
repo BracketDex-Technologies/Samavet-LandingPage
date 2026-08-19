@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-test('presents the four approved ePawati features', async () => {
+test('presents the five approved ePawati features', async () => {
   const content = await readFile(new URL('../src/landing/content.ts', import.meta.url), 'utf8');
-  for (const title of ['Instant digital receipts', 'Mandal, trust, temple and organisation management', 'Audit-ready PDF exports', '3D flipbook for organisation documents']) {
+  for (const title of ['Instant digital receipts', 'Mandal, trust, temple and organisation management', 'Audit-ready PDF exports', '3D flipbook for organisation documents', 'Samavet Murti']) {
     assert.match(content, new RegExp(title.replace(/[&]/g, '\\&')));
   }
   assert.doesNotMatch(content, /UPI & online collection/);

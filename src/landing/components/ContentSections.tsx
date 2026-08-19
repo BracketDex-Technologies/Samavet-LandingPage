@@ -9,6 +9,7 @@ import featurePhoneMockup from '../assets/f-phonemockup.png';
 import featureLaptopMockup from '../assets/f-laptopmockup.png';
 import feature3Screenshot from '../assets/feature3rd.png';
 import feature4Flipbook from '../assets/feature4th.png';
+import featureMurti from '../assets/feature-murti.png';
 import heroMockup from '../assets/phone_mockup_updated_transparent_4500x3000.png';
 import heroCtaIcon1 from '../assets/icon1.svg';
 import heroCtaIcon2 from '../assets/icon2.svg';
@@ -41,6 +42,7 @@ const featureVisuals = [
   { kind: 'laptop', src: featureLaptopMockup },
   { kind: 'screenshot', src: feature3Screenshot },
   { kind: 'flipbook', src: feature4Flipbook },
+  { kind: 'murti', src: featureMurti },
 ] as const;
 const heroCtaIcons = [heroCtaIcon1, heroCtaIcon2, heroCtaIcon3, heroCtaIcon4];
 
