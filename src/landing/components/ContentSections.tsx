@@ -591,7 +591,7 @@ export function ContactSection({ copy }: CopyProps) {
       values.message.trim(),
     ].join('\n');
     setSubmitted(true);
-    window.location.href = `mailto:Samavetofficial@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:bracketdevs.teams@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
   function fieldError(field: ContactField) {

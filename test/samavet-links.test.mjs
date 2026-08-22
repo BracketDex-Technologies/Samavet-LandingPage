@@ -6,8 +6,8 @@ import { buildWhatsAppLink, PORTAL_URL, shouldRenderSamavetLanding, WHATSAPP_PHO
 
 test('creates a prefilled WhatsApp URL for a demo request', () => {
   assert.equal(
-    buildWhatsAppLink('917-222-7878', 'Hello Samavet, I would like to book a demo.'),
-    'https://wa.me/919172227878?text=Hello%20Samavet%2C%20I%20would%20like%20to%20book%20a%20demo.',
+    buildWhatsAppLink('860-558-9062', 'Hello Samavet, I would like to book a demo.'),
+    'https://wa.me/918605589062?text=Hello%20Samavet%2C%20I%20would%20like%20to%20book%20a%20demo.',
   );
 });
 
@@ -24,7 +24,7 @@ test('links Portal Login to the ePawati portal', () => {
 });
 
 test('uses the official WhatsApp number for landing social links', () => {
-  assert.equal(WHATSAPP_PHONE, '+919172227878');
+  assert.equal(WHATSAPP_PHONE, '+918605589062');
 });
 
 test('rejects incomplete demo requests before opening an email draft', () => {
