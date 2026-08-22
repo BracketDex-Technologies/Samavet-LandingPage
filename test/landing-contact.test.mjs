@@ -13,7 +13,7 @@ test('renders the contact section after FAQ with every requested field', async (
   assert.match(sections, /name="address"/);
   assert.match(sections, /name="phone"/);
   assert.match(sections, /name="message"/);
-  assert.match(sections, /mailto:Samavetofficial@gmail\.com/);
+  assert.match(sections, /mailto:bracketdevs\.teams@gmail\.com/);
 });
 
 test('provides bilingual form copy and optional phone validation', async () => {

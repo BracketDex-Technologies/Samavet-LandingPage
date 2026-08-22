@@ -308,6 +308,10 @@
 .epawati-page .contact-submit { align-items: center; background: var(--ep-brand); border: 1px solid var(--ep-brand); border-radius: 12px; color: var(--ep-brand-foreground); cursor: pointer; display: inline-flex; font-size: 14px; font-weight: 750; gap: 8px; justify-content: center; min-height: 46px; padding-inline: 16px; transition: background .2s ease, transform .2s ease; }
 .epawati-page .contact-submit:hover { background: #95462c; transform: translateY(-2px); }
 .contact-form__actions p { color: var(--ep-muted); font-size: 12px; line-height: 1.5; }
+.contact-form--success { align-items: center; border-radius: 18px; display: flex; flex-direction: column; gap: 18px; justify-content: center; padding: 48px 24px; text-align: center; }
+.contact-success__icon { color: var(--ep-brand); }
+.contact-success__title { font-size: clamp(24px, 5vw, 30px); font-weight: 800; line-height: 1.2; }
+.contact-success__description { color: var(--ep-muted); font-size: 15px; line-height: 1.6; max-width: 32rem; }
 
 .landing-footer { background: var(--ep-background); border-top: 0; color: #f7f1e8; padding: 34px 20px 28px; }
 .dark .landing-footer { background: var(--ep-background); border-top-color: transparent; }

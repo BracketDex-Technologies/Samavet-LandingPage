@@ -563,7 +563,6 @@ export function ContactSection({ copy }: CopyProps) {
   function updateField(field: ContactField, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
-    setSubmitted(false);
   }
 
   function submitContact(event: FormEvent<HTMLFormElement>) {
@@ -594,6 +593,12 @@ export function ContactSection({ copy }: CopyProps) {
     window.location.href = `mailto:bracketdevs.teams@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
+  function resetForm() {
+    setValues(emptyContactValues);
+    setErrors({});
+    setSubmitted(false);
+  }
+
   function fieldError(field: ContactField) {
     return errors[field] ? `${formId}-${field}-error` : undefined;
   }
@@ -607,39 +612,49 @@ export function ContactSection({ copy }: CopyProps) {
           <p>{copy.contactDescription}</p>
         </div>
 
-        <form className="contact-form contact-reveal" noValidate onSubmit={submitContact}>
-          <div className="contact-form__grid">
-            <label>
-              <span>{copy.contactFields.organization}</span>
-              <input aria-describedby={fieldError('organization')} aria-invalid={Boolean(errors.organization)} autoComplete="organization" name="organization" onChange={(event) => updateField('organization', event.target.value)} placeholder={copy.contactPlaceholders.organization} value={values.organization} />
-              {errors.organization ? <small className="contact-error" id={`${formId}-organization-error`}>{errors.organization}</small> : null}
-            </label>
-            <label>
-              <span>{copy.contactFields.email}</span>
-              <input aria-describedby={fieldError('email')} aria-invalid={Boolean(errors.email)} autoComplete="email" name="email" onChange={(event) => updateField('email', event.target.value)} placeholder={copy.contactPlaceholders.email} type="email" value={values.email} />
-              {errors.email ? <small className="contact-error" id={`${formId}-email-error`}>{errors.email}</small> : null}
-            </label>
-            <label>
-              <span>{copy.contactFields.address}</span>
-              <input aria-describedby={fieldError('address')} aria-invalid={Boolean(errors.address)} autoComplete="street-address" name="address" onChange={(event) => updateField('address', event.target.value)} placeholder={copy.contactPlaceholders.address} value={values.address} />
-              {errors.address ? <small className="contact-error" id={`${formId}-address-error`}>{errors.address}</small> : null}
-            </label>
-            <label>
-              <span>{copy.contactFields.phone}</span>
-              <input aria-describedby={fieldError('phone')} aria-invalid={Boolean(errors.phone)} autoComplete="tel" inputMode="tel" name="phone" onChange={(event) => updateField('phone', event.target.value)} placeholder={copy.contactPlaceholders.phone} type="tel" value={values.phone} />
-              {errors.phone ? <small className="contact-error" id={`${formId}-phone-error`}>{errors.phone}</small> : null}
-            </label>
+        {submitted ? (
+          <div className="contact-form contact-form--success contact-reveal">
+            <div className="contact-success__icon" aria-hidden="true">
+              <CircleCheck size={48} />
+            </div>
+            <h3 className="contact-success__title">{copy.contactThankYouTitle}</h3>
+            <p className="contact-success__description">{copy.contactThankYouDescription}</p>
+            <button className="contact-submit" onClick={resetForm} type="button">{copy.contactEditForm}<ArrowRight size={17} /></button>
           </div>
-          <label className="contact-form__message">
-            <span>{copy.contactFields.message}</span>
-            <textarea aria-describedby={fieldError('message')} aria-invalid={Boolean(errors.message)} name="message" onChange={(event) => updateField('message', event.target.value)} placeholder={copy.contactPlaceholders.message} rows={5} value={values.message} />
-            {errors.message ? <small className="contact-error" id={`${formId}-message-error`}>{errors.message}</small> : null}
-          </label>
-          <div className="contact-form__actions">
-            <button className="contact-submit" type="submit">{copy.contactSubmit}<ArrowRight size={17} /></button>
-            <p aria-live="polite">{submitted ? copy.contactStatus : ''}</p>
-          </div>
-        </form>
+        ) : (
+          <form className="contact-form contact-reveal" noValidate onSubmit={submitContact}>
+            <div className="contact-form__grid">
+              <label>
+                <span>{copy.contactFields.organization}</span>
+                <input aria-describedby={fieldError('organization')} aria-invalid={Boolean(errors.organization)} autoComplete="organization" name="organization" onChange={(event) => updateField('organization', event.target.value)} placeholder={copy.contactPlaceholders.organization} value={values.organization} />
+                {errors.organization ? <small className="contact-error" id={`${formId}-organization-error`}>{errors.organization}</small> : null}
+              </label>
+              <label>
+                <span>{copy.contactFields.email}</span>
+                <input aria-describedby={fieldError('email')} aria-invalid={Boolean(errors.email)} autoComplete="email" name="email" onChange={(event) => updateField('email', event.target.value)} placeholder={copy.contactPlaceholders.email} type="email" value={values.email} />
+                {errors.email ? <small className="contact-error" id={`${formId}-email-error`}>{errors.email}</small> : null}
+              </label>
+              <label>
+                <span>{copy.contactFields.address}</span>
+                <input aria-describedby={fieldError('address')} aria-invalid={Boolean(errors.address)} autoComplete="street-address" name="address" onChange={(event) => updateField('address', event.target.value)} placeholder={copy.contactPlaceholders.address} value={values.address} />
+                {errors.address ? <small className="contact-error" id={`${formId}-address-error`}>{errors.address}</small> : null}
+              </label>
+              <label>
+                <span>{copy.contactFields.phone}</span>
+                <input aria-describedby={fieldError('phone')} aria-invalid={Boolean(errors.phone)} autoComplete="tel" inputMode="tel" name="phone" onChange={(event) => updateField('phone', event.target.value)} placeholder={copy.contactPlaceholders.phone} type="tel" value={values.phone} />
+                {errors.phone ? <small className="contact-error" id={`${formId}-phone-error`}>{errors.phone}</small> : null}
+              </label>
+            </div>
+            <label className="contact-form__message">
+              <span>{copy.contactFields.message}</span>
+              <textarea aria-describedby={fieldError('message')} aria-invalid={Boolean(errors.message)} name="message" onChange={(event) => updateField('message', event.target.value)} placeholder={copy.contactPlaceholders.message} rows={5} value={values.message} />
+              {errors.message ? <small className="contact-error" id={`${formId}-message-error`}>{errors.message}</small> : null}
+            </label>
+            <div className="contact-form__actions">
+              <button className="contact-submit" type="submit">{copy.contactSubmit}<ArrowRight size={17} /></button>
+            </div>
+          </form>
+        )}
       </div>
     </RevealSection>
   );
