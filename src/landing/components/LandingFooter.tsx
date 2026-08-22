@@ -61,7 +61,7 @@ export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps)
               <span className="tooltip" role="tooltip">Instagram</span>
             </li>
             <li className="footer-social__item">
-              <a aria-label="Email" data-social="email" href="mailto:Samavetofficial@gmail.com"><span className="filled" aria-hidden="true" /><Mail size={21} /></a>
+              <a aria-label="Email" data-social="email" href="mailto:bracketdevs.teams@gmail.com"><span className="filled" aria-hidden="true" /><Mail size={21} /></a>
               <span className="tooltip" role="tooltip">Email</span>
             </li>
             <li className="footer-social__item">
