@@ -1,6 +1,6 @@
 # Privacy Policy
 
-Last Updated: 10 August 2026
+Last Updated: 24 August 2026
 
 This Privacy Policy explains how Samavet ePawati handles information when mandals, trusts, temples, organisations, societies, festival committees, admins, khajindars, group leaders, members, and collectors use ePawati.
 
@@ -135,8 +135,6 @@ The application stores records while needed to provide the service, maintain rec
 
 The code contains deletion and status mechanisms for mandals, users, slips, expenses, members, item donations, and related records. A formal production retention and backup deletion schedule was not determinable from the repository.
 
-Legal review recommended before production publication for retention, backup, deletion, restoration, and offboarding commitments.
-
 ## 11. Access, Correction, and Deletion Requests
 
 Organisations can use application features to correct or delete certain records where permissions allow. Donors should generally contact the organisation that received the donation because the organisation controls the underlying donor relationship and receipt accuracy.
@@ -151,8 +149,6 @@ Samavet may need to verify the request and may coordinate with the relevant orga
 
 Accounts may be suspended, archived, or deleted according to the Terms, applicable law, and operational requirements. Some historical records may be retained where necessary for legal, security, audit, dispute, or backup purposes.
 
-Legal review recommended before production publication.
-
 ## 13. Children and Minors
 
 ePawati is intended for use by organisations and authorised users, not by children as a consumer service. If an organisation records information about a minor donor, the organisation is responsible for ensuring it has a lawful basis and appropriate consent where required.
@@ -161,7 +157,6 @@ ePawati is intended for use by organisations and authorised users, not by childr
 
 Samavet aims to handle personal data in line with applicable Indian privacy and data protection requirements, including the Digital Personal Data Protection Act, 2023 and Digital Personal Data Protection Rules, 2025, as applicable.
 
-Legal review recommended before production publication to confirm roles, notices, consent practices, grievance handling, retention, and cross-border/provider obligations.
 
 ## 15. Changes to This Policy
 
