@@ -2,7 +2,6 @@
 
 Last Updated: 10 August 2026
 
-These Terms and Conditions govern use of Samavet ePawati. This is a draft for product publication. Legal review recommended before production publication.
 
 ## 1. Operator Details
 
@@ -111,25 +110,17 @@ Organisations and users are responsible for files and content they upload, inclu
 
 Users must not upload malicious files, illegal content, unauthorised copyrighted material, personal data they are not allowed to process, or content that violates the Acceptable Use Policy.
 
-## 14. Acceptable Use
-
-Use of ePawati is subject to the [Acceptable Use Policy](./ACCEPTABLE_USE_POLICY.md). Serious violations may result in suspension or termination, subject to applicable law and these Terms.
-
-## 15. Data and Privacy
-
-Use of ePawati involves processing organisation, user, donor, collection, receipt, item donation, expense, uploaded asset, session, and analytics/performance information as described in the [Privacy Policy](./PRIVACY_POLICY.md).
-
-## 16. Intellectual Property
+## 14. Intellectual Property
 
 Samavet retains ownership of the ePawati software, design, code, documentation, trademarks, branding, templates created by Samavet, and product materials.
 
 The organisation retains responsibility for its organisation data, donor records, uploaded content, and records entered into the system, subject to Samavet's right to process such information to provide and operate the service.
 
-## 17. Service Availability
+## 15. Service Availability
 
 Samavet will make reasonable efforts to keep ePawati available. However, service may be interrupted due to maintenance, upgrades, provider outages, hosting issues, database/storage issues, network problems, force majeure, security incidents, or events outside Samavet's reasonable control.
 
-## 18. Suspension and Termination
+## 16. Suspension and Termination
 
 Samavet may suspend or terminate access for serious violations, illegal use, non-payment, security risk, misuse of donor data, fake receipts, impersonation, platform abuse, or other breach of these Terms.
 
@@ -137,7 +128,7 @@ The organisation may stop using the service, subject to the subscription, refund
 
 Legal review recommended before production publication.
 
-## 19. Limitation of Liability
+## 17. Limitation of Liability
 
 To the maximum extent permitted by applicable law, Samavet/ePawati is not liable for donation disputes, incorrect entries, cash handling, UPI/payment verification, organisation misuse of funds, WhatsApp delivery failures, unauthorised user actions by the organisation's users, indirect losses, loss of profits, or consequential damages.
 
@@ -145,22 +136,22 @@ Nothing in these Terms excludes liability that cannot be excluded under applicab
 
 Legal review recommended before production publication.
 
-## 20. Indemnity
+## 18. Indemnity
 
 The organisation agrees to protect Samavet from claims, losses, penalties, or costs arising from the organisation's donor relationships, collection transactions, false or inaccurate receipts, misuse of donor data, illegal activity, uploaded content, or breach of these Terms.
 
 Legal review recommended before production publication.
 
-## 21. Governing Law and Jurisdiction
+## 19. Governing Law and Jurisdiction
 
 These Terms should be governed by the laws of India.
 
 Courts/jurisdiction:
 
-[INSERT GOVERNING COURT/JURISDICTION AFTER LEGAL REVIEW]
+PUNE
 
 Legal review recommended before production publication.
 
-## 22. Changes to Terms
+## 20. Changes to Terms
 
 Samavet may update these Terms as the service, commercial model, law, or operational requirements change. Material changes should be communicated in a reasonable manner.
