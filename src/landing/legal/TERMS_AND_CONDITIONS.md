@@ -1,6 +1,6 @@
 # Terms and Conditions
 
-Last Updated: 10 August 2026
+Last Updated: 24 August 2026
 
 
 ## 1. Operator Details
@@ -84,7 +84,6 @@ If the organisation reaches the 500-slip limit, it must contact Samavet. Samavet
 
 The repository shows slip-limit enforcement but does not show automatic overage billing or an online subscription payment gateway.
 
-Legal review recommended before production publication for subscription activation, renewal, taxes, invoicing, and additional-capacity wording.
 
 ## 10. Subscription Activation and Access
 
@@ -126,21 +125,15 @@ Samavet may suspend or terminate access for serious violations, illegal use, non
 
 The organisation may stop using the service, subject to the subscription, refund, retention, and data export terms applicable to its account.
 
-Legal review recommended before production publication.
-
 ## 17. Limitation of Liability
 
 To the maximum extent permitted by applicable law, Samavet/ePawati is not liable for donation disputes, incorrect entries, cash handling, UPI/payment verification, organisation misuse of funds, WhatsApp delivery failures, unauthorised user actions by the organisation's users, indirect losses, loss of profits, or consequential damages.
 
 Nothing in these Terms excludes liability that cannot be excluded under applicable law.
 
-Legal review recommended before production publication.
-
 ## 18. Indemnity
 
 The organisation agrees to protect Samavet from claims, losses, penalties, or costs arising from the organisation's donor relationships, collection transactions, false or inaccurate receipts, misuse of donor data, illegal activity, uploaded content, or breach of these Terms.
-
-Legal review recommended before production publication.
 
 ## 19. Governing Law and Jurisdiction
 
@@ -149,8 +142,6 @@ These Terms should be governed by the laws of India.
 Courts/jurisdiction:
 
 PUNE
-
-Legal review recommended before production publication.
 
 ## 20. Changes to Terms
 
