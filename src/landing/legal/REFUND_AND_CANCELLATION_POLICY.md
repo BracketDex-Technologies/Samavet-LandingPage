@@ -1,8 +1,8 @@
 # Refund and Cancellation Policy
 
-Last Updated: 10 August 2026
+Last Updated: 24 August 2026
 
-This Refund and Cancellation Policy applies to Samavet ePawati subscriptions. This is a draft for product publication. Legal review recommended before production publication.
+This Refund and Cancellation Policy applies to Samavet ePawati subscriptions. 
 
 ## 1. Service Type
 
@@ -34,8 +34,6 @@ However, Samavet may review refund requests in good faith where there is a genui
 
 If an organisation stops using ePawati during the subscription year, unused subscription time is generally not refundable unless Samavet has agreed in writing or applicable law requires otherwise.
 
-Legal review recommended before production publication.
-
 ## 6. Slip Limit and Additional Capacity
 
 The 500-slip/receipt allocation is part of the annual subscription. Reaching the limit does not by itself create a refund right.
@@ -64,16 +62,10 @@ Refunds are generally not available for:
 - Loss of access caused by organisation user misuse, credential sharing, or policy violations.
 - Organisation decision to stop using the software after activation.
 
-## 9. Legal Exceptions
-
-Nothing in this policy limits rights that cannot be excluded under applicable law.
-
-Legal review recommended before production publication, especially for consumer-law, contract, tax, and invoice wording.
-
-## 10. How to Request Cancellation or Refund Review
+## 9. How to Request Cancellation or Refund Review
 
 Contact:
 
-[INSERT OFFICIAL SUPPORT EMAIL]
+bracketdevs.teams@gmail.com
 
 Please include organisation name, registered phone/email, invoice/payment reference if available, and reason for the request.
