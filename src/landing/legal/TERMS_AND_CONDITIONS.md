@@ -8,15 +8,9 @@ These Terms and Conditions govern use of Samavet ePawati. This is a draft for pr
 
 ePawati is operated by:
 
-[INSERT OFFICIAL LEGAL ENTITY NAME]
+BracketDex Technologies
 
 Registered office:
-
-[INSERT OFFICIAL REGISTERED OFFICE ADDRESS]
-
-Support contact:
-
-[INSERT OFFICIAL SUPPORT EMAIL]
 
 ## 2. What ePawati Provides
 
