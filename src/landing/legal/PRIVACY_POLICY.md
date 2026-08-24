@@ -143,7 +143,7 @@ Organisations can use application features to correct or delete certain records 
 
 For privacy questions or requests, contact:
 
-[INSERT OFFICIAL PRIVACY CONTACT EMAIL]
+bracketdevs.teams@gmail.com
 
 Samavet may need to verify the request and may coordinate with the relevant organisation before changing donor or collection records.
 
