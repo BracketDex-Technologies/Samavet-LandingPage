@@ -122,7 +122,6 @@ The application uses an essential HttpOnly refresh cookie for authentication. Th
 
 The frontend uses local storage for a stripped session marker, language preference, entry field preferences, location-removal flag, and workspace cache. Access credentials are intentionally stripped before session data is stored in local storage.
 
-See [Cookie and Tracking Policy](./COOKIE_POLICY.md).
 
 ## 9. Data Security
 
