@@ -5,8 +5,8 @@ import test from 'node:test';
 import { landingNavItems } from '../src/landing/navItems.js';
 
 test('uses the approved bilingual landing navigation', () => {
-  assert.deepEqual(landingNavItems.en, [['/features', 'Platform'], ['/portal', 'ePawati'], ['/ahwal', 'Ahwal'], ['/how', 'Services'], ['/contact', 'Contact']]);
-  assert.deepEqual(landingNavItems.mr, [['/features', 'व्यासपीठ'], ['/portal', 'ई-पावती'], ['/ahwal', 'अहवाल'], ['/how', 'सेवा'], ['/contact', 'संपर्क']]);
+  assert.deepEqual(landingNavItems.en, [['#features', 'Features'], ['ahwal', 'Ahwal'], ['#faq', 'FAQ'], ['#contact', 'Contact']]);
+  assert.deepEqual(landingNavItems.mr, [['#features', 'व्यासपीठ'], ['ahwal', 'अहवाल'], ['#faq', 'प्रश्नोत्तरे'], ['#contact', 'संपर्क']]);
 });
 
 test('keeps language, responsive menu, and portal controls in the header', async () => {
@@ -33,7 +33,7 @@ test('keeps Instagram, email, and WhatsApp social actions in the footer', async 
   assert.match(source, /Instagram/);
   assert.match(source, /https:\/\/www\.instagram\.com\/samavetofficial\//);
   assert.match(source, /Email/);
-  assert.match(source, /mailto:Samavetofficial@gmail\.com/);
+  assert.match(source, /mailto:bracketdevs\.teams@gmail\.com/);
   assert.match(source, /data-social="instagram"/);
   assert.match(source, /data-social="email"/);
   assert.match(source, /data-social="whatsapp"/);
