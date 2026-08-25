@@ -1,10 +1,9 @@
 # Cookie and Tracking Policy
 
-Last Updated: 10 August 2026
+Last Updated: 24 August 2026
 
 This Cookie and Tracking Policy explains the cookies, local storage, and telemetry mechanisms found in the current Samavet ePawati repository.
 
-This is a draft for product publication. Legal review recommended before production publication.
 
 ## 1. Summary
 

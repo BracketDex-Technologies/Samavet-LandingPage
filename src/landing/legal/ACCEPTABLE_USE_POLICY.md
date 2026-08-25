@@ -1,10 +1,9 @@
 # Acceptable Use Policy
 
-Last Updated: 10 August 2026
+Last Updated: 24 August 2026
 
 This Acceptable Use Policy applies to all organisations and users of Samavet ePawati.
 
-This is a draft for product publication. Legal review recommended before production publication.
 
 ## 1. Purpose
 
@@ -67,6 +66,6 @@ Legal review recommended before production publication for enforcement, notice, 
 
 To report misuse, contact:
 
-[INSERT OFFICIAL SUPPORT EMAIL]
+bracketdevs.teams@gmail.com
 
 Include organisation name, user details if known, receipt/slip number if relevant, screenshots, and a short description of the issue.

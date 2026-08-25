@@ -1,6 +1,6 @@
 # Donation Disclaimer
 
-Last Updated: 10 August 2026
+Last Updated: 24 August 2026
 
 This Donation Disclaimer explains the responsibility split between Samavet ePawati and organisations using ePawati.
 
@@ -53,7 +53,3 @@ For payment confirmation, refund requests, receipt corrections, or donation-use 
 ## 5. WhatsApp Receipts
 
 If WhatsApp sharing is enabled, ePawati may help the organisation send or share receipt information through WhatsApp using configured third-party services. WhatsApp message delivery does not mean Samavet received, verified, or processed donation money.
-
-## 6. Legal Review
-
-Legal review recommended before production publication, especially for donor disputes, receipt wording, liability, and payment responsibility.
