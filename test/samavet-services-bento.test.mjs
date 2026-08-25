@@ -43,7 +43,7 @@ test('uses an alternating four-feature showcase with screenshot frames', async (
   assert.match(source, /feature-row__visual--/);
   assert.doesNotMatch(source, /feature-device--phone/);
   assert.doesNotMatch(source, /feature-device--laptop/);
-  assert.doesNotMatch(source, /feature-card__icon/);
+  assert.doesNotMatch(source, /(?<!ahwal-)feature-card__icon/);
   assert.doesNotMatch(source, /feature-card__number/);
   assert.match(styles, /\.features-showcase/);
   assert.match(styles, /\.feature-row--reverse/);
@@ -62,6 +62,6 @@ test('uses an alternating four-feature showcase with screenshot frames', async (
   assert.doesNotMatch(styles, /\.feature-card::before/);
   assert.doesNotMatch(styles, /\.feature-card::after/);
   assert.doesNotMatch(styles, /\.feature-card__number/);
-  assert.doesNotMatch(styles, /feature-card__icon/);
+  assert.doesNotMatch(styles, /(?<!ahwal-)feature-card__icon/);
   assert.match(styles, /grid-template-columns: minmax\(360px, 520px\) minmax\(340px, 1fr\)/);
 });

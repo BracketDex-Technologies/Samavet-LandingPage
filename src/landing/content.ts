@@ -103,6 +103,9 @@ export const localizedCopy = {
     },
     contactSubmit: 'Send message',
     contactStatus: 'Your email app is opening with the prepared message.',
+    contactThankYouTitle: 'Thank you for connecting with Samavet.',
+    contactThankYouDescription: 'Your message has been sent. Our team will get back to you shortly.',
+    contactEditForm: 'Edit your details',
     contactErrors: {
       organization: 'Enter your organisation name.',
       email: 'Enter a valid email address.',
@@ -190,6 +193,9 @@ export const localizedCopy = {
     },
     contactSubmit: 'संदेश पाठवा',
     contactStatus: 'तयार संदेशासह तुमचे ईमेल अ‍ॅप उघडत आहे.',
+    contactThankYouTitle: 'समवेतशी संपर्क केल्याबद्दल धन्यवाद.',
+    contactThankYouDescription: 'तुमचा संदेश पाठवला आहे. आमची टीम लवकरच तुमच्याशी संपर्क करेल.',
+    contactEditForm: 'तुमचे तपशील संपादित करा',
     contactErrors: {
       organization: 'तुमच्या संस्थेचे नाव लिहा.',
       email: 'वैध ईमेल पत्ता लिहा.',
