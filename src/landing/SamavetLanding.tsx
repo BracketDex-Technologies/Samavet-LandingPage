@@ -95,8 +95,9 @@ export default function SamavetLanding() {
         <ComparisonSection copy={copy} />
         <MandalaDotDivider />
         <FAQSection copy={copy} />
-        <CTASection language={language} />
+        <MandalaDotDivider />
         <ContactSection copy={copy} />
+        <CTASection language={language} />
         <LandingFooter copy={copy} language={language} portalUrl={PORTAL_URL} />
       </ClickSpark>
     </main>
