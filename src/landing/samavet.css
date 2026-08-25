@@ -63,7 +63,7 @@
 .click-spark { min-height: 100vh; position: relative; width: 100%; }
 .click-spark__canvas { display: block; height: 100vh; left: 0; pointer-events: none; position: fixed; top: 0; user-select: none; width: 100vw; z-index: 100; }
 .landing-container { margin-inline: auto; max-width: 1152px; padding-inline: 20px; width: 100%; }
-.features-section, .portal-section, .how-section, .comparison-section, .faq-section, .contact-section { scroll-margin-top: 72px; }
+.features-section, .portal-section, .how-section, .ahwal-section, .comparison-section, .faq-section, .contact-section { scroll-margin-top: 72px; }
 
 .grain { position: relative; }
 .grain::after {
@@ -190,8 +190,8 @@
 .epawati-page .stats-grid .stat > span { color: var(--ep-muted); font-size: clamp(11px, 1.2vw, 14px); font-weight: 750; letter-spacing: .2em; line-height: 1.35; text-transform: uppercase; }
 .epawati-page--mr .stats-grid .stat > span { letter-spacing: .08em; }
 
-.features-section, .portal-section, .how-section, .comparison-section, .faq-section, .contact-section { padding-block: 96px; }
-.features-section, .how-section, .faq-section, .contact-section { background: var(--ep-background); }
+.features-section, .portal-section, .how-section, .ahwal-section, .comparison-section, .faq-section, .contact-section { padding-block: 96px; }
+.features-section, .how-section, .ahwal-section, .faq-section, .contact-section { background: var(--ep-background); }
 .features-section { overflow-x: clip; }
 .portal-section, .comparison-section { background: var(--ep-surface); }
 .section-heading { max-width: 672px; }
@@ -263,6 +263,12 @@
 .how-step__number { color: color-mix(in oklab, var(--ep-brand) 78%, transparent); display: block; font: 750 12px/1 var(--ep-font-sans); letter-spacing: .18em; text-transform: uppercase; }
 .how-step h3 { font-family: var(--ep-font-display); font-size: clamp(28px, 4vw, 48px); font-weight: 600; letter-spacing: -.055em; line-height: .98; max-width: 360px; }
 .how-step p { color: var(--ep-muted); font-size: 15px; line-height: 1.75; margin: 0; max-width: 380px; }
+.ahwal-layout { display: grid; gap: 42px; }
+.ahwal-features { display: grid; gap: 20px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 8px; }
+.ahwal-feature-card { background: var(--ep-card); border: 1px solid var(--ep-border); border-radius: 18px; display: grid; gap: 12px; padding: 24px; }
+.ahwal-feature-card__icon { color: var(--ep-brand); }
+.ahwal-feature-card h3 { font-size: 18px; font-weight: 700; }
+.ahwal-feature-card p { color: var(--ep-muted); font-size: 14px; line-height: 1.65; }
 
 .comparison-grid { display: grid; gap: 20px; margin-top: 48px; }
 .comparison-card { border-radius: 22px; padding: 28px; position: relative; }
@@ -312,6 +318,20 @@
 .contact-success__icon { color: var(--ep-brand); }
 .contact-success__title { font-size: clamp(24px, 5vw, 30px); font-weight: 800; line-height: 1.2; }
 .contact-success__description { color: var(--ep-muted); font-size: 15px; line-height: 1.6; max-width: 32rem; }
+.cta-section { background: var(--ep-brand); padding: 56px 20px; }
+.cta-layout { align-items: center; display: flex; gap: 0; justify-content: space-between; }
+.cta-left { align-items: center; display: flex; gap: 18px; flex-shrink: 0; }
+.cta-logo { height: 200px; object-fit: contain; width: 200px; filter: brightness(10); }
+.cta-brand { color: #fffaf1; font: 650 30px/1 var(--ep-font-display); letter-spacing: .12em; }
+.cta-brand strong { color: #fffaf1; }
+.cta-powered { color: rgb(255 250 241 / .6); font-size: 15px; font-weight: 600; letter-spacing: .06em; white-space: nowrap; }
+.cta-divider { background: rgb(255 250 241 / .25); flex-shrink: 0; height: 80px; margin-inline: 40px; width: 1px; }
+.cta-right { align-items: center; display: flex; gap: 24px; color: #fffaf1; text-decoration: none; transition: opacity .2s ease; }
+.cta-right:hover { opacity: .85; }
+.cta-heading { font-family: var(--ep-font-display); font-size: clamp(28px, 4vw, 52px); font-weight: 700; letter-spacing: -.02em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+.cta-arrow { color: #fffaf1; display: flex; flex-shrink: 0; }
+.cta-arrow svg { height: 80px; width: 80px; transition: transform .15s ease; }
+.cta-right:hover .cta-arrow svg { transform: translateX(8px); }
 
 .landing-footer { background: var(--ep-background); border-top: 0; color: #f7f1e8; padding: 34px 20px 28px; }
 .dark .landing-footer { background: var(--ep-background); border-top-color: transparent; }
@@ -410,7 +430,7 @@
   .epawati-page .stats-grid .stat { min-height: auto; padding: 20px 18px; }
   .epawati-page .stats-grid .stat strong { font-size: clamp(40px, 10vw, 48px); }
   .epawati-page .stats-grid .stat > span { font-size: 11px; letter-spacing: .14em; }
-  .features-section, .portal-section, .how-section, .comparison-section, .faq-section, .contact-section { padding-block: 64px; }
+  .features-section, .portal-section, .how-section, .ahwal-section, .comparison-section, .faq-section, .contact-section { padding-block: 64px; }
   .section-heading { margin-inline: auto; max-width: 560px; text-align: center; }
   .section-heading h2 { font-size: clamp(32px, 8vw, 40px); }
   .section-heading > p:not(.section-eyebrow) { font-size: 15px; margin-inline: auto; }
@@ -459,6 +479,11 @@
   .contact-layout { gap: 30px; }
   .contact-form { border-radius: 18px; gap: 20px; padding: 22px; }
   .contact-form__grid { gap: 18px; }
+  .cta-layout { flex-direction: column; gap: 28px; text-align: center; }
+  .cta-left { justify-content: center; }
+  .cta-divider { height: 1px; margin-inline: 0; width: 80px; }
+  .cta-right { justify-content: center; }
+  .cta-heading { font-size: clamp(24px, 7vw, 36px); white-space: normal; text-align: center; }
 }
 
 @media (max-width: 520px) {
@@ -489,7 +514,8 @@
   .hero-artwork { height: clamp(286px, 78vw, 360px); margin-top: 0; }
   .hero-phone-showcase { left: 50%; top: 50%; width: clamp(360px, 112vw, 500px); }
   .landing-container { padding-inline: 16px; }
-  .features-section, .portal-section, .how-section, .comparison-section, .faq-section, .contact-section { padding-block: 54px; }
+  .features-section, .portal-section, .how-section, .ahwal-section, .comparison-section, .faq-section, .contact-section { padding-block: 54px; }
+  .ahwal-features { grid-template-columns: 1fr; }
   .custom-divider__svg, .mandala-dot-divider__svg { height: 40px; width: 118%; transform: translateX(-7.5%); }
   .features-showcase { gap: 32px; margin-top: 34px; }
   .feature-row, .feature-row--reverse { gap: 18px; }
@@ -511,6 +537,13 @@
   .footer-bottom { align-items: center; gap: 14px; justify-content: center; }
   .footer-copyright, .footer-credit { max-width: 100%; text-align: center; }
   .footer-social { justify-content: center; width: 100%; }
+  .cta-section { padding: 40px 16px; }
+  .cta-left { gap: 10px; }
+  .cta-logo { height: 150px; width: 150px; }
+  .cta-brand { font-size: 22px; }
+  .cta-powered { font-size: 12px; }
+  .cta-heading { font-size: clamp(20px, 6vw, 28px); }
+  .cta-arrow svg { height: 56px; width: 56px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
