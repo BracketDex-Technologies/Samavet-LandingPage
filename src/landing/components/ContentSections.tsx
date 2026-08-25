@@ -716,8 +716,10 @@ export function CTASection({ language }: { language: LandingLanguage }) {
       <div className="landing-container cta-layout">
         <div className="cta-left">
           <img alt="" className="cta-logo" src={samavetLogo} />
-          <span className="cta-brand"><strong>{isMarathi ? 'समवेत' : 'SAMAVET'}</strong></span>
-          <span className="cta-powered">@ Powered By BracketDex Technologies 2026</span>
+          <div className="cta-left-text">
+            <span className="cta-brand"><strong>{isMarathi ? 'समवेत' : 'SAMAVET'}</strong></span>
+            <span className="cta-powered">@ Powered By BracketDex Technologies 2026</span>
+          </div>
         </div>
         <div className="cta-divider" aria-hidden="true" />
         <a className="cta-right" href="https://epawati.samavet.in/" target="_blank" rel="noreferrer">
