@@ -3,7 +3,7 @@ import 'lenis/dist/lenis.css';
 import { useEffect, useState } from 'react';
 
 import { ClickSpark } from './components/ClickSpark';
-import { ComparisonSection, ContactSection, FAQSection, FeaturesSection, HeroSection, HowSection, IndianMashupDivider, MandalaDotDivider, PortalSection, StatsSection } from './components/ContentSections';
+import { AhwalSection, ComparisonSection, ContactSection, CTASection, FAQSection, FeaturesSection, HeroSection, HowSection, IndianMashupDivider, MandalaDotDivider, PortalSection, StatsSection } from './components/ContentSections';
 import { LandingFooter } from './components/LandingFooter';
 import { LandingHeader } from './components/LandingHeader';
 import { localizedCopy, type LandingLanguage } from './content';
@@ -86,13 +86,16 @@ export default function SamavetLanding() {
         <IndianMashupDivider />
         <FeaturesSection copy={copy} />
         <MandalaDotDivider />
-        <PortalSection copy={copy} />
-        <MandalaDotDivider />
         <HowSection copy={copy} />
+        <MandalaDotDivider />
+        <AhwalSection language={language} />
+        <MandalaDotDivider />
+        <PortalSection copy={copy} />
         <MandalaDotDivider />
         <ComparisonSection copy={copy} />
         <MandalaDotDivider />
         <FAQSection copy={copy} />
+        <CTASection language={language} />
         <ContactSection copy={copy} />
         <LandingFooter copy={copy} language={language} portalUrl={PORTAL_URL} />
       </ClickSpark>

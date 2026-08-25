@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent } from 'react';
 import { ArrowRight, Check, ChevronDown, CircleCheck, FileSpreadsheet, Receipt } from 'lucide-react';
+import { AHWAL_URL } from '../navItems.js';
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from 'framer-motion';
 import { AnimatePresence, motion as motionReact } from 'motion/react';
 import gsap from 'gsap';
@@ -10,12 +11,13 @@ import featureLaptopMockup from '../assets/f-laptopmockup.png';
 import feature3Screenshot from '../assets/feature3rd.png';
 import feature4Flipbook from '../assets/feature4th.png';
 import featureMurti from '../assets/feature-murti.png';
+import samavetLogo from '../assets/samavet-logo-transparent.png';
 import heroMockup from '../assets/phone_mockup_updated_transparent_4500x3000.png';
 import heroCtaIcon1 from '../assets/icon1.svg';
 import heroCtaIcon2 from '../assets/icon2.svg';
 import heroCtaIcon3 from '../assets/icon3.svg';
 import heroCtaIcon4 from '../assets/icon4.svg';
-import type { LandingCopy } from '../content';
+import type { LandingCopy, LandingLanguage } from '../content';
 import { RevealSection } from './RevealSection';
 import CountUp from './ui/CountUp';
 import { FlipWords } from './ui/FlipWords';
@@ -497,6 +499,53 @@ export function HowSection({ copy }: CopyProps) {
   );
 }
 
+export function AhwalSection({ language }: { language: LandingLanguage }) {
+  const isMarathi = language === 'mr';
+  return (
+    <RevealSection className="ahwal-section" id="ahwal" revealSelector=".ahwal-reveal">
+      <div className="landing-container ahwal-layout">
+        <div className="section-heading ahwal-reveal">
+          <p className="section-eyebrow">{isMarathi ? 'समवेत अहवाल' : 'Samavet Ahwal'}</p>
+          <h2>{isMarathi ? 'तुमच्या संस्थेच्या अहवाल आता डिजिटल.' : 'Your organisation reports, now digital.'}</h2>
+          <p>{isMarathi
+            ? 'अहवाल हा समवेतचा डिजिटल अहवाल व्यवस्थापन प्लॅटफॉर्म आहे. PDF अहवाल अपलोड करा, इंटरॅक्टिव्ह 3D फ्लिपबुकमध्ये वाचा आणि तुमच्या संस्थेचे सर्व कागदपत्रे एका ठिकाणी व्यवस्थापित करा.'
+            : 'Ahwal is Samavet\'s digital report management platform. Upload PDF reports, read them as interactive 3D flipbooks, and manage all your organisation\'s documents in one place.'}
+          </p>
+        </div>
+        <div className="ahwal-features ahwal-reveal">
+          <div className="ahwal-feature-card">
+            <div className="ahwal-feature-card__icon"><FileSpreadsheet size={24} /></div>
+            <h3>{isMarathi ? 'PDF अहवाल अपलोड करा' : 'Upload PDF reports'}</h3>
+            <p>{isMarathi
+              ? 'तुमच्या संस्थेचे PDF अहवाल सोप्या पद्धतीना अपलोड करा आणि व्यवस्थापित करा.'
+              : 'Upload and manage your organisation\'s PDF reports with ease.'}</p>
+          </div>
+          <div className="ahwal-feature-card">
+            <div className="ahwal-feature-card__icon"><Receipt size={24} /></div>
+            <h3>{isMarathi ? 'इंटरॅक्टिव्ह 3D फ्लिपबुक' : 'Interactive 3D flipbook'}</h3>
+            <p>{isMarathi
+              ? 'PDF अहवाल इंटरॅक्टिव्ह 3D फ्लिपबुकमध्ये बदला, जे लॉगिन केलेले सदस्य पोर्टलमध्ये थेट वाचू शकतात.'
+              : 'Turn PDF reports into interactive 3D flipbooks that logged-in members can read directly inside the portal.'}</p>
+          </div>
+          <div className="ahwal-feature-card">
+            <div className="ahwal-feature-card__icon"><CircleCheck size={24} /></div>
+            <h3>{isMarathi ? 'एका ठिकाणी व्यवस्थापन' : 'Manage in one place'}</h3>
+            <p>{isMarathi
+              ? 'सर्व कागदपत्रे, अहवाल आणि फ्लिपबुक एका सुरक्षित पोर्टलमध्ये व्यवस्थापित करा.'
+              : 'Keep all documents, reports and flipbooks organised in one secure portal.'}</p>
+          </div>
+        </div>
+        <div className="ahwal-reveal" style={{ textAlign: 'center' }}>
+          <a className="button button--primary" href={AHWAL_URL} target="_blank" rel="noreferrer">
+            <span className="btn-text">{isMarathi ? 'अहवाल सुरू करा' : 'Open Ahwal'}</span>
+            <ArrowRight size={18} />
+          </a>
+        </div>
+      </div>
+    </RevealSection>
+  );
+}
+
 export function ComparisonSection({ copy }: CopyProps) {
   return (
     <RevealSection className="comparison-section" revealSelector=".comparison-card">
@@ -657,5 +706,30 @@ export function ContactSection({ copy }: CopyProps) {
         )}
       </div>
     </RevealSection>
+  );
+}
+
+export function CTASection({ language }: { language: LandingLanguage }) {
+  const isMarathi = language === 'mr';
+  return (
+    <section className="cta-section" id="cta">
+      <div className="landing-container cta-layout">
+        <div className="cta-left">
+          <img alt="" className="cta-logo" src={samavetLogo} />
+          <span className="cta-brand"><strong>{isMarathi ? 'समवेत' : 'SAMAVET'}</strong></span>
+          <span className="cta-powered">@ Powered By BracketDex Technologies 2026</span>
+        </div>
+        <div className="cta-divider" aria-hidden="true" />
+        <a className="cta-right" href="https://epawati.samavet.in/" target="_blank" rel="noreferrer">
+          <span className="cta-heading">{isMarathi ? 'तयार आहात? सुरू करूया.' : "READY? LET'S BEGIN"}</span>
+          <span className="cta-arrow" aria-hidden="true">
+            <svg height="48" viewBox="0 0 48 48" width="48" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="24" cy="24" r="22" />
+              <path d="M16 24h16M28 16l8 8-8 8" />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </section>
   );
 }

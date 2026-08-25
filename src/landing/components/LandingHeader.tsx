@@ -3,7 +3,7 @@ import { useEffect, useState, type MouseEvent } from 'react';
 
 import samavetLogo from '../assets/samavet-logo-transparent.png';
 import type { LandingLanguage } from '../content';
-import { landingNavItems } from '../navItems.js';
+import { AHWAL_URL, landingNavItems } from '../navItems.js';
 
 const THEME_TRANSITION_STYLE_ID = 'epawati-theme-toggle-vt';
 const THEME_TRANSITION_CSS = `
@@ -49,9 +49,10 @@ function shouldSkipThemeTransition() {
 }
 
 function resolveLandingHref(href: string, language: LandingLanguage) {
+  if (href === 'ahwal') return AHWAL_URL;
   if (!href.startsWith('/')) return href;
   if (language !== 'mr') return href;
-  if (href === '/ahwal' || href === '/blog') return href;
+  if (href === '/blog') return href;
   return `/mr${href}`;
 }
 
@@ -129,7 +130,16 @@ export function LandingHeader({ language, onLanguageChange, portalUrl }: Landing
         </a>
 
         <nav aria-label={isMarathi ? 'मुख्य नेव्हिगेशन' : 'Primary navigation'} className={`landing-nav${menuOpen ? ' is-open' : ''}`} id="landing-navigation">
-          {landingNavItems[language].map(([href, label], index) => <span className="landing-nav__item" key={href}>{index > 0 ? <i aria-hidden="true">|</i> : null}<a href={resolveLandingHref(href, language)} onClick={() => setMenuOpen(false)}>{label}</a></span>)}
+          {landingNavItems[language].map(([href, label], index) => {
+            const isExternal = href === 'ahwal';
+            const resolvedHref = resolveLandingHref(href, language);
+            return (
+              <span className="landing-nav__item" key={href}>
+                {index > 0 ? <i aria-hidden="true">|</i> : null}
+                <a href={resolvedHref} onClick={() => setMenuOpen(false)} {...(isExternal ? { target: '_blank', rel: 'noreferrer' } : {})}>{label}</a>
+              </span>
+            );
+          })}
           <span className="landing-nav__item"><i aria-hidden="true">|</i><a href="/blog" onClick={() => setMenuOpen(false)}>{blogLabel}</a></span>
           <a className="landing-nav__mobile-cta" href={portalUrl}>{portalLabel}</a>
         </nav>
