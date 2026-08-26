@@ -43,7 +43,6 @@ export function LandingFooter({ copy, language, portalUrl }: LandingFooterProps)
 
         <nav className="footer-nav" aria-label={isMarathi ? 'फूटर नेव्हिगेशन' : 'Footer navigation'}>
           {landingNavItems[language].map(([href, label]) => <a href={resolveFooterHref(href, language)} key={href}>{label}</a>)}
-          <a href={resolveFooterHref('/faq', language)}>{isMarathi ? 'प्रश्नोत्तरे' : 'FAQ'}</a>
           <a href="/blog">{copy.blog}</a>
           <a href={portalUrl}>{isMarathi ? 'पोर्टल' : 'Portal'}</a>
         </nav>
