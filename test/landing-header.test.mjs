@@ -5,8 +5,8 @@ import test from 'node:test';
 import { landingNavItems } from '../src/landing/navItems.js';
 
 test('uses the approved bilingual landing navigation', () => {
-  assert.deepEqual(landingNavItems.en, [['#features', 'Features'], ['ahwal', 'Ahwal'], ['#faq', 'FAQ'], ['#contact', 'Contact']]);
-  assert.deepEqual(landingNavItems.mr, [['#features', 'व्यासपीठ'], ['ahwal', 'अहवाल'], ['#faq', 'प्रश्नोत्तरे'], ['#contact', 'संपर्क']]);
+  assert.deepEqual(landingNavItems.en, [['#features', 'Features'], ['ahwal', 'Ahwal'], ['murti', 'Samavet Murti'], ['#faq', 'FAQ'], ['#contact', 'Contact']]);
+  assert.deepEqual(landingNavItems.mr, [['#features', 'व्यासपीठ'], ['ahwal', 'अहवाल'], ['murti', 'समवेत मूर्ती'], ['#faq', 'प्रश्नोत्तरे'], ['#contact', 'संपर्क']]);
 });
 
 test('keeps language, responsive menu, and portal controls in the header', async () => {
@@ -19,6 +19,7 @@ test('keeps language, responsive menu, and portal controls in the header', async
   assert.match(source, /samavet-logo-transparent\.png/);
   assert.match(source, /isMarathi \? 'समवेत' : 'SAMAVET'/);
   assert.match(source, /Portal login/);
+  assert.match(source, /MURTI_URL/);
   assert.match(source, /landing-nav__item/);
   assert.match(source, /aria-hidden="true">\|<\/i>/);
   assert.doesNotMatch(source, /aria-hidden="true">\/<\/i>/);

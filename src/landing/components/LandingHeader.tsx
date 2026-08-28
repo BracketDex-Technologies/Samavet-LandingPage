@@ -3,7 +3,7 @@ import { useEffect, useState, type MouseEvent } from 'react';
 
 import samavetLogo from '../assets/samavet-logo-transparent.png';
 import type { LandingLanguage } from '../content';
-import { AHWAL_URL, landingNavItems } from '../navItems.js';
+import { AHWAL_URL, MURTI_URL, landingNavItems } from '../navItems.js';
 
 const THEME_TRANSITION_STYLE_ID = 'epawati-theme-toggle-vt';
 const THEME_TRANSITION_CSS = `
@@ -50,6 +50,7 @@ function shouldSkipThemeTransition() {
 
 function resolveLandingHref(href: string, language: LandingLanguage) {
   if (href === 'ahwal') return AHWAL_URL;
+  if (href === 'murti') return MURTI_URL;
   if (!href.startsWith('/')) return href;
   if (language !== 'mr') return href;
   if (href === '/blog') return href;
@@ -131,7 +132,7 @@ export function LandingHeader({ language, onLanguageChange, portalUrl }: Landing
 
         <nav aria-label={isMarathi ? 'मुख्य नेव्हिगेशन' : 'Primary navigation'} className={`landing-nav${menuOpen ? ' is-open' : ''}`} id="landing-navigation">
           {landingNavItems[language].map(([href, label], index) => {
-            const isExternal = href === 'ahwal';
+            const isExternal = href === 'ahwal' || href === 'murti';
             const resolvedHref = resolveLandingHref(href, language);
             return (
               <span className="landing-nav__item" key={href}>
